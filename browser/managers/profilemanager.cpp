@@ -35,6 +35,7 @@ QWebEngineProfile*ProfileManager::defaultProfile()
     if (d->defaultProfile == nullptr) {
         d->defaultProfile = new QWebEngineProfile("theweb-default-profile");
         d->defaultProfile->settings()->setAttribute(QWebEngineSettings::FullScreenSupportEnabled, true);
+        d->defaultProfile->settings()->setAttribute(QWebEngineSettings::JavascriptCanAccessClipboard, true);
 
         UrlInterceptor* interceptor = new UrlInterceptor();
         d->defaultProfile->setUrlRequestInterceptor(interceptor);

@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui webenginecore webenginewidgets thelib
+QT       += core gui webenginecore webenginewidgets thelib network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -25,7 +25,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
-        bar.cpp \
         core/thewebschemehandler.cpp \
         core/urlinterceptor.cpp \
         main.cpp \
@@ -35,10 +34,12 @@ SOURCES += \
         tab/certificateerrorpane.cpp \
         tab/permissionpopup.cpp \
         tab/webpage.cpp \
-        tab/webtab.cpp
+        tab/webtab.cpp \
+        widgets/bar.cpp \
+        widgets/securitychunk.cpp \
+        widgets/tabbutton.cpp
 
 HEADERS += \
-        bar.h \
         core/thewebschemehandler.h \
         core/urlinterceptor.h \
         mainwindow.h \
@@ -47,14 +48,18 @@ HEADERS += \
         tab/certificateerrorpane.h \
         tab/permissionpopup.h \
         tab/webpage.h \
-        tab/webtab.h
+        tab/webtab.h \
+        widgets/bar.h \
+        widgets/securitychunk.h \
+        widgets/tabbutton.h
 
 FORMS += \
         mainwindow.ui \
         popovers/jsalert.ui \
         tab/certificateerrorpane.ui \
         tab/permissionpopup.ui \
-        tab/webtab.ui
+        tab/webtab.ui \
+        widgets/securitychunk.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

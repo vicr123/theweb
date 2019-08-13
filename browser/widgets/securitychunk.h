@@ -17,61 +17,35 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * *************************************/
-#ifndef WEBTAB_H
-#define WEBTAB_H
+#ifndef SECURITYCHUNK_H
+#define SECURITYCHUNK_H
 
 #include <QWidget>
-#include <QUrl>
+#include <QSslCertificate>
 
 namespace Ui {
-    class WebTab;
+    class SecurityChunk;
 }
 
-class QSslCertificate;
-class WebPage;
-struct WebTabPrivate;
-class WebTab : public QWidget
+struct SecurityChunkPrivate;
+class SecurityChunk : public QWidget
 {
         Q_OBJECT
 
     public:
-        explicit WebTab(WebPage* page = nullptr, QWidget* parent = nullptr);
-        ~WebTab();
+        explicit SecurityChunk(QWidget *parent = nullptr);
+        ~SecurityChunk();
 
-        QWidget* getTabButton();
-        QUrl currentUrl();
-
-        bool isLoading();
-        int loadProgress();
-
-        QSslCertificate pageCertificate();
-
-    public slots:
-        void activated();
-        void close();
-
-        void goBack();
-        void goForward();
-        void navigate(QUrl url);
-        void reload();
-
-        void leaveFullScreen();
+        void setCurrentCertificate(QSslCertificate certificate);
 
     signals:
-        void spawnTab(WebTab* tab);
-        void urlChanged(QUrl url);
-        void requestActivate();
-        void closeTab();
-        void loadProgressChanged();
-        void sslStateChanged();
-
-        void goFullScreen(bool fullscreen);
+        void resized();
 
     private:
-        Ui::WebTab *ui;
-        WebTabPrivate* d;
+        Ui::SecurityChunk *ui;
+        SecurityChunkPrivate* d;
 
         void resizeEvent(QResizeEvent *event);
 };
 
-#endif // WEBTAB_H
+#endif // SECURITYCHUNK_H

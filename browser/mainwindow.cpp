@@ -22,7 +22,7 @@
 
 #include <QShortcut>
 #include "tab/webtab.h"
-#include "bar.h"
+#include "widgets/bar.h"
 
 struct MainWindowPrivate {
     Bar* bar;

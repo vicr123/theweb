@@ -1,6 +1,9 @@
 <RCC>
-    <qresource prefix="/icons">
-        <file>theweb.svg</file>
+    <qresource prefix="/">
+        <file>icons/theweb.svg</file>
+        <file>icons/secure.svg</file>
+        <file>icons/insecure.svg</file>
+        <file>icons/dangerous.svg</file>
     </qresource>
     <qresource prefix="/scheme/theweb">
         <file>testjs.html</file>

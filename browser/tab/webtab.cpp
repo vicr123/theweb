@@ -22,7 +22,9 @@
 
 #include <QWebEngineFullScreenRequest>
 #include <QWebEngineView>
-#include <QPushButton>
+#include "widgets/tabbutton.h"
+#include <QSslSocket>
+#include <QTimer>
 #include "managers/profilemanager.h"
 #include "webpage.h"
 #include "permissionpopup.h"
@@ -30,10 +32,13 @@
 struct WebTabPrivate {
     QWebEngineView* view;
     WebPage* page;
-    QPushButton* tabButton;
+    TabButton* tabButton;
 
     bool isLoading = false;
     int loadProgress = 0;
+
+    QSslSocket certCheckSocket;
+    QSslCertificate pageCertificate;
 
     QList<PermissionPopup*> permissionPopups;
     void removePermissionPopups(PermissionPopup::PermissionType type) {
@@ -50,26 +55,46 @@ WebTab::WebTab(WebPage* page, QWidget *parent) :
     ui->setupUi(this);
     d = new WebTabPrivate();
 
-    d->tabButton = new QPushButton();
+    d->tabButton = new TabButton();
     d->tabButton->setAutoExclusive(true);
     d->tabButton->setCheckable(true);
     d->tabButton->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Preferred);
-    connect(d->tabButton, &QPushButton::clicked, this, &WebTab::requestActivate);
+    connect(d->tabButton, &TabButton::clicked, this, &WebTab::requestActivate);
 
     this->layout()->removeWidget(ui->permissionPopupsWidget);
     ui->permissionPopupsWidget->setParent(this);
     ui->permissionPopupsWidget->setVisible(true);
     ui->permissionPopupsWidget->raise();
 
+    connect(&d->certCheckSocket, &QSslSocket::encrypted, this, [=] {
+        d->pageCertificate = d->certCheckSocket.peerCertificate();
+
+        qDebug() << "Certificate recieved for" << d->pageCertificate.subjectInfo(QSslCertificate::CommonName);
+        qDebug() << "Issued by" << d->pageCertificate.issuerInfo(QSslCertificate::CommonName);
+
+        d->certCheckSocket.abort();
+        emit sslStateChanged();
+    });
+
     if (page == nullptr) {
         d->page = new WebPage(ProfileManager::defaultProfile(), this);
-        d->page->load(QUrl("https://www.google.com/"));
+        QTimer::singleShot(0, d->page, std::bind(QOverload<const QUrl&>::of(&WebPage::load), d->page, QUrl("https://www.google.com/")));
     } else {
         d->page = page;
         page->setParent(this);
     }
     d->page->setCertificateErrorPane(ui->sslErrorPane);
-    connect(d->page, &WebPage::urlChanged, this, &WebTab::urlChanged);
+    connect(d->page, &WebPage::urlChanged, this, [=](QUrl url) {
+        d->certCheckSocket.abort();
+        d->pageCertificate = QSslCertificate();
+
+        if (url.scheme() == "https") {
+            d->certCheckSocket.connectToHostEncrypted(url.host(), static_cast<quint16>(url.port(443)));
+        }
+
+        emit sslStateChanged();
+        emit urlChanged(url);
+    });
     connect(d->page, &WebPage::titleChanged, this, [=] {
         d->tabButton->setText(d->page->title());
     });
@@ -226,6 +251,11 @@ bool WebTab::isLoading()
 int WebTab::loadProgress()
 {
     return d->loadProgress;
+}
+
+QSslCertificate WebTab::pageCertificate()
+{
+    return d->pageCertificate;
 }
 
 void WebTab::activated()

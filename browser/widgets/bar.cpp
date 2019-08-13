@@ -24,14 +24,25 @@
 #include <QPainter>
 #include <the-libs_global.h>
 #include "tab/webtab.h"
+#include "securitychunk.h"
 
 struct BarPrivate {
     QPointer<WebTab> currentTab;
+    SecurityChunk* securityChunk;
 };
 
 Bar::Bar(QWidget *parent) : QLineEdit(parent)
 {
     d = new BarPrivate();
+
+    d->securityChunk = new SecurityChunk(this);
+    d->securityChunk->setParent(this);
+    d->securityChunk->move(0, 0);
+    d->securityChunk->setFixedHeight(this->height());
+    d->securityChunk->setVisible(true);
+    connect(d->securityChunk, &SecurityChunk::resized, this, [=] {
+        this->setContentsMargins(d->securityChunk->width(), 0, 0, 0);
+    });
 
     this->setFrame(false);
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
@@ -56,12 +67,14 @@ void Bar::setCurrentTab(WebTab* tab)
     d->currentTab = tab;
     connect(tab, &WebTab::urlChanged, this, &Bar::updateInformation);
     connect(tab, &WebTab::loadProgressChanged, this, &Bar::updateInformation);
+    connect(tab, &WebTab::sslStateChanged, this, &Bar::updateInformation);
 
     if (this->hasFocus()) {
         this->setText(tab->currentUrl().toString());
     } else {
         this->setText(tab->currentUrl().host());
     }
+    d->securityChunk->setCurrentCertificate(d->currentTab->pageCertificate());
 }
 
 void Bar::updateInformation() {
@@ -69,6 +82,7 @@ void Bar::updateInformation() {
         this->setText(d->currentTab->currentUrl().host());
     }
 
+    d->securityChunk->setCurrentCertificate(d->currentTab->pageCertificate());
     this->update();
 }
 
@@ -97,4 +111,9 @@ void Bar::paintEvent(QPaintEvent*event)
         painter.drawRect(0, this->height() - SC_DPI(3), static_cast<int>(this->width() * static_cast<float>(d->currentTab->loadProgress()) / 100), this->height() - SC_DPI(3));
     }
     QLineEdit::paintEvent(event);
+}
+
+void Bar::resizeEvent(QResizeEvent*event)
+{
+    d->securityChunk->setFixedHeight(this->height());
 }
