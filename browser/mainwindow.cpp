@@ -95,13 +95,11 @@ void MainWindow::newTab(WebTab* tab)
             d->fullScreenTab = tab;
             ui->tabFrame->setVisible(false);
             ui->mainToolBar->setVisible(false);
-            ui->menuBar->setVisible(false);
             d->leaveFullScreenShortcut->setEnabled(true);
             this->showFullScreen();
         } else {
             ui->tabFrame->setVisible(true);
             ui->mainToolBar->setVisible(true);
-            ui->menuBar->setVisible(true);
             d->leaveFullScreenShortcut->setEnabled(false);
             this->setWindowState(d->stateBeforeFullScreen);
             d->fullScreenTab = nullptr;

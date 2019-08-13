@@ -21,6 +21,7 @@
 
 #include <QWebEngineSettings>
 #include <QWebEngineProfile>
+#include "core/thewebschemehandler.h"
 #include "core/urlinterceptor.h"
 
 struct ProfileManagerPrivate {
@@ -37,6 +38,9 @@ QWebEngineProfile*ProfileManager::defaultProfile()
 
         UrlInterceptor* interceptor = new UrlInterceptor();
         d->defaultProfile->setUrlRequestInterceptor(interceptor);
+
+        thewebSchemeHandler* schemeHandler = new thewebSchemeHandler();
+        d->defaultProfile->installUrlSchemeHandler("theweb", schemeHandler);
 
         //Edit the current user agent and insert theWeb before QtWebEngine
         QString userAgent = d->defaultProfile->httpUserAgent();

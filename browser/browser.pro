@@ -26,6 +26,7 @@ CONFIG += c++11
 
 SOURCES += \
         bar.cpp \
+        core/thewebschemehandler.cpp \
         core/urlinterceptor.cpp \
         main.cpp \
         mainwindow.cpp \
@@ -38,6 +39,7 @@ SOURCES += \
 
 HEADERS += \
         bar.h \
+        core/thewebschemehandler.h \
         core/urlinterceptor.h \
         mainwindow.h \
         managers/profilemanager.h \
@@ -61,3 +63,16 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     resources.qrc
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../internal-pages/release/ -linternal-pages
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../internal-pages/debug/ -linternal-pages
+else:unix: LIBS += -L$$OUT_PWD/../internal-pages/ -linternal-pages
+
+INCLUDEPATH += $$PWD/../internal-pages
+DEPENDPATH += $$PWD/../internal-pages
+
+win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../internal-pages/release/libinternal-pages.a
+else:win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../internal-pages/debug/libinternal-pages.a
+else:win32:!win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../internal-pages/release/internal-pages.lib
+else:win32:!win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../internal-pages/debug/internal-pages.lib
+else:unix: PRE_TARGETDEPS += $$OUT_PWD/../internal-pages/libinternal-pages.a

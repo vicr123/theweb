@@ -19,6 +19,7 @@
  * *************************************/
 #include "webpage.h"
 
+#include <QWebEngineCertificateError>
 #include <tpopover.h>
 #include "popovers/jsalert.h"
 #include "certificateerrorpane.h"
@@ -63,6 +64,8 @@ QWebEnginePage* WebPage::createWindow(WebPage::WebWindowType type) {
 
 bool WebPage::certificateError(const QWebEngineCertificateError& certificateError)
 {
+    //Only show certificate errors for the main page, reject other errors
+    //if (certificateError.url() != this->url()) return false;
     return d->certErrorPane->resolveError(certificateError);
 }
 

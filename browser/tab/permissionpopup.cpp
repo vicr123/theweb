@@ -69,6 +69,15 @@ PermissionPopup::PermissionPopup(QUrl originUrl, PermissionPopup::PermissionType
             ui->textLabel->setText(tr("Allow %1 to record your screen?").arg(host));
             ui->iconLabel->setPixmap(QIcon::fromTheme("video-display").pixmap(SC_DPI_T(QSize(16, 16), QSize)));
             break;
+        case Notifications:
+            ui->titleLabel->setText(tr("Notifications"));
+            ui->textLabel->setText(tr("Allow %1 to send notifications?").arg(host));
+            ui->iconLabel->setPixmap(QIcon::fromTheme("video-display").pixmap(SC_DPI_T(QSize(16, 16), QSize)));
+            break;
+        case MouseLock:
+            ui->titleLabel->setText(tr("Mouse Control"));
+            ui->textLabel->setText(tr("Allow %1 to take exclusive control of your mouse?").arg(host));
+            ui->iconLabel->setPixmap(QIcon::fromTheme("mouse").pixmap(SC_DPI_T(QSize(16, 16), QSize)));
     }
 }
 

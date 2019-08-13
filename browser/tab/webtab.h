@@ -40,6 +40,9 @@ class WebTab : public QWidget
         QWidget* getTabButton();
         QUrl currentUrl();
 
+        bool isLoading();
+        int loadProgress();
+
     public slots:
         void activated();
         void close();
@@ -56,6 +59,7 @@ class WebTab : public QWidget
         void urlChanged(QUrl url);
         void requestActivate();
         void closeTab();
+        void loadProgressChanged();
 
         void goFullScreen(bool fullscreen);
 

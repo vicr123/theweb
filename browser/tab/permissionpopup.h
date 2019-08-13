@@ -40,7 +40,9 @@ class PermissionPopup : public QWidget
             Microphone,
             WebcamAndMicrophone,
             ScreenRecord,
-            ScreenAudioRecord
+            ScreenAudioRecord,
+            Notifications,
+            MouseLock
         };
 
         explicit PermissionPopup(QUrl originUrl, PermissionType type, QWidget *parent = nullptr);

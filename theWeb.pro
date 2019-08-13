@@ -1,4 +1,10 @@
 TEMPLATE = subdirs
 
+internal-pagesproj.subdir = internal-pages
+
+browserproj.subdir = browser
+browserproj.depends = internal-pagesproj
+
 SUBDIRS += \
-    browser
+    browserproj \
+    internal-pagesproj

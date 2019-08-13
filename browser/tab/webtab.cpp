@@ -32,6 +32,9 @@ struct WebTabPrivate {
     WebPage* page;
     QPushButton* tabButton;
 
+    bool isLoading = false;
+    int loadProgress = 0;
+
     QList<PermissionPopup*> permissionPopups;
     void removePermissionPopups(PermissionPopup::PermissionType type) {
         for (PermissionPopup* popup : permissionPopups) {
@@ -110,6 +113,11 @@ WebTab::WebTab(WebPage* page, QWidget *parent) :
             case WebPage::DesktopAudioVideoCapture:
                 permission = PermissionPopup::ScreenAudioRecord;
                 break;
+            case WebPage::Notifications:
+                permission = PermissionPopup::Notifications;
+                break;
+            case WebPage::MouseLock:
+                permission = PermissionPopup::MouseLock;
         }
 
         if (permission == PermissionPopup::Unknown) {
@@ -149,9 +157,29 @@ WebTab::WebTab(WebPage* page, QWidget *parent) :
             case WebPage::DesktopAudioVideoCapture:
                 d->removePermissionPopups(PermissionPopup::ScreenAudioRecord);
                 break;
+            case WebPage::Notifications:
+                d->removePermissionPopups(PermissionPopup::Notifications);
+                break;
+            case WebPage::MouseLock:
+                d->removePermissionPopups(PermissionPopup::MouseLock);
 
         }
         ui->permissionPopupsWidget->setFixedHeight(ui->permissionPopupsWidget->sizeHint().height());
+    });
+    connect(d->page, &WebPage::loadStarted, this, [=] {
+        d->isLoading = true;
+        d->loadProgress = 0;
+        emit loadProgressChanged();
+    });
+    connect(d->page, &WebPage::loadProgress, this, [=](int progress) {
+        d->isLoading = true;
+        d->loadProgress = progress;
+        emit loadProgressChanged();
+    });
+    connect(d->page, &WebPage::loadFinished, this, [=] {
+        d->isLoading = false;
+        d->loadProgress = 0;
+        emit loadProgressChanged();
     });
 
     connect(ui->sslErrorPane, &CertificateErrorPane::showPane, this, [=] {
@@ -188,6 +216,16 @@ QWidget*WebTab::getTabButton()
 QUrl WebTab::currentUrl()
 {
     return d->view->url();
+}
+
+bool WebTab::isLoading()
+{
+    return d->isLoading;
+}
+
+int WebTab::loadProgress()
+{
+    return d->loadProgress;
 }
 
 void WebTab::activated()

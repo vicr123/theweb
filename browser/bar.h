@@ -43,6 +43,7 @@ class Bar : public QLineEdit
 
         void focusInEvent(QFocusEvent *event);
         void focusOutEvent(QFocusEvent *event);
+        void paintEvent(QPaintEvent *event);
 
         void updateText();
 };

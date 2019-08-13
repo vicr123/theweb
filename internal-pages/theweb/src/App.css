@@ -1,0 +1,64 @@
+:root {
+    --bg-color: rgb(40, 40, 40);
+    --fg-color: white;
+    --font-family: Contemporary;
+    --font-size: 10pt;
+    
+    --hl-color: rgb(0, 80, 170);
+    --hl-hover-color: rgb(20, 60, 105);
+}
+
+body {
+    margin: 0px;
+}
+
+div.App {
+    display: flex;
+    height: 100vh;
+    
+    background-color: var(--bg-color);
+    color: var(--fg-color);
+    
+    font-family: var(--font-family);
+    font-size: var(--font-size);
+}
+
+div.AppContainer {
+/*     max-width: 800px; */
+    width: 100%;
+    border-left: 1px solid var(--fg-color);
+}
+
+div.AppPanes {
+    display: none;
+}
+
+div.Sidebar {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+}
+
+div.header {
+    display: block;
+    font-size: 15pt;
+    
+    padding: 9px;
+    border-bottom: 1px solid var(--fg-color);
+}
+
+div.Content {
+    padding: 9px;
+}
+
+div.ListItem {
+    padding: 9px;
+}
+
+div.ListItem:hover {
+    background-color: var(--hl-hover-color);
+}
+
+div.ListItem.selected {
+    background-color: var(--hl-color);
+}

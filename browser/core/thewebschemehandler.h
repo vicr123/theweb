@@ -17,22 +17,21 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * *************************************/
-#include "mainwindow.h"
-#include <QApplication>
-#include <QWebEngineUrlScheme>
+#ifndef THEWEBSCHEMEHANDLER_H
+#define THEWEBSCHEMEHANDLER_H
 
-int main(int argc, char *argv[])
+#include <QWebEngineUrlSchemeHandler>
+
+class thewebSchemeHandler : public QWebEngineUrlSchemeHandler
 {
-    QWebEngineUrlScheme scheme("theweb");
-    scheme.setSyntax(QWebEngineUrlScheme::Syntax::Path);
-    scheme.setFlags(QWebEngineUrlScheme::LocalScheme | QWebEngineUrlScheme::SecureScheme | QWebEngineUrlScheme::LocalAccessAllowed | QWebEngineUrlScheme::ContentSecurityPolicyIgnored);
-    QWebEngineUrlScheme::registerScheme(scheme);
+        Q_OBJECT
+    public:
+        explicit thewebSchemeHandler(QObject *parent = nullptr);
 
-    QApplication a(argc, argv);
-    Q_INIT_RESOURCE(scheme);
+        void requestStarted(QWebEngineUrlRequestJob *job);
+    signals:
 
-    MainWindow w;
-    w.show();
+    public slots:
+};
 
-    return a.exec();
-}
+#endif // THEWEBSCHEMEHANDLER_H

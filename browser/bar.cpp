@@ -21,6 +21,8 @@
 
 #include <QTimer>
 #include <QPointer>
+#include <QPainter>
+#include <the-libs_global.h>
 #include "tab/webtab.h"
 
 struct BarPrivate {
@@ -31,6 +33,8 @@ Bar::Bar(QWidget *parent) : QLineEdit(parent)
 {
     d = new BarPrivate();
 
+    this->setFrame(false);
+    this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     connect(this, &Bar::returnPressed, this, [=] {
         d->currentTab->navigate(QUrl::fromUserInput(this->text()));
     });
@@ -51,6 +55,7 @@ void Bar::setCurrentTab(WebTab* tab)
 
     d->currentTab = tab;
     connect(tab, &WebTab::urlChanged, this, &Bar::updateInformation);
+    connect(tab, &WebTab::loadProgressChanged, this, &Bar::updateInformation);
 
     if (this->hasFocus()) {
         this->setText(tab->currentUrl().toString());
@@ -63,6 +68,8 @@ void Bar::updateInformation() {
     if (!this->hasFocus()) {
         this->setText(d->currentTab->currentUrl().host());
     }
+
+    this->update();
 }
 
 void Bar::focusInEvent(QFocusEvent* event)
@@ -78,4 +85,16 @@ void Bar::focusOutEvent(QFocusEvent* event)
     QLineEdit::focusOutEvent(event);
     this->setCursor(QCursor(Qt::ArrowCursor));
     this->setText(d->currentTab->currentUrl().host());
+}
+
+void Bar::paintEvent(QPaintEvent*event)
+{
+    QPainter painter(this);
+
+    if (d->currentTab->isLoading()) {
+        painter.setPen(Qt::transparent);
+        painter.setBrush(QColor(0, 150, 0));
+        painter.drawRect(0, this->height() - SC_DPI(3), static_cast<int>(this->width() * static_cast<float>(d->currentTab->loadProgress()) / 100), this->height() - SC_DPI(3));
+    }
+    QLineEdit::paintEvent(event);
 }
