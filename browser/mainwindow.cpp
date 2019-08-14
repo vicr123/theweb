@@ -77,6 +77,7 @@ MainWindow::~MainWindow()
 void MainWindow::newTab()
 {
     newTab(new WebTab());
+    d->bar->setFocus();
 }
 
 void MainWindow::newTab(WebTab* tab)

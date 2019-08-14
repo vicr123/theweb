@@ -73,6 +73,8 @@ bool CertificateErrorPane::resolveError(const QWebEngineCertificateError& certif
             break;
         case QWebEngineCertificateError::CertificateRevoked:
             reason = tr("presented us with a revoked certificate");
+            ui->continueExplanation->setText(tr("The site presented a revoked certificate, so you may not continue to this page at this time."));
+            ui->hstsWarning->setVisible(false);
             break;
         case QWebEngineCertificateError::CertificateAuthorityInvalid:
             reason = tr("presented us with an untrusted certificate; the issuer of this certificate is not in your system's CA store");

@@ -17,35 +17,31 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * *************************************/
-#ifndef SECURITYCHUNK_H
-#define SECURITYCHUNK_H
+#ifndef SETTINGSMANAGER_H
+#define SETTINGSMANAGER_H
 
-#include <QWidget>
-#include <QSslCertificate>
+#include <QObject>
 
-namespace Ui {
-    class SecurityChunk;
-}
-
-struct SecurityChunkPrivate;
-class SecurityChunk : public QWidget
+struct SettingsManagerPrivate;
+class SettingsManager : public QObject
 {
         Q_OBJECT
-
     public:
-        explicit SecurityChunk(QWidget *parent = nullptr);
-        ~SecurityChunk();
+        static QByteArray getJson();
+        static void set(QString key, QVariant value);
 
-        void setCurrentCertificate(QUrl url, QSslCertificate certificate);
+        static void initialize();
 
     signals:
-        void resized();
+
+    public slots:
+
+    protected:
+        friend struct SettingsManagerPrivate;
+        explicit SettingsManager(QObject *parent = nullptr);
 
     private:
-        Ui::SecurityChunk *ui;
-        SecurityChunkPrivate* d;
-
-        void resizeEvent(QResizeEvent *event);
+        static SettingsManagerPrivate* d;
 };
 
-#endif // SECURITYCHUNK_H
+#endif // SETTINGSMANAGER_H

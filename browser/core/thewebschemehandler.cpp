@@ -19,10 +19,13 @@
  * *************************************/
 #include "thewebschemehandler.h"
 
+#include <QUrlQuery>
+#include <QBuffer>
 #include <QDebug>
 #include <QWebEngineUrlRequestJob>
 #include <QFile>
 #include <QMimeDatabase>
+#include "managers/settingsmanager.h"
 
 thewebSchemeHandler::thewebSchemeHandler(QObject *parent) : QWebEngineUrlSchemeHandler(parent)
 {
@@ -31,16 +34,36 @@ thewebSchemeHandler::thewebSchemeHandler(QObject *parent) : QWebEngineUrlSchemeH
 
 void thewebSchemeHandler::requestStarted(QWebEngineUrlRequestJob* job)
 {
+    QUrl url = job->requestUrl();
+
+    if (url.host() == "api") {
+        QBuffer* buf = new QBuffer(job);
+        if (url.path() == "/settings") {
+            buf->setData(SettingsManager::getJson());
+        } else if (url.path() == "/settings/set") {
+            QUrlQuery query(url.query());
+            QString key = query.queryItemValue("key", QUrl::FullyDecoded);
+            QString value = query.queryItemValue("value", QUrl::FullyDecoded);
+            SettingsManager::set(key, value);
+            buf->setData("{\"Status\":\"OK\"}");
+        } else if (url.path() == "/lang") {
+            buf->setData(QLocale().name().toUtf8());
+        }
+        buf->open(QBuffer::ReadOnly);
+        job->reply("application/json", buf);
+        return;
+    }
+
     QStringList tryFiles;
-    if (job->requestUrl().path() == "") {
-        if (job->requestUrl().host() == "settings") {
+    if (url.path() == "") {
+        if (url.host() == "settings") {
             tryFiles.append(":/scheme/theweb/index.html");
         }
     }
 
-    tryFiles.append(":/scheme/theweb/" + job->requestUrl().host() + job->requestUrl().path());
-    if (job->requestUrl().path() != "") tryFiles.append(":/scheme/theweb/" + job->requestUrl().path());
-    tryFiles.append(":/scheme/theweb/" + job->requestUrl().host() + ".html");
+    tryFiles.append(":/scheme/theweb/" + url.host() + url.path());
+    if (url.path() != "") tryFiles.append(":/scheme/theweb/" + url.path());
+    tryFiles.append(":/scheme/theweb/" + url.host() + ".html");
 
     for (QString filePath : tryFiles) {
         QFile* file = new QFile(filePath, job);

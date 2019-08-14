@@ -41,13 +41,14 @@ Bar::Bar(QWidget *parent) : QLineEdit(parent)
     d->securityChunk->setFixedHeight(this->height());
     d->securityChunk->setVisible(true);
     connect(d->securityChunk, &SecurityChunk::resized, this, [=] {
-        this->setContentsMargins(d->securityChunk->width(), 0, 0, 0);
+        if (d->securityChunk->isVisible()) this->setContentsMargins(d->securityChunk->width(), 0, 0, 0);
     });
 
     this->setFrame(false);
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     connect(this, &Bar::returnPressed, this, [=] {
         d->currentTab->navigate(QUrl::fromUserInput(this->text()));
+        d->currentTab->setFocus();
     });
 
     this->setCursor(QCursor(Qt::ArrowCursor));
@@ -74,7 +75,7 @@ void Bar::setCurrentTab(WebTab* tab)
     } else {
         this->setText(tab->currentUrl().host());
     }
-    d->securityChunk->setCurrentCertificate(d->currentTab->pageCertificate());
+    d->securityChunk->setCurrentCertificate(d->currentTab->currentUrl(), d->currentTab->pageCertificate());
 }
 
 void Bar::updateInformation() {
@@ -82,7 +83,7 @@ void Bar::updateInformation() {
         this->setText(d->currentTab->currentUrl().host());
     }
 
-    d->securityChunk->setCurrentCertificate(d->currentTab->pageCertificate());
+    d->securityChunk->setCurrentCertificate(d->currentTab->currentUrl(), d->currentTab->pageCertificate());
     this->update();
 }
 
@@ -91,6 +92,8 @@ void Bar::focusInEvent(QFocusEvent* event)
     QLineEdit::focusInEvent(event);
     this->setCursor(QCursor(Qt::IBeamCursor));
     this->setText(d->currentTab->currentUrl().toString());
+    d->securityChunk->setVisible(false);
+    this->setContentsMargins(0, 0, 0, 0);
     QTimer::singleShot(0, this, &Bar::selectAll);
 }
 
@@ -99,6 +102,8 @@ void Bar::focusOutEvent(QFocusEvent* event)
     QLineEdit::focusOutEvent(event);
     this->setCursor(QCursor(Qt::ArrowCursor));
     this->setText(d->currentTab->currentUrl().host());
+    d->securityChunk->setVisible(true);
+    this->setContentsMargins(d->securityChunk->width(), 0, 0, 0);
 }
 
 void Bar::paintEvent(QPaintEvent*event)
@@ -113,7 +118,7 @@ void Bar::paintEvent(QPaintEvent*event)
     QLineEdit::paintEvent(event);
 }
 
-void Bar::resizeEvent(QResizeEvent*event)
+void Bar::resizeEvent(QResizeEvent* event)
 {
     d->securityChunk->setFixedHeight(this->height());
 }

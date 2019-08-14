@@ -18,8 +18,10 @@
  *
  * *************************************/
 #include "mainwindow.h"
-#include <QApplication>
+#include <QDir>
+#include <tapplication.h>
 #include <QWebEngineUrlScheme>
+#include "managers/settingsmanager.h"
 
 int main(int argc, char *argv[])
 {
@@ -28,8 +30,33 @@ int main(int argc, char *argv[])
     scheme.setFlags(QWebEngineUrlScheme::LocalScheme | QWebEngineUrlScheme::SecureScheme | QWebEngineUrlScheme::LocalAccessAllowed | QWebEngineUrlScheme::ContentSecurityPolicyIgnored);
     QWebEngineUrlScheme::registerScheme(scheme);
 
-    QApplication a(argc, argv);
+
+    tApplication a(argc, argv);
     Q_INIT_RESOURCE(scheme);
+
+    a.installTranslators();
+
+    a.setOrganizationName("theSuite");
+    a.setOrganizationDomain("");
+    a.setApplicationIcon(QIcon::fromTheme("theweb", QIcon(":/icons/theweb.svg")));
+    a.setApplicationVersion("0.1");
+    a.setGenericName(QApplication::translate("main", "Web Browser"));
+    //a.setAboutDialogSplashGraphic(a.aboutDialogSplashGraphicFromSvg(":/icons/aboutsplash.svg"));
+    a.setApplicationLicense(tApplication::Gpl3OrLater);
+    a.setCopyrightHolder("Victor Tran");
+    a.setCopyrightYear("2019");
+    #ifdef T_BLUEPRINT_BUILD
+        a.setApplicationName("theWeb Blueprint");
+    #else
+        a.setApplicationName("theWeb");
+    #endif
+    if (QDir("/usr/share/theweb").exists()) {
+        a.setShareDir("/usr/share/theweb");
+    } else if (QDir(QDir::cleanPath(QApplication::applicationDirPath() + "/../share/theweb/")).exists()) {
+        a.setShareDir(QDir::cleanPath(QApplication::applicationDirPath() + "/../share/theweb/"));
+    }
+
+    SettingsManager::initialize();
 
     MainWindow w;
     w.show();

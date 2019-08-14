@@ -30,6 +30,7 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
         managers/profilemanager.cpp \
+        managers/settingsmanager.cpp \
         popovers/jsalert.cpp \
         tab/certificateerrorpane.cpp \
         tab/permissionpopup.cpp \
@@ -44,6 +45,7 @@ HEADERS += \
         core/urlinterceptor.h \
         mainwindow.h \
         managers/profilemanager.h \
+        managers/settingsmanager.h \
         popovers/jsalert.h \
         tab/certificateerrorpane.h \
         tab/permissionpopup.h \

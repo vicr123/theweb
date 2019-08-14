@@ -37,6 +37,11 @@ QWebEngineProfile*ProfileManager::defaultProfile()
         d->defaultProfile->settings()->setAttribute(QWebEngineSettings::FullScreenSupportEnabled, true);
         d->defaultProfile->settings()->setAttribute(QWebEngineSettings::JavascriptCanAccessClipboard, true);
 
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 13, 0))
+        //Only on Qt 5.13 or higher
+        d->defaultProfile->setUseForGlobalCertificateVerification();
+#endif
+
         UrlInterceptor* interceptor = new UrlInterceptor();
         d->defaultProfile->setUrlRequestInterceptor(interceptor);
 
