@@ -305,7 +305,7 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="../main.cpp" line="43"/>
+        <location filename="../main.cpp" line="48"/>
         <source>Web Browser</source>
         <translation type="unfinished"></translation>
     </message>

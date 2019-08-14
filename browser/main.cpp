@@ -34,6 +34,11 @@ int main(int argc, char *argv[])
     tApplication a(argc, argv);
     Q_INIT_RESOURCE(scheme);
 
+    if (QDir("/usr/share/theweb").exists()) {
+        a.setShareDir("/usr/share/theweb");
+    } else if (QDir(QDir::cleanPath(QApplication::applicationDirPath() + "/../share/theweb/")).exists()) {
+        a.setShareDir(QDir::cleanPath(QApplication::applicationDirPath() + "/../share/theweb/"));
+    }
     a.installTranslators();
 
     a.setOrganizationName("theSuite");
@@ -50,11 +55,6 @@ int main(int argc, char *argv[])
     #else
         a.setApplicationName("theWeb");
     #endif
-    if (QDir("/usr/share/theweb").exists()) {
-        a.setShareDir("/usr/share/theweb");
-    } else if (QDir(QDir::cleanPath(QApplication::applicationDirPath() + "/../share/theweb/")).exists()) {
-        a.setShareDir(QDir::cleanPath(QApplication::applicationDirPath() + "/../share/theweb/"));
-    }
 
     SettingsManager::initialize();
 

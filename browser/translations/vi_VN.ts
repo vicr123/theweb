@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" sourcelanguage="en_US" language="vi_VN">
+<TS version="2.1" language="vi_VN" sourcelanguage="en_US">
 <context>
     <name>CertificateErrorPane</name>
     <message>
@@ -305,7 +305,7 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="../main.cpp" line="43"/>
+        <location filename="../main.cpp" line="48"/>
         <source>Web Browser</source>
         <translation>Trình duyệt web</translation>
     </message>
