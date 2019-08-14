@@ -4,7 +4,8 @@
 #
 #-------------------------------------------------
 
-QT       += core gui webenginecore webenginewidgets thelib network
+QT       += core gui webenginecore webenginewidgets network
+SHARE_APP_NAME = theweb
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -23,6 +24,58 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 CONFIG += c++11
+
+
+unix:!macx {
+    # Include the-libs build tools
+    include(/usr/share/the-libs/pri/buildmaster.pri)
+
+    QT += thelib
+    TARGET = theweb
+
+    target.path = /usr/bin
+
+#    desktop.path = /usr/share/applications
+#    desktop.files = com.vicr123.theweb.desktop
+
+#    icon.path = /usr/share/icons/hicolor/scalable/apps/
+#    icon.files = icons/theweb.svg
+
+    INSTALLS += target desktop icon
+}
+
+win32 {
+    # Include the-libs build tools
+    include(C:/Program Files/thelibs/pri/buildmaster.pri)
+
+    QT += thelib
+    INCLUDEPATH += "C:/Program Files/thelibs/include"
+    LIBS += -L"C:/Program Files/thelibs/lib" -lthe-libs
+    RC_FILE = icon.rc
+    TARGET = theWeb
+}
+
+macx {
+    # Include the-libs build tools
+    include(/usr/local/share/the-libs/pri/buildmaster.pri)
+
+    QT += macextras
+    LIBS += -framework CoreFoundation -framework AppKit
+    QMAKE_INFO_PLIST = Info.plist
+
+    blueprint {
+        TARGET = "theWeb Blueprint"
+        ICON = icon-bp.icns
+    } else {
+        TARGET = "theWeb"
+        ICON = icon.icns
+    }
+
+    INCLUDEPATH += "/usr/local/include/the-libs"
+    LIBS += -L/usr/local/lib -lthe-libs
+
+#    QMAKE_POST_LINK += $$quote(cp $${PWD}/dmgicon.icns $${PWD}/app-dmg-background.png $${PWD}/node-appdmg-config*.json $${OUT_PWD}/..)
+}
 
 SOURCES += \
         core/thewebschemehandler.cpp \

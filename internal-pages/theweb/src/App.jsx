@@ -51,32 +51,52 @@ class App extends React.Component {
         }).catch(() => {
             console.log("Language not obtainable");
         });
-        window.addEventListener("popstate", this.popState);
+        window.addEventListener("popstate", this.popState.bind(this));
     }
     
     popState(e) {
-        
+        if (document.location.pathname.startsWith("//settings")) {
+            this.setState({
+                currentPane: "settings"
+            });
+        } else if (document.location.pathname.startsWith("//about")) {
+            this.setState({
+                currentPane: "about"
+            });
+        }
     }
     
     componentNode() {
-        switch (this.state.currentPane) {
-            case "settings":
-                return <Settings />;
-            case "about":
-                return <About />
-            default:
-                return <Translation>{(t, {i18n}) => 
-                    <div>
+        return <Translation>{(t, {i18n}) => {
+            switch (this.state.currentPane) {
+                case "settings":
+                    document.title = t('SETTINGS_TITLE');
+                    return <Settings />;
+                case "about":
+                    document.title = t('ABOUT_TITLE');
+                    return <About />
+                default:
+                    document.title = "theWeb";
+                    return <div>
                         <Header title={t('INVALID_PAGE_TITLE')} />
                         <div className="Content">
                             {t('INVALID_PAGE_CONTENT')}
                         </div>
                     </div>
-                }</Translation>
-        }
+            }
+        }}</Translation>
     }
     
     changePane(pane) {
+        switch (pane) {
+            case "settings":
+                window.history.pushState({}, "", "theweb://settings");
+                break;
+            case "about":
+                window.history.pushState({}, "", "theweb://about");
+                break;
+        }
+        
         this.setState({
             currentPane: pane
         });

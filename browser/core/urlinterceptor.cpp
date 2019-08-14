@@ -19,14 +19,25 @@
  * *************************************/
 #include "urlinterceptor.h"
 
-#include <QDebug>
+#include <QSettings>
+
+struct UrlInterceptorPrivate {
+    QSettings settings;
+};
 
 UrlInterceptor::UrlInterceptor(QObject *parent) : QWebEngineUrlRequestInterceptor(parent)
 {
+    d = new UrlInterceptorPrivate();
+}
 
+UrlInterceptor::~UrlInterceptor()
+{
+    delete d;
 }
 
 void UrlInterceptor::interceptRequest(QWebEngineUrlRequestInfo& info)
 {
-    qDebug() << "Intercept:" << info.requestMethod() << info.requestUrl() << " type:" << info.resourceType();
+    if (d->settings.value("privacy/dnt", true).toBool()) {
+        info.setHttpHeader("DNT", "1");
+    }
 }

@@ -22,16 +22,21 @@
 
 #include <QWebEngineUrlRequestInterceptor>
 
+struct UrlInterceptorPrivate;
 class UrlInterceptor : public QWebEngineUrlRequestInterceptor
 {
         Q_OBJECT
     public:
         explicit UrlInterceptor(QObject *parent = nullptr);
+        ~UrlInterceptor();
 
         void interceptRequest(QWebEngineUrlRequestInfo &info);
     signals:
 
     public slots:
+
+    private:
+        UrlInterceptorPrivate* d;
 };
 
 #endif // URLINTERCEPTOR_H
