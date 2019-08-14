@@ -22,6 +22,7 @@
 #include <QWebEngineCertificateError>
 #include <tpopover.h>
 #include "popovers/jsalert.h"
+#include "popovers/jsconfirm.h"
 #include "certificateerrorpane.h"
 
 struct WebPagePrivate {
@@ -83,4 +84,23 @@ void WebPage::javaScriptAlert(const QUrl& securityOrigin, const QString& msg)
     connect(popover, &tPopover::dismissed, &loop, &QEventLoop::quit);
     popover->show(d->parent);
     loop.exec();
+}
+
+bool WebPage::javaScriptConfirm(const QUrl& securityOrigin, const QString &msg)
+{
+    QEventLoop loop;
+
+    JsConfirm* alert = new JsConfirm(msg);
+    tPopover* popover = new tPopover(alert);
+    popover->setPopoverSide(tPopover::Bottom);
+    popover->setPopoverWidth(alert->sizeHint().height());
+    popover->setDismissable(false);
+    connect(alert, &JsConfirm::accept, popover, &tPopover::dismiss);
+    connect(alert, &JsConfirm::accept, &loop, std::bind(&QEventLoop::exit, &loop, 1));
+    connect(alert, &JsConfirm::reject, popover, &tPopover::dismiss);
+    connect(alert, &JsConfirm::reject, &loop, std::bind(&QEventLoop::exit, &loop, 0));
+    connect(popover, &tPopover::dismissed, alert, &JsAlert::deleteLater);
+    connect(popover, &tPopover::dismissed, popover, &tPopover::deleteLater);
+    popover->show(d->parent);
+    return loop.exec();
 }

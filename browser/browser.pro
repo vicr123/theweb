@@ -32,6 +32,7 @@ SOURCES += \
         managers/profilemanager.cpp \
         managers/settingsmanager.cpp \
         popovers/jsalert.cpp \
+        popovers/jsconfirm.cpp \
         tab/certificateerrorpane.cpp \
         tab/permissionpopup.cpp \
         tab/webpage.cpp \
@@ -47,6 +48,7 @@ HEADERS += \
         managers/profilemanager.h \
         managers/settingsmanager.h \
         popovers/jsalert.h \
+        popovers/jsconfirm.h \
         tab/certificateerrorpane.h \
         tab/permissionpopup.h \
         tab/webpage.h \
@@ -58,6 +60,7 @@ HEADERS += \
 FORMS += \
         mainwindow.ui \
         popovers/jsalert.ui \
+        popovers/jsconfirm.ui \
         tab/certificateerrorpane.ui \
         tab/permissionpopup.ui \
         tab/webtab.ui \

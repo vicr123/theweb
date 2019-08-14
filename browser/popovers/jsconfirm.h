@@ -17,35 +17,34 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * *************************************/
-#ifndef WEBPAGE_H
-#define WEBPAGE_H
+#ifndef JSCONFIRM_H
+#define JSCONFIRM_H
 
-#include <QWebEnginePage>
+#include <QWidget>
 
-struct WebPagePrivate;
-class CertificateErrorPane;
-class WebPage : public QWebEnginePage
+namespace Ui {
+    class JsConfirm;
+}
+
+class JsConfirm : public QWidget
 {
         Q_OBJECT
-    public:
-        explicit WebPage(QWidget *parent);
-        explicit WebPage(QWebEngineProfile *profile, QWidget *parent);
-        ~WebPage();
 
-        void setParent(QWidget* parent);
-        void setCertificateErrorPane(CertificateErrorPane* pane);
+    public:
+        explicit JsConfirm(QString message, QWidget *parent = nullptr);
+        ~JsConfirm();
+
+    private slots:
+        void on_okButton_clicked();
+
+        void on_noButton_clicked();
 
     signals:
-        void spawnTab(WebPage* page, WebWindowType type);
-
-    public slots:
+        void accept();
+        void reject();
 
     private:
-        QWebEnginePage* createWindow(WebWindowType type);
-        bool certificateError(const QWebEngineCertificateError &certificateError);
-        void javaScriptAlert(const QUrl &securityOrigin, const QString &msg);
-        bool javaScriptConfirm(const QUrl &securityOrigin, const QString &msg);
-        WebPagePrivate* d;
+        Ui::JsConfirm *ui;
 };
 
-#endif // WEBPAGE_H
+#endif // JSCONFIRM_H
