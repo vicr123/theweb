@@ -1,6 +1,7 @@
 {
     "INVALID_PAGE_TITLE": "Invalid Page",
     "INVALID_PAGE_CONTENT": "There was a problem. Try going to a different page.",
+    "BOOKMARKS_TITLE": "Bookmarks",
     "SETTINGS_TITLE": "Settings",
     "SETTINGS_GENERAL": "General",
     "SETTINGS_GENERAL_STARTUP": "Startup",

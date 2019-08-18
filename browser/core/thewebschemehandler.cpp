@@ -25,6 +25,7 @@
 #include <QWebEngineUrlRequestJob>
 #include <QFile>
 #include <QMimeDatabase>
+#include <QIcon>
 #include "managers/settingsmanager.h"
 
 thewebSchemeHandler::thewebSchemeHandler(QObject *parent) : QWebEngineUrlSchemeHandler(parent)
@@ -51,6 +52,47 @@ void thewebSchemeHandler::requestStarted(QWebEngineUrlRequestJob* job)
         }
         buf->open(QBuffer::ReadOnly);
         job->reply("application/json", buf);
+        return;
+    } else if (url.host() == "sysicons") {
+        if (url.path() != "/") {
+            job->fail(QWebEngineUrlRequestJob::UrlInvalid);
+            return;
+        }
+
+
+        QUrlQuery query(url.query());
+        QString icons = query.queryItemValue("icons", QUrl::FullyDecoded);
+        QStringList iconsToSearch = icons.split(";");
+        for (QString iconName : iconsToSearch) {
+            QIcon icon;
+            if (iconName.startsWith("sys:")) {
+                icon = QIcon::fromTheme(iconName.mid(4));
+            } else {
+                icon = QIcon(iconName);
+            }
+
+            if (!icon.isNull()) {
+                QString widthStr = query.hasQueryItem("width") ? query.queryItemValue("width") : "16";
+                QString heightStr = query.hasQueryItem("height") ? query.queryItemValue("height") : "16";
+
+                bool ok;
+
+                int width = widthStr.toInt(&ok);
+                if (!ok) width = 16;
+
+                int height = heightStr.toInt(&ok);
+                if (!ok) height = 16;
+
+
+                QBuffer* buf = new QBuffer(job);
+                buf->open(QBuffer::ReadWrite);
+                icon.pixmap(QSize(width, height)).save(buf, "PNG");
+                buf->seek(0);
+                job->reply("image/png", buf);
+            }
+        }
+
+        job->fail(QWebEngineUrlRequestJob::UrlNotFound);
         return;
     }
 

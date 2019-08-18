@@ -88,13 +88,17 @@ class App extends React.Component {
     }
     
     changePane(pane) {
-        switch (pane) {
-            case "settings":
-                window.history.pushState({}, "", "theweb://settings");
-                break;
-            case "about":
-                window.history.pushState({}, "", "theweb://about");
-                break;
+        try {
+            switch (pane) {
+                case "settings":
+                    window.history.pushState({}, "", "theweb://settings");
+                    break;
+                case "about":
+                    window.history.pushState({}, "", "theweb://about");
+                    break;
+            }
+        } catch (err) {
+            //Disregard
         }
         
         this.setState({

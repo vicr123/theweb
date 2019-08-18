@@ -42,7 +42,8 @@ class PermissionPopup : public QWidget
             ScreenRecord,
             ScreenAudioRecord,
             Notifications,
-            MouseLock
+            MouseLock,
+            RenderProcessTerminate
         };
 
         explicit PermissionPopup(QUrl originUrl, PermissionType type, QWidget *parent = nullptr);

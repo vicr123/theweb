@@ -83,7 +83,9 @@ div.horizontalLine {
 }
 
 div.ListItem {
+    display: flex;
     padding: 9px;
+    align-items: center;
 }
 
 div.ListItem:hover {

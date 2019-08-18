@@ -78,6 +78,12 @@ PermissionPopup::PermissionPopup(QUrl originUrl, PermissionPopup::PermissionType
             ui->titleLabel->setText(tr("Mouse Control"));
             ui->textLabel->setText(tr("Allow %1 to take exclusive control of your mouse?").arg(host));
             ui->iconLabel->setPixmap(QIcon::fromTheme("mouse").pixmap(SC_DPI_T(QSize(16, 16), QSize)));
+            break;
+        case RenderProcessTerminate:
+            ui->titleLabel->setText(tr("Page Reloaded"));
+            ui->textLabel->setText(tr("This page had a problem, so we had to reload it."));
+            ui->permissionButtons->setVisible(false);
+            ui->iconLabel->setVisible(false);
     }
 }
 

@@ -37,6 +37,8 @@ struct WebTabPrivate {
     bool isLoading = false;
     int loadProgress = 0;
 
+    int crashTimes = 0;
+
     QSslSocket certCheckSocket;
     QSslCertificate pageCertificate;
 
@@ -206,6 +208,26 @@ WebTab::WebTab(WebPage* page, QWidget *parent) :
         d->loadProgress = 0;
         emit loadProgressChanged();
     });
+    connect(d->page, &WebPage::renderProcessTerminated, this, [=](WebPage::RenderProcessTerminationStatus status, int exitCode) {
+        d->crashTimes++;
+        if (d->crashTimes >= 3) {
+            //Show the error pane
+            d->removePermissionPopups(PermissionPopup::RenderProcessTerminate);
+
+        } else {
+            //Just reload the page
+            PermissionPopup* popup = new PermissionPopup(QUrl(), PermissionPopup::RenderProcessTerminate);
+            ui->permissionPopups->insertWidget(0, popup);
+            connect(popup, &PermissionPopup::destroyed, this, [=] {
+                d->permissionPopups.removeAll(popup);
+            });
+            d->permissionPopups.append(popup);
+
+            QTimer::singleShot(0, this, [=] {
+                d->page->triggerAction(WebPage::Reload);
+            });
+        }
+    });
 
     connect(ui->sslErrorPane, &CertificateErrorPane::showPane, this, [=] {
         ui->stackedWidget->setCurrentWidget(ui->sslErrorPage);
@@ -297,4 +319,5 @@ void WebTab::resizeEvent(QResizeEvent* event)
 {
     ui->permissionPopupsWidget->move(0, 0);
     ui->permissionPopupsSpacer->changeSize(this->width(), 0, QSizePolicy::Fixed, QSizePolicy::Fixed);
+    ui->permissionPopupsWidget->setFixedWidth(this->width());
 }
