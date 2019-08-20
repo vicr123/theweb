@@ -51,7 +51,7 @@ win32 {
     QT += thelib
     INCLUDEPATH += "C:/Program Files/thelibs/include"
     LIBS += -L"C:/Program Files/thelibs/lib" -lthe-libs
-    RC_FILE = icon.rc
+#    RC_FILE = icon.rc
     TARGET = theWeb
 }
 

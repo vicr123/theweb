@@ -43,7 +43,7 @@ QWebEngineProfile*ProfileManager::defaultProfile()
 #endif
 
         UrlInterceptor* interceptor = new UrlInterceptor();
-        d->defaultProfile->setUrlRequestInterceptor(interceptor);
+        //d->defaultProfile->setUrlRequestInterceptor(interceptor);
 
         thewebSchemeHandler* schemeHandler = new thewebSchemeHandler();
         d->defaultProfile->installUrlSchemeHandler("theweb", schemeHandler);

@@ -1,12 +1,14 @@
 #!/usr/bin/node
 
 const fs = require('fs');
+const path = require('path');
+const sep = path.sep;
 
 if (process.argv.length != 5) {
     console.log(`Usage: genresources.js path-to-output output-name relative-path-to-resources`);
 }
 
-const root = process.argv[2] + "/";
+const root = process.argv[2] + sep;
 
 let xml = [];
 xml.push('<!DOCTYPE RCC>');
@@ -17,7 +19,7 @@ xml.push('<qresource prefix="/scheme/theweb">');
 function walkPath(path, rootFolderPath) {
     let files = fs.readdirSync(path);
     for (let file of files) {
-        let filePath = path + "/" + file;
+        let filePath = path + sep + file;
         if (fs.statSync(filePath).isDirectory()) {
             walkPath(filePath, rootFolderPath);
         } else {
