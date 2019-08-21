@@ -4,6 +4,7 @@
         <file>icons/secure.svg</file>
         <file>icons/insecure.svg</file>
         <file>icons/dangerous.svg</file>
+        <file>icons/theweb-oblivion.svg</file>
     </qresource>
     <qresource prefix="/scheme/theweb">
         <file>testjs.html</file>

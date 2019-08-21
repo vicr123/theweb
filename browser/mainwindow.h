@@ -21,6 +21,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QVariantMap>
 
 namespace Ui {
     class MainWindow;
@@ -33,7 +34,7 @@ class MainWindow : public QMainWindow
         Q_OBJECT
 
     public:
-        explicit MainWindow(QWidget *parent = nullptr);
+        explicit MainWindow(QVariantMap options = QVariantMap(), QWidget *parent = nullptr);
         ~MainWindow();
 
         void newTab();
@@ -52,7 +53,15 @@ class MainWindow : public QMainWindow
 
         void on_actionReload_triggered();
 
-    private:
+        void on_actionSettings_triggered();
+
+        void on_actionExit_triggered();
+
+        void on_actionNew_Window_triggered();
+
+        void on_actionNew_Oblivion_Window_triggered();
+
+private:
         Ui::MainWindow *ui;
         MainWindowPrivate* d;
 

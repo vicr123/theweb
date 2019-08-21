@@ -21,14 +21,15 @@
 #define PROFILEMANAGER_H
 
 #include <QObject>
+#include <QWebEngineProfile>
 
-class QWebEngineProfile;
 struct ProfileManagerPrivate;
 class ProfileManager : public QObject
 {
         Q_OBJECT
     public:
         static QWebEngineProfile* defaultProfile();
+        static QWebEngineProfile* oblivionProfile();
 
     signals:
 
@@ -39,5 +40,7 @@ class ProfileManager : public QObject
 
         static ProfileManagerPrivate* d;
 };
+
+Q_DECLARE_METATYPE(QWebEngineProfile*);
 
 #endif // PROFILEMANAGER_H

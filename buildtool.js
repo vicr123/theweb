@@ -262,7 +262,7 @@ async function build() {
     try {
         await spawnWithMessage(["Building theWeb", "theWeb built"], options.makePath, [], {shell: false});
     } catch (err) {
-        logError("Couldn't run qmake.");
+        logError("Couldn't build theWeb.");
         process.exit(1);
     }
 }

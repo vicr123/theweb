@@ -23,6 +23,8 @@
 #include <QShortcut>
 #include "tab/webtab.h"
 #include "widgets/bar.h"
+#include "tab/webpage.h"
+#include "managers/profilemanager.h"
 
 struct MainWindowPrivate {
     Bar* bar;
@@ -30,31 +32,45 @@ struct MainWindowPrivate {
     QShortcut* leaveFullScreenShortcut;
     WebTab* fullScreenTab = nullptr;
     Qt::WindowStates stateBeforeFullScreen;
+
+    QWebEngineProfile* profile;
 };
 
-MainWindow::MainWindow(QWidget *parent) :
+MainWindow::MainWindow(QVariantMap options, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     d = new MainWindowPrivate();
 
+    d->profile = options.value("profile", QVariant::fromValue(ProfileManager::defaultProfile())).value<QWebEngineProfile*>();
+    QIcon windowIcon = d->profile == ProfileManager::oblivionProfile() ? QIcon::fromTheme("theweb-oblivion", QIcon(":/icons/theweb-oblivion.svg")) : QIcon::fromTheme("theweb", QIcon(":/icons/theweb.svg"));
+    this->setWindowIcon(windowIcon);
+
     #ifdef Q_OS_MAC
     #else
         QMenu* menu = new QMenu();
         menu->addAction(ui->actionNewTab);
+        menu->addAction(ui->actionNew_Window);
+        menu->addAction(ui->actionNew_Oblivion_Window);
         menu->addSeparator();
         menu->addAction(ui->actionGoBack);
         menu->addAction(ui->actionGoForward);
         menu->addAction(ui->actionReload);
+        menu->addSeparator();
+        menu->addAction(ui->actionSettings);
+        menu->addSeparator();
+        menu->addAction(ui->actionExit);
 
         QToolButton* menuButton = new QToolButton();
         menuButton->setMenu(menu);
         menuButton->setPopupMode(QToolButton::InstantPopup);
-        menuButton->setIcon(QIcon::fromTheme("theweb", QIcon(":/icons/theweb.svg")));
+        menuButton->setIcon(windowIcon);
         ui->mainToolBar->insertWidget(ui->actionGoBack, menuButton);
         ui->menuBar->setVisible(false);
     #endif
+
+
 
     d->bar = new Bar();
     ui->mainToolBar->addWidget(d->bar);
@@ -76,7 +92,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::newTab()
 {
-    newTab(new WebTab());
+    WebPage* page = new WebPage(d->profile, nullptr);
+    page->setUrl(QUrl("https://www.google.com/"));
+    newTab(new WebTab(page));
     d->bar->setFocus();
 }
 
@@ -144,4 +162,34 @@ void MainWindow::on_toolButton_clicked()
 void MainWindow::on_actionReload_triggered()
 {
     currentTab()->reload();
+}
+
+void MainWindow::on_actionSettings_triggered()
+{
+    WebPage* page = new WebPage(d->profile, nullptr);
+    page->setUrl(QUrl("theweb://settings"));
+    this->newTab(new WebTab(page));
+}
+
+void MainWindow::on_actionExit_triggered()
+{
+    QApplication::closeAllWindows();
+}
+
+void MainWindow::on_actionNew_Window_triggered()
+{
+    MainWindow* w = new MainWindow({
+        {"profile", QVariant::fromValue(d->profile)}
+    });
+
+    w->show();
+}
+
+void MainWindow::on_actionNew_Oblivion_Window_triggered()
+{
+    MainWindow* w = new MainWindow({
+        {"profile", QVariant::fromValue(ProfileManager::oblivionProfile())}
+    });
+
+    w->show();
 }

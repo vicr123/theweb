@@ -26,6 +26,7 @@
 
 struct ProfileManagerPrivate {
     QWebEngineProfile* defaultProfile = nullptr;
+    QWebEngineProfile* oblivionProfile = nullptr;
 };
 
 ProfileManagerPrivate* ProfileManager::d = new ProfileManagerPrivate();
@@ -56,6 +57,27 @@ QWebEngineProfile*ProfileManager::defaultProfile()
         }
     }
     return d->defaultProfile;
+}
+
+QWebEngineProfile *ProfileManager::oblivionProfile()
+{
+    if (d->oblivionProfile == nullptr) {
+        //Create new in-memory profile
+        d->oblivionProfile = new QWebEngineProfile();
+        d->oblivionProfile->settings()->setAttribute(QWebEngineSettings::FullScreenSupportEnabled, true);
+        d->oblivionProfile->settings()->setAttribute(QWebEngineSettings::JavascriptCanAccessClipboard, true);
+
+        thewebSchemeHandler* schemeHandler = new thewebSchemeHandler();
+        d->oblivionProfile->installUrlSchemeHandler("theweb", schemeHandler);
+
+        //Edit the current user agent and insert theWeb before QtWebEngine
+        QString userAgent = d->oblivionProfile->httpUserAgent();
+        if (userAgent.contains("QtWebEngine/")) {
+            userAgent.insert(userAgent.indexOf("QtWebEngine/"), "theWeb/15.0 ");
+            d->oblivionProfile->setHttpUserAgent(userAgent);
+        }
+    }
+    return d->oblivionProfile;
 }
 
 ProfileManager::ProfileManager(QObject *parent) : QObject(parent)
