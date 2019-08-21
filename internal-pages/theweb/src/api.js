@@ -16,6 +16,12 @@ class Api {
     lang() {
         return this.get("theweb://api/lang");
     }
+    
+    isOblivion() {
+        return this.get("theweb://api/oblivion").then((res) => {
+            return JSON.parse(res).isOblivion;
+        })
+    }
 }
 
 class Settings extends Api {

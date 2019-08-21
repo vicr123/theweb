@@ -12,6 +12,11 @@ body {
     margin: 0px;
 }
 
+h1 {
+    font-weight: normal;
+    font-size: 20pt;
+}
+
 div.App {
     display: flex;
     height: 100vh;
@@ -26,7 +31,6 @@ div.App {
 div.AppContainer {
 /*     max-width: 800px; */
     width: 100%;
-    border-left: 1px solid var(--fg-color);
 }
 
 div.AppPanes {
@@ -37,6 +41,7 @@ div.Sidebar {
     display: flex;
     flex-direction: column;
     width: 400px;
+    border-right: 1px solid var(--fg-color);
 }
 
 div.header {
@@ -108,4 +113,14 @@ input[type=text], input[type=url] {
     
     padding: 3px;
     outline: none;
+}
+
+div.alert {
+    border: 1px solid white;
+    background-color: rgb(255, 100, 0);
+    color: white;
+    
+    width: 100%;
+    box-sizing: border-box;
+    padding: 3px;
 }

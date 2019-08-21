@@ -5,6 +5,7 @@ import { Header } from './textblocks.jsx'
 
 import Settings from './settings.jsx';
 import About from './about.jsx';
+import NewTab from './newtab.jsx';
 
 import i18n from 'i18next';
 import XHR from 'i18next-xhr-backend';
@@ -29,16 +30,21 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         let s = {
-            lang: 'en'
+            lang: 'en',
+            showSidebar: true
         };
         const path = window.location.pathname.substr(2);
         if (path.startsWith("settings")) {
             s.currentPane = "settings";
         } else if (path.startsWith("about")) {
             s.currentPane = "about";
+        } else if (path.startsWith("newTab") || true) {
+            s.currentPane = "newtab";
+            s.showSidebar = false;
         } else {
             s.currentPane = "invalid";
         }
+        
         this.state = s;
     }
     
@@ -75,6 +81,9 @@ class App extends React.Component {
                 case "about":
                     document.title = t('ABOUT_TITLE');
                     return <About />
+                case "newtab":
+                    document.title = t('NEWTAB_TITLE');
+                    return <NewTab />
                 default:
                     document.title = "theWeb";
                     return <div>
@@ -106,11 +115,17 @@ class App extends React.Component {
         });
     }
     
+    sidebarElement() {
+        if (this.state.showSidebar) {
+            return <Sidebar onChange={(paneName) => this.changePane(paneName)} currentPane={this.state.currentPane} />;
+        }
+    }
+    
     render() {
         return <Translation>{(t, {i18n}) => {
             if (i18n.language !== this.state.lang) i18n.changeLanguage(this.state.lang);
             return <div className="App">
-                <Sidebar onChange={(paneName) => this.changePane(paneName)} currentPane={this.state.currentPane} />
+                {this.sidebarElement()}
                 <div className="AppContainer">
                     {this.componentNode()}
                 </div>

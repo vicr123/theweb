@@ -28,9 +28,19 @@
 #include <QIcon>
 #include "managers/settingsmanager.h"
 
-thewebSchemeHandler::thewebSchemeHandler(QObject *parent) : QWebEngineUrlSchemeHandler(parent)
-{
+struct thewebSchemeHandlerPrivate {
+    QVariantMap options;
+};
 
+thewebSchemeHandler::thewebSchemeHandler(QVariantMap options, QObject *parent) : QWebEngineUrlSchemeHandler(parent)
+{
+    d = new thewebSchemeHandlerPrivate();
+    d->options = options;
+}
+
+thewebSchemeHandler::~thewebSchemeHandler()
+{
+    delete d;
 }
 
 void thewebSchemeHandler::requestStarted(QWebEngineUrlRequestJob* job)
@@ -49,6 +59,8 @@ void thewebSchemeHandler::requestStarted(QWebEngineUrlRequestJob* job)
             buf->setData("{\"Status\":\"OK\"}");
         } else if (url.path() == "/lang") {
             buf->setData(QLocale().name().toUtf8());
+        } else if (url.path() == "/oblivion") {
+            buf->setData(QString("{\"isOblivion\":%1}").arg(d->options.value("oblivion", false).toBool() ? "true" : "false").toUtf8());
         }
         buf->open(QBuffer::ReadOnly);
         job->reply("application/json", buf);
@@ -97,8 +109,9 @@ void thewebSchemeHandler::requestStarted(QWebEngineUrlRequestJob* job)
     }
 
     QStringList tryFiles;
+    QStringList pageHosts = {"settings", "newtab"};
     if (url.path() == "") {
-        if (url.host() == "settings") {
+        if (pageHosts.contains(url.host())) {
             tryFiles.append(":/scheme/theweb/index.html");
         }
     }

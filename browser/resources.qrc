@@ -8,6 +8,8 @@
         <file>icons/go-next.svg</file>
         <file>icons/go-previous.svg</file>
         <file>icons/view-refresh.svg</file>
+        <file>icons/theweb-mono.svg</file>
+        <file>icons/theweb-oblivion-bar.svg</file>
     </qresource>
     <qresource prefix="/scheme/theweb">
         <file>testjs.html</file>

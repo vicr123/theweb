@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   height="23.999998"
+   width="77"
+   version="1.1"
+   id="svg5"
+   sodipodi:docname="theweb-oblivion-bar.svg"
+   inkscape:version="0.92.2 5c3e80d, 2017-08-06">
+  <metadata
+     id="metadata9">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs7" />
+  <sodipodi:namedview
+     id="namedview1"
+     showgrid="true"
+     inkscape:zoom="5.2149125"
+     inkscape:cx="34.822946"
+     inkscape:cy="7.1815656"
+     inkscape:window-width="1280"
+     inkscape:window-height="703"
+     inkscape:window-x="1920"
+     inkscape:window-y="281"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg5"
+     pagecolor="#383636"
+     inkscape:pageopacity="0"
+     borderlayer="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0">
+    <inkscape:grid
+       type="xygrid"
+       id="grid1px"
+       empspacing="4"
+       originx="0.00016221919"
+       originy="0.00016122901" />
+    <inkscape:grid
+       type="xygrid"
+       id="grid1pxdot"
+       empspacing="1"
+       dotted="true"
+       originy="0.50016123"
+       originx="0.50016222" />
+  </sodipodi:namedview>
+  <path
+     style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+     d="M 11.891603,4.7704247e-4 A 11.999878,11.9997 0 0 0 0.40880822,8.8947863 11.999878,11.9997 0 0 0 8.8945632,23.591197 11.999878,11.9997 0 0 0 23.591192,15.105569 11.999878,11.9997 0 0 0 15.105438,0.40915824 11.999878,11.9997 0 0 0 11.891603,4.7704247e-4 Z M 12,1.5004395 A 10.499894,10.499738 0 0 1 22.499894,12.000178 10.499894,10.499738 0 0 1 12,22.499916 10.499894,10.499738 0 0 1 1.5001062,12.000178 10.499894,10.499738 0 0 1 12,1.5004395 Z"
+     id="path814-5-8-6-3"
+     inkscape:connector-curvature="0" />
+  <path
+     style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.3619839;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+     d="M 12.776543,9.1023293 C 11.171159,8.6721823 9.5324662,9.6182773 9.1023422,11.223527 l -3.003051,11.207484 a 11.999879,11.999701 0 0 0 2.795018,1.159767 11.999879,11.999701 0 0 0 14.6968368,-8.484961 11.999879,11.999701 0 0 0 0.398661,-2.998924 z"
+     id="rect824-9-2-1-5"
+     inkscape:connector-curvature="0"
+     inkscape:export-filename="/home/victor/newcontemporary.png"
+     inkscape:export-xdpi="2165.5593"
+     inkscape:export-ydpi="2165.5593" />
+  <path
+     style="opacity:0.25;fill:#c80000;fill-opacity:1;stroke:none;stroke-width:1.00157475;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+     d="m 14.509483,14.225464 a 2.9999697,2.9999252 0 0 0 -3.674198,2.121267 2.9999697,2.9999252 0 0 0 2.121299,3.674143 2.9999697,2.9999252 0 0 0 0.751253,0.09969 2.9999697,2.9999252 0 0 1 -1.423677,-3.385615 2.9999697,2.9999252 0 0 1 2.922944,-2.220959 2.9999697,2.9999252 0 0 0 -0.697621,-0.288527 z"
+     id="path4654"
+     inkscape:connector-curvature="0" />
+  <path
+     style="opacity:0.5;fill:#c80000;fill-opacity:1;stroke:none;stroke-width:1.00157475;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+     d="m 15.958357,14.613682 a 2.9999697,2.9999252 0 0 0 -3.674197,2.121268 2.9999697,2.9999252 0 0 0 2.121298,3.674142 2.9999697,2.9999252 0 0 0 0.751254,0.09969 2.9999697,2.9999252 0 0 1 -1.423679,-3.385615 2.9999697,2.9999252 0 0 1 2.922945,-2.220959 2.9999697,2.9999252 0 0 0 -0.697621,-0.288528 z"
+     id="path4654-0"
+     inkscape:connector-curvature="0" />
+  <ellipse
+     style="opacity:1;fill:#c80000;fill-opacity:1;stroke:none;stroke-width:1.00157487;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+     id="path4654-6"
+     cx="20.696907"
+     cy="12.985405"
+     transform="matrix(0.96592678,0.25881547,-0.25882261,0.96592487,0,0)"
+     rx="2.9999666"
+     ry="2.9999282" />
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.33333302px;line-height:1.25;font-family:Contemporary;-inkscape-font-specification:Contemporary;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none"
+     x="27.889143"
+     y="16.666666"
+     id="text2762"><tspan
+       sodipodi:role="line"
+       id="tspan2760"
+       x="27.889143"
+       y="16.666666">Oblivion</tspan></text>
+</svg>

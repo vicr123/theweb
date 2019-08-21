@@ -383,6 +383,16 @@
     </message>
 </context>
 <context>
+    <name>ToolbarButton</name>
+    <message>
+        <location filename="../widgets/toolbarbutton.cpp" line="37"/>
+        <location filename="../widgets/toolbarbutton.cpp" line="85"/>
+        <location filename="../widgets/toolbarbutton.cpp" line="89"/>
+        <source>Oblivion</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>WebTab</name>
     <message>
         <location filename="../tab/webtab.ui" line="20"/>

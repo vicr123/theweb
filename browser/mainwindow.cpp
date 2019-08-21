@@ -25,6 +25,7 @@
 #include "widgets/bar.h"
 #include "tab/webpage.h"
 #include "managers/profilemanager.h"
+#include "managers/settingsmanager.h"
 
 struct MainWindowPrivate {
 //    Bar* bar;
@@ -67,13 +68,17 @@ MainWindow::MainWindow(QVariantMap options, QWidget *parent) :
     ui->toolbarWidget->setMenu(menu);
     ui->toolbarWidget->setMenuIcon(windowIcon);
 
+    if (d->profile == ProfileManager::oblivionProfile()) ui->toolbarWidget->setAsOblivion();
+
     d->leaveFullScreenShortcut = new QShortcut(QKeySequence(Qt::Key_Escape), this);
     connect(d->leaveFullScreenShortcut, &QShortcut::activated, this, [=] {
         if (d->fullScreenTab != nullptr) d->fullScreenTab->leaveFullScreen();
     });
     d->leaveFullScreenShortcut->setEnabled(false);
 
-    newTab();
+    WebPage* page = new WebPage(d->profile, nullptr);
+    page->setUrl(SettingsManager::getHomePage());
+    newTab(new WebTab(page));
 }
 
 MainWindow::~MainWindow()
@@ -85,7 +90,7 @@ MainWindow::~MainWindow()
 void MainWindow::newTab()
 {
     WebPage* page = new WebPage(d->profile, nullptr);
-    page->setUrl(QUrl("https://www.google.com/"));
+    page->setUrl(QUrl("theweb://newtab"));
     newTab(new WebTab(page));
     ui->toolbarWidget->focusBar();
 }

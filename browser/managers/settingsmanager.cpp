@@ -24,6 +24,7 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QDebug>
+#include <QUrl>
 
 struct SettingsManagerPrivate {
     QSettings settings;
@@ -68,6 +69,15 @@ void SettingsManager::initialize()
 {
     Q_ASSERT(d == nullptr);
     d = new SettingsManagerPrivate();
+}
+
+QUrl SettingsManager::getHomePage()
+{
+    if (d->settings.value("startup/action", "newtab").toString() == "newtab") {
+        return QUrl("theweb://newtab");
+    } else {
+        return QUrl::fromUserInput(d->settings.value("startup/home", "https://vicr123.com/").toString());
+    }
 }
 
 SettingsManager::SettingsManager(QObject *parent) : QObject(parent)

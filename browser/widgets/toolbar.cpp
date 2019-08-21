@@ -26,6 +26,7 @@ Toolbar::Toolbar(QWidget *parent) :
     ui->menuButton->setIconSize(iconSize);
     ui->backButton->setIconSize(iconSize);
     ui->forwardButton->setIconSize(iconSize);
+    ui->reloadButton->setIconSize(iconSize);
 
     updateIcons();
 
@@ -64,6 +65,11 @@ void Toolbar::setCurrentTab(WebTab* tab)
 
     ui->bar->setCurrentTab(tab);
     ui->securityChunk->setCurrentCertificate(d->currentTab->currentUrl(), d->currentTab->pageCertificate());
+}
+
+void Toolbar::setAsOblivion()
+{
+    ui->menuButton->setAsOblivion();
 }
 
 void Toolbar::focusBar()

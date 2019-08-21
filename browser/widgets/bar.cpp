@@ -58,6 +58,7 @@ Bar::~Bar() {
     delete d;
 }
 
+#include <QDebug>
 void Bar::setCurrentTab(WebTab* tab)
 {
     //Disconnect all signals from the current tab
@@ -68,7 +69,9 @@ void Bar::setCurrentTab(WebTab* tab)
     d->currentTab = tab;
     connect(tab, &WebTab::urlChanged, this, &Bar::updateInformation);
 
-    if (this->hasFocus()) {
+    if (tab->currentUrl().scheme() == "theweb" && tab->currentUrl().host() == "newtab") {
+        this->setText("");
+    } else if (this->hasFocus()) {
         this->setText(tab->currentUrl().toString());
     } else {
         this->setText(tab->currentUrl().host());
@@ -77,7 +80,11 @@ void Bar::setCurrentTab(WebTab* tab)
 
 void Bar::updateInformation() {
     if (!this->hasFocus()) {
-        this->setText(d->currentTab->currentUrl().host());
+        if (d->currentTab->currentUrl().scheme() == "theweb" && d->currentTab->currentUrl().host() == "newtab") {
+            this->setText("");
+        } else {
+            this->setText(d->currentTab->currentUrl().host());
+        }
     }
 
     this->update();
@@ -87,7 +94,11 @@ void Bar::focusInEvent(QFocusEvent* event)
 {
     QLineEdit::focusInEvent(event);
     this->setCursor(QCursor(Qt::IBeamCursor));
-    this->setText(d->currentTab->currentUrl().toString());
+    if (d->currentTab->currentUrl().scheme() == "theweb" && d->currentTab->currentUrl().host() == "newtab") {
+        this->setText("");
+    } else {
+        this->setText(d->currentTab->currentUrl().toString());
+    }
 //    d->securityChunk->setVisible(false);
     QTimer::singleShot(0, this, &Bar::selectAll);
 }
@@ -96,7 +107,11 @@ void Bar::focusOutEvent(QFocusEvent* event)
 {
     QLineEdit::focusOutEvent(event);
     this->setCursor(QCursor(Qt::ArrowCursor));
-    this->setText(d->currentTab->currentUrl().host());
+    if (d->currentTab->currentUrl().scheme() == "theweb" && d->currentTab->currentUrl().host() == "newtab") {
+        this->setText("");
+    } else {
+        this->setText(d->currentTab->currentUrl().host());
+    }
 //    d->securityChunk->setVisible(true);
 }
 

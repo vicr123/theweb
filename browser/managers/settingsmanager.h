@@ -32,6 +32,8 @@ class SettingsManager : public QObject
 
         static void initialize();
 
+        static QUrl getHomePage();
+
     signals:
 
     public slots:

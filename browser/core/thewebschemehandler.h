@@ -21,17 +21,23 @@
 #define THEWEBSCHEMEHANDLER_H
 
 #include <QWebEngineUrlSchemeHandler>
+#include <QVariantMap>
 
+struct thewebSchemeHandlerPrivate;
 class thewebSchemeHandler : public QWebEngineUrlSchemeHandler
 {
         Q_OBJECT
     public:
-        explicit thewebSchemeHandler(QObject *parent = nullptr);
+        explicit thewebSchemeHandler(QVariantMap options = QVariantMap(), QObject *parent = nullptr);
+        ~thewebSchemeHandler();
 
         void requestStarted(QWebEngineUrlRequestJob *job);
     signals:
 
     public slots:
+
+    private:
+        thewebSchemeHandlerPrivate* d;
 };
 
 #endif // THEWEBSCHEMEHANDLER_H

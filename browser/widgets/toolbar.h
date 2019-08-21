@@ -22,6 +22,8 @@ class Toolbar : public QWidget
         void setMenuIcon(QIcon icon);
         void setCurrentTab(WebTab* tab);
 
+        void setAsOblivion();
+
     public slots:
         void focusBar();
 

@@ -27,5 +27,10 @@
     
     "DOWNLOADS_TITLE": "Downloads",
     
-    "ABOUT_TITLE": "About theWeb"
+    "ABOUT_TITLE": "About theWeb",
+    
+    "NEWTAB_TITLE": "New Tab",
+    "NEWTAB_OBLIVION_TITLE": "Browsing Oblivion",
+    "NEWTAB_OBLIVION_EXPLANATION": "We'll clear the history (and other related items) for this window once you close it.",
+    "NEWTAB_GO_PROMPT": "Let's go somewhere!"
 }

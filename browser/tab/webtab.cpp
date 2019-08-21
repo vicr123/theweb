@@ -32,7 +32,7 @@
 struct WebTabPrivate {
     QWebEngineView* view;
     WebPage* page;
-    TabButton* tabButton;
+    QPointer<TabButton> tabButton;
 
     int crashTimes = 0;
 
@@ -243,6 +243,7 @@ WebTab::WebTab(WebPage* page, QWidget *parent) :
 
 WebTab::~WebTab()
 {
+    if (!d->tabButton.isNull()) d->tabButton->deleteLater();
     d->page->deleteLater();
     d->view->deleteLater();
     delete ui;

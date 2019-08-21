@@ -67,7 +67,7 @@ QWebEngineProfile *ProfileManager::oblivionProfile()
         d->oblivionProfile->settings()->setAttribute(QWebEngineSettings::FullScreenSupportEnabled, true);
         d->oblivionProfile->settings()->setAttribute(QWebEngineSettings::JavascriptCanAccessClipboard, true);
 
-        thewebSchemeHandler* schemeHandler = new thewebSchemeHandler();
+        thewebSchemeHandler* schemeHandler = new thewebSchemeHandler({{"oblivion", true}});
         d->oblivionProfile->installUrlSchemeHandler("theweb", schemeHandler);
 
         //Edit the current user agent and insert theWeb before QtWebEngine
