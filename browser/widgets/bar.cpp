@@ -112,6 +112,7 @@ void Bar::focusOutEvent(QFocusEvent* event)
     } else {
         this->setText(d->currentTab->currentUrl().host());
     }
+    this->setSelection(0, 0);
 //    d->securityChunk->setVisible(true);
 }
 

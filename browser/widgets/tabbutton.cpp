@@ -185,22 +185,34 @@ void TabButton::paintEvent(QPaintEvent *event) {
 
     QString text = this->text();
 
+    int widthNeeded = 0;
+    widthNeeded += this->fontMetrics().horizontalAdvance(text);
+    if (!this->icon().isNull()) widthNeeded += SC_DPI(6) + this->iconSize().width();
+
+    QRect contentRect;
+    contentRect.setWidth(widthNeeded);
+    contentRect.setHeight(qMax(this->icon().isNull() ? 0 : this->iconSize().height(), this->fontMetrics().height()));
+    contentRect.moveCenter(QPoint(this->width() / 2, this->height() / 2));
+
+    bool overflow = false;
+    if (contentRect.left() < SC_DPI(9)) {
+        overflow = true;
+        contentRect.moveLeft(SC_DPI(9));
+    }
+
     QRect textRect;
-    textRect.setLeft(rect.left() + (rect.width() / 2) - (this->fontMetrics().width(text) / 2));
-    textRect.setWidth(this->fontMetrics().width(text));
-    textRect.setTop(rect.top() + (rect.height() / 2) - (this->fontMetrics().height() / 2));
     textRect.setHeight(this->fontMetrics().height());
+    textRect.setWidth(this->fontMetrics().horizontalAdvance(text));
+    textRect.moveLeft(contentRect.left());
+    textRect.moveTop(contentRect.top() + contentRect.height() / 2 - textRect.height() / 2);
 
     if (!this->icon().isNull()) {
         QRect iconRect;
-        int fullWidth = textRect.width() + this->iconSize().width();
-        int iconLeft = rect.left() + (rect.width() / 2) - (fullWidth / 2);
-
-        iconRect.setLeft(iconLeft);
-        iconRect.setTop(rect.top() + (rect.height() / 2) - (this->iconSize().height() / 2));
         iconRect.setSize(this->iconSize());
+        iconRect.moveLeft(contentRect.left());
+        iconRect.moveTop(contentRect.top() + contentRect.height() / 2 - iconRect.height() / 2);
 
-        textRect.moveLeft(iconRect.right() + 4);
+        textRect.moveLeft(iconRect.right() + SC_DPI(6));
 
         QIcon icon = this->icon();
         QImage image = icon.pixmap(this->iconSize()).toImage();
@@ -212,6 +224,22 @@ void TabButton::paintEvent(QPaintEvent *event) {
     //Draw text
     painter.setPen(textPen);
     painter.drawText(textRect, Qt::AlignCenter, text.remove("&"));
+
+    if (overflow) {
+        //Draw overflow fade
+        QLinearGradient gradient;
+        gradient.setStart(this->width() - SC_DPI(20), 0);
+        gradient.setFinalStop(this->width(), 0);
+
+        QColor firstColor = brush.color();
+        firstColor.setAlpha(0);
+        gradient.setColorAt(0, firstColor);
+        gradient.setColorAt(1, brush.color());
+
+        painter.setBrush(gradient);
+        painter.setPen(Qt::transparent);
+        painter.drawRect(this->width() - SC_DPI(20), 0, SC_DPI(20), this->height());
+    }
 
     if (d->showLoadProgress) {
         //Draw progress indication

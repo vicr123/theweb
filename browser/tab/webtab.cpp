@@ -194,7 +194,7 @@ WebTab::WebTab(WebPage* page, QWidget *parent) :
         d->tabButton->setLoadProgress(0, true);
     });
     connect(d->page, &WebPage::loadProgress, this, [=](int progress) {
-        d->tabButton->setLoadProgress(progress, true);
+        d->tabButton->setLoadProgress(progress, progress == 100 ? false : true);
     });
     connect(d->page, &WebPage::loadFinished, this, [=] {
         d->tabButton->setLoadProgress(100, false);

@@ -21,6 +21,7 @@
 #include "ui_mainwindow.h"
 
 #include <QShortcut>
+#include <QTimer>
 #include "tab/webtab.h"
 #include "widgets/bar.h"
 #include "tab/webpage.h"
@@ -104,6 +105,7 @@ void MainWindow::newTab(WebTab* tab)
 
     connect(tab, &WebTab::requestActivate, this, [=] {
         ui->tabs->setCurrentWidget(tab);
+        QTimer::singleShot(0, tab, QOverload<>::of(&WebTab::setFocus));
     });
     connect(tab, &WebTab::goFullScreen, this, [=](bool fullscreen) {
         if (fullscreen) {
