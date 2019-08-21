@@ -27,6 +27,7 @@
 #include <QMimeDatabase>
 #include <QIcon>
 #include "managers/settingsmanager.h"
+#include "managers/iconmanager.h"
 
 struct thewebSchemeHandlerPrivate {
     QVariantMap options;
@@ -73,29 +74,29 @@ void thewebSchemeHandler::requestStarted(QWebEngineUrlRequestJob* job)
 
 
         QUrlQuery query(url.query());
+        QString widthStr = query.hasQueryItem("width") ? query.queryItemValue("width") : "16";
+        QString heightStr = query.hasQueryItem("height") ? query.queryItemValue("height") : "16";
+
+        bool ok;
+
+        int width = widthStr.toInt(&ok);
+        if (!ok) width = 16;
+
+        int height = heightStr.toInt(&ok);
+        if (!ok) height = 16;
+
+
         QString icons = query.queryItemValue("icons", QUrl::FullyDecoded);
         QStringList iconsToSearch = icons.split(";");
         for (QString iconName : iconsToSearch) {
             QIcon icon;
             if (iconName.startsWith("sys:")) {
-                icon = QIcon::fromTheme(iconName.mid(4));
+                icon = IconManager::getIcon(iconName.mid(4), Qt::white, QSize(width, height));
             } else {
                 icon = QIcon(iconName);
             }
 
             if (!icon.isNull()) {
-                QString widthStr = query.hasQueryItem("width") ? query.queryItemValue("width") : "16";
-                QString heightStr = query.hasQueryItem("height") ? query.queryItemValue("height") : "16";
-
-                bool ok;
-
-                int width = widthStr.toInt(&ok);
-                if (!ok) width = 16;
-
-                int height = heightStr.toInt(&ok);
-                if (!ok) height = 16;
-
-
                 QBuffer* buf = new QBuffer(job);
                 buf->open(QBuffer::ReadWrite);
                 icon.pixmap(QSize(width, height)).save(buf, "PNG");

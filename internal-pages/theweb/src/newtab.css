@@ -1,0 +1,17 @@
+div.newTabContainer {
+    height: 100%;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+input.urlBar {
+    border: none;
+    font-size: 15pt;
+    padding: 9px;
+    width: calc(100vw - 80px);
+    max-width: 300px;
+    text-align: center;
+}
