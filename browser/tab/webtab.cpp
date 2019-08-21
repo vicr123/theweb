@@ -54,7 +54,7 @@ WebTab::WebTab(WebPage* page, QWidget *parent) :
     ui->setupUi(this);
     d = new WebTabPrivate();
 
-    d->tabButton = new TabButton();
+    d->tabButton = new TabButton(this);
     d->tabButton->setAutoExclusive(true);
     d->tabButton->setCheckable(true);
     d->tabButton->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Preferred);
@@ -197,7 +197,7 @@ WebTab::WebTab(WebPage* page, QWidget *parent) :
         d->tabButton->setLoadProgress(progress, true);
     });
     connect(d->page, &WebPage::loadFinished, this, [=] {
-        d->tabButton->setLoadProgress(0, false);
+        d->tabButton->setLoadProgress(100, false);
     });
     connect(d->page, &WebPage::renderProcessTerminated, this, [=](WebPage::RenderProcessTerminationStatus status, int exitCode) {
         d->crashTimes++;
@@ -243,7 +243,6 @@ WebTab::WebTab(WebPage* page, QWidget *parent) :
 
 WebTab::~WebTab()
 {
-    d->tabButton->deleteLater();
     d->page->deleteLater();
     d->view->deleteLater();
     delete ui;

@@ -61,7 +61,6 @@ macx {
 
     QT += macextras
     LIBS += -framework CoreFoundation -framework AppKit
-    QMAKE_INFO_PLIST = Info.plist
 
     blueprint {
         TARGET = "theWeb Blueprint"

@@ -102,4 +102,10 @@ void Toolbar::updateIcons()
     QSize iconSize = SC_DPI_T(QSize(24, 24), QSize);
     ui->backButton->setIcon(IconManager::getIcon("go-previous", tint, iconSize));
     ui->forwardButton->setIcon(IconManager::getIcon("go-next", tint, iconSize));
+    ui->reloadButton->setIcon(IconManager::getIcon("view-refresh", tint, iconSize));
+}
+
+void Toolbar::on_reloadButton_clicked()
+{
+    d->currentTab->reload();
 }

@@ -16,18 +16,24 @@ void ToolbarButton::paintEvent(QPaintEvent* event)
     QStyleOptionToolButton styleOption;
     styleOption.initFrom(this);
 
-    if (styleOption.state & QStyle::State_MouseOver) {
-        QColor col;
+    QColor backgroundCol = Qt::transparent;
+    if (this->isDown()) {
         QColor windowCol = styleOption.palette.color(QPalette::Window);
         if ((windowCol.red() + windowCol.green() + windowCol.blue()) / 3 < 127) {
-            col = QColor(255, 255, 255, 50);
+            backgroundCol = QColor(0, 0, 0, 50);
         } else {
-            col = QColor(0, 0, 0, 50);
+            backgroundCol = QColor(0, 0, 0, 100);
         }
-
-        painter.setBrush(col);
-        painter.drawRect(0, 0, this->width(), this->height());
+    } else if (styleOption.state & QStyle::State_MouseOver) {
+        QColor windowCol = styleOption.palette.color(QPalette::Window);
+        if ((windowCol.red() + windowCol.green() + windowCol.blue()) / 3 < 127) {
+            backgroundCol = QColor(255, 255, 255, 50);
+        } else {
+            backgroundCol = QColor(0, 0, 0, 50);
+        }
     }
+    painter.setBrush(backgroundCol);
+    painter.drawRect(0, 0, this->width(), this->height());
 
     QRect iconRect;
     iconRect.setSize(this->iconSize());

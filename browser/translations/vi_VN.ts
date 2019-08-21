@@ -366,6 +366,21 @@
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../widgets/toolbar.ui" line="60"/>
+        <source>Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/toolbar.ui" line="76"/>
+        <source>Forward</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/toolbar.ui" line="92"/>
+        <source>Reload</source>
+        <translation type="unfinished">Tải lại</translation>
+    </message>
 </context>
 <context>
     <name>WebTab</name>

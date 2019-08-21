@@ -19,14 +19,16 @@
  * *************************************/
 #include "tabbutton.h"
 #include <QPainter>
-#include <the-libs_global.h>
+#include <tvariantanimation.h>
 
 struct TabButtonPrivate {
     QColor backgroundCol;
     QColor foregroundCol;
 
-    int loadProgress = 0;
-    bool showLoadProgress = false;
+//    int loadProgress = 0;
+//    bool showLoadProgress = false;
+    tVariantAnimation* loadProgress;
+    tVariantAnimation* showLoadProgress;
 };
 
 TabButton::TabButton(QWidget *parent) : QPushButton(parent)
@@ -35,9 +37,25 @@ TabButton::TabButton(QWidget *parent) : QPushButton(parent)
 
     d->backgroundCol = this->palette().color(QPalette::Window);
     d->foregroundCol = this->palette().color(QPalette::WindowText);
+
+    d->loadProgress = new tVariantAnimation();
+    d->loadProgress->setStartValue(0);
+    d->loadProgress->setEndValue(0);
+    d->loadProgress->setDuration(500);
+    d->loadProgress->setEasingCurve(QEasingCurve::OutCubic);
+    connect(d->loadProgress, &tVariantAnimation::valueChanged, this, QOverload<>::of(&TabButton::update));
+
+    d->showLoadProgress = new tVariantAnimation();
+    d->showLoadProgress->setStartValue(0.0);
+    d->showLoadProgress->setEndValue(0.0);
+    d->showLoadProgress->setDuration(500);
+    d->showLoadProgress->setEasingCurve(QEasingCurve::OutCubic);
+    connect(d->showLoadProgress, &tVariantAnimation::valueChanged, this, QOverload<>::of(&TabButton::update));
 }
 
 TabButton::~TabButton() {
+    d->loadProgress->deleteLater();
+    d->showLoadProgress->deleteLater();
     delete d;
 }
 
@@ -53,8 +71,28 @@ QColor TabButton::foregroundColor()
 
 void TabButton::setLoadProgress(int progress, bool show)
 {
-    d->loadProgress = progress;
-    d->showLoadProgress = show;
+    d->loadProgress->stop();
+    if (d->showLoadProgress->currentValue() == 0) {
+        d->loadProgress->setStartValue(progress);
+        d->loadProgress->setEndValue(progress);
+        d->loadProgress->setCurrentTime(0);
+    } else {
+        d->loadProgress->setStartValue(d->loadProgress->currentValue());
+        d->loadProgress->setEndValue(progress);
+        d->loadProgress->start();
+    }
+
+    if (d->showLoadProgress->endValue() == 0.0 && show) {
+        d->showLoadProgress->stop();
+        d->showLoadProgress->setStartValue(d->showLoadProgress->currentValue());
+        d->showLoadProgress->setEndValue(1.0);
+        d->showLoadProgress->start();
+    } else if (d->showLoadProgress->endValue() == 1.0 && !show) {
+        d->showLoadProgress->stop();
+        d->showLoadProgress->setStartValue(d->showLoadProgress->currentValue());
+        d->showLoadProgress->setEndValue(0.0);
+        d->showLoadProgress->start();
+    }
     this->update();
 }
 
@@ -179,6 +217,7 @@ void TabButton::paintEvent(QPaintEvent *event) {
         //Draw progress indication
         painter.setPen(Qt::transparent);
         painter.setBrush(QColor(0, 150, 0));
-        painter.drawRect(0, this->height() - SC_DPI(3), static_cast<int>(this->width() * static_cast<float>(d->loadProgress / 100)), this->height() - SC_DPI(3));
+        painter.setOpacity(d->showLoadProgress->currentValue().toDouble());
+        painter.drawRect(0, this->height() - SC_DPI(3), static_cast<int>(this->width() * static_cast<float>(d->loadProgress->currentValue().toFloat() / 100)), this->height() - SC_DPI(3));
     }
 }
