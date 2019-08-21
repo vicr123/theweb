@@ -167,8 +167,8 @@ options = {
     "mode": "build",
     "qmakeArgs": "",
     "projectPath": process.cwd(),
-    "npmPath": isWin() ? `"C:\\Program Files\\nodejs\\npm.cmd"` : "/usr/bin/npm",
-    "qmakePath": isWin() ? `qmake.exe` : "/usr/bin/qmake",
+    "npmPath": isWin() ? `"C:\\Program Files\\nodejs\\npm.cmd"` : "npm",
+    "qmakePath": isWin() ? `qmake.exe` : "qmake",
     "makePath": isWin() ? "nmake" : "make",
     "noCol": false,
     "debug": false
@@ -184,6 +184,7 @@ function printConfiguration() {
     console.log(`${colorText("Build Directory", "green")}        ${options.buildDirectory}`);
     console.log(`${colorText("Build Mode", "green")}             ${options.mode}`);
     console.log(`${colorText("Project Directory", "green")}      ${options.projectPath}`);
+    console.log(`${colorText("QMake command", "green")}          ${options.qmakePath}`);
     console.log();
 }
 
@@ -284,6 +285,7 @@ function printHelp() {
     console.log("  --npmPath [path]          Change the path to npm");
     console.log("  --makePath [path]         Change the path to make/nmake/jom");
     console.log("  --noCol                   Disable colour output");
+    console.log("  --dryrun                  Show the build configuration only");
     console.log("  --debug                   Enable debugging output");
 }
 
@@ -294,14 +296,14 @@ async function run() {
     //Parse command line args
     for (let i = 2; i < process.argv.length; i++) {
         let arg = process.argv[i];
-        let nextArg = process.argv.length > i + 1 ? process.argv[i] : null;
+        let nextArg = process.argv.length > i + 1 ? process.argv[i + 1] : null;
         
         let setOpt = (key) => {
             if (nextArg) {
                 options[key] = nextArg;
                 i++;
             } else {
-                printUsage();
+                printHelp();
                 process.exit(1);
             }
         };
@@ -318,6 +320,9 @@ async function run() {
                 break;
             case "--install":
                 options.mode = "install";
+                break;
+            case "--dryrun":
+                options.mode = "dry";
                 break;
             case "--internalpages":
                 options.mode = "internalpages";
@@ -356,6 +361,9 @@ async function run() {
             break;
         case "internalpages":
             await genInternalPages();
+            break;
+        case "dry":
+            //Do nothing
             break;
         default:
             logError("This mode is unimplemented. Watch this space!");
