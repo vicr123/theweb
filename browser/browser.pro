@@ -82,6 +82,7 @@ SOURCES += \
         core/urlinterceptor.cpp \
         main.cpp \
         mainwindow.cpp \
+        managers/iconmanager.cpp \
         managers/profilemanager.cpp \
         managers/settingsmanager.cpp \
         popovers/jsalert.cpp \
@@ -92,12 +93,15 @@ SOURCES += \
         tab/webtab.cpp \
         widgets/bar.cpp \
         widgets/securitychunk.cpp \
-        widgets/tabbutton.cpp
+        widgets/tabbutton.cpp \
+        widgets/toolbar.cpp \
+        widgets/toolbarbutton.cpp
 
 HEADERS += \
         core/thewebschemehandler.h \
         core/urlinterceptor.h \
         mainwindow.h \
+        managers/iconmanager.h \
         managers/profilemanager.h \
         managers/settingsmanager.h \
         popovers/jsalert.h \
@@ -108,7 +112,9 @@ HEADERS += \
         tab/webtab.h \
         widgets/bar.h \
         widgets/securitychunk.h \
-        widgets/tabbutton.h
+        widgets/tabbutton.h \
+        widgets/toolbar.h \
+        widgets/toolbarbutton.h
 
 FORMS += \
         mainwindow.ui \
@@ -117,7 +123,8 @@ FORMS += \
         tab/certificateerrorpane.ui \
         tab/permissionpopup.ui \
         tab/webtab.ui \
-        widgets/securitychunk.ui
+        widgets/securitychunk.ui \
+        widgets/toolbar.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -30,12 +30,20 @@ class TabButton : public QPushButton
         explicit TabButton(QWidget *parent = nullptr);
         ~TabButton();
 
+        QColor color();
+        QColor foregroundColor();
+
+        void setLoadProgress(int progress, bool show);
+
     signals:
 
     public slots:
+        void setIcon(QIcon icon);
 
     private:
         TabButtonPrivate* d;
+
+        void paintEvent(QPaintEvent* event);
 };
 
 #endif // TABBUTTON_H

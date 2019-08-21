@@ -5,6 +5,9 @@
         <file>icons/insecure.svg</file>
         <file>icons/dangerous.svg</file>
         <file>icons/theweb-oblivion.svg</file>
+        <file>icons/go-next.svg</file>
+        <file>icons/go-previous.svg</file>
+        <file>icons/view-refresh.svg</file>
     </qresource>
     <qresource prefix="/scheme/theweb">
         <file>testjs.html</file>

@@ -27,7 +27,7 @@
 #include "managers/profilemanager.h"
 
 struct MainWindowPrivate {
-    Bar* bar;
+//    Bar* bar;
 
     QShortcut* leaveFullScreenShortcut;
     WebTab* fullScreenTab = nullptr;
@@ -49,31 +49,23 @@ MainWindow::MainWindow(QVariantMap options, QWidget *parent) :
 
     #ifdef Q_OS_MAC
     #else
-        QMenu* menu = new QMenu();
-        menu->addAction(ui->actionNewTab);
-        menu->addAction(ui->actionNew_Window);
-        menu->addAction(ui->actionNew_Oblivion_Window);
-        menu->addSeparator();
-        menu->addAction(ui->actionGoBack);
-        menu->addAction(ui->actionGoForward);
-        menu->addAction(ui->actionReload);
-        menu->addSeparator();
-        menu->addAction(ui->actionSettings);
-        menu->addSeparator();
-        menu->addAction(ui->actionExit);
-
-        QToolButton* menuButton = new QToolButton();
-        menuButton->setMenu(menu);
-        menuButton->setPopupMode(QToolButton::InstantPopup);
-        menuButton->setIcon(windowIcon);
-        ui->mainToolBar->insertWidget(ui->actionGoBack, menuButton);
         ui->menuBar->setVisible(false);
     #endif
 
-
-
-    d->bar = new Bar();
-    ui->mainToolBar->addWidget(d->bar);
+    QMenu* menu = new QMenu();
+    menu->addAction(ui->actionNewTab);
+    menu->addAction(ui->actionNew_Window);
+    menu->addAction(ui->actionNew_Oblivion_Window);
+    menu->addSeparator();
+    menu->addAction(ui->actionGoBack);
+    menu->addAction(ui->actionGoForward);
+    menu->addAction(ui->actionReload);
+    menu->addSeparator();
+    menu->addAction(ui->actionSettings);
+    menu->addSeparator();
+    menu->addAction(ui->actionExit);
+    ui->toolbarWidget->setMenu(menu);
+    ui->toolbarWidget->setMenuIcon(windowIcon);
 
     d->leaveFullScreenShortcut = new QShortcut(QKeySequence(Qt::Key_Escape), this);
     connect(d->leaveFullScreenShortcut, &QShortcut::activated, this, [=] {
@@ -95,7 +87,7 @@ void MainWindow::newTab()
     WebPage* page = new WebPage(d->profile, nullptr);
     page->setUrl(QUrl("https://www.google.com/"));
     newTab(new WebTab(page));
-    d->bar->setFocus();
+    ui->toolbarWidget->focusBar();
 }
 
 void MainWindow::newTab(WebTab* tab)
@@ -113,12 +105,12 @@ void MainWindow::newTab(WebTab* tab)
             d->stateBeforeFullScreen = this->windowState() & ~Qt::WindowFullScreen;
             d->fullScreenTab = tab;
             ui->tabFrame->setVisible(false);
-            ui->mainToolBar->setVisible(false);
+//            ui->mainToolBar->setVisible(false);
             d->leaveFullScreenShortcut->setEnabled(true);
             this->showFullScreen();
         } else {
             ui->tabFrame->setVisible(true);
-            ui->mainToolBar->setVisible(true);
+//            ui->mainToolBar->setVisible(true);
             d->leaveFullScreenShortcut->setEnabled(false);
             this->setWindowState(d->stateBeforeFullScreen);
             d->fullScreenTab = nullptr;
@@ -129,9 +121,12 @@ void MainWindow::newTab(WebTab* tab)
 
 void MainWindow::on_tabs_currentChanged(int arg1)
 {
+    for (int i = 0; i < ui->tabs->count(); i++) {
+        static_cast<WebTab*>(ui->tabs->widget(i))->deactivated();
+    }
     WebTab* currentTab = static_cast<WebTab*>(ui->tabs->widget(arg1));
     currentTab->activated();
-    d->bar->setCurrentTab(currentTab);
+    ui->toolbarWidget->setCurrentTab(currentTab);
 }
 
 void MainWindow::on_actionGoBack_triggered()

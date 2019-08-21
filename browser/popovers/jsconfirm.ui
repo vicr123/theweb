@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>80</height>
+    <height>115</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -140,6 +140,39 @@
      </property>
     </widget>
    </item>
+   <item>
+    <widget class="QWidget" name="macPane" native="true">
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="macCancelButton">
+        <property name="text">
+         <string>Cancel</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="macOkButton">
+        <property name="text">
+         <string>OK</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
   </layout>
  </widget>
  <resources/>
@@ -157,6 +190,38 @@
     <hint type="destinationlabel">
      <x>354</x>
      <y>29</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>macOkButton</sender>
+   <signal>clicked()</signal>
+   <receiver>okButton</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>344</x>
+     <y>90</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>389</x>
+     <y>31</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>macCancelButton</sender>
+   <signal>clicked()</signal>
+   <receiver>noButton</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>271</x>
+     <y>94</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>355</x>
+     <y>19</y>
     </hint>
    </hints>
   </connection>

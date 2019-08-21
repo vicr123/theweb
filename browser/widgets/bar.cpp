@@ -28,21 +28,21 @@
 
 struct BarPrivate {
     QPointer<WebTab> currentTab;
-    SecurityChunk* securityChunk;
+//    SecurityChunk* securityChunk;
 };
 
 Bar::Bar(QWidget *parent) : QLineEdit(parent)
 {
     d = new BarPrivate();
 
-    d->securityChunk = new SecurityChunk(this);
-    d->securityChunk->setParent(this);
-    d->securityChunk->move(0, 0);
-    d->securityChunk->setFixedHeight(this->height());
-    d->securityChunk->setVisible(true);
-    connect(d->securityChunk, &SecurityChunk::resized, this, [=] {
-        if (d->securityChunk->isVisible()) this->setContentsMargins(d->securityChunk->width(), 0, 0, 0);
-    });
+//    d->securityChunk = new SecurityChunk(this);
+//    d->securityChunk->setParent(this);
+//    d->securityChunk->move(0, 0);
+//    d->securityChunk->setFixedHeight(this->height());
+//    d->securityChunk->setVisible(true);
+//    connect(d->securityChunk, &SecurityChunk::resized, this, [=] {
+//        if (d->securityChunk->isVisible()) this->setContentsMargins(d->securityChunk->width(), 0, 0, 0);
+//    });
 
     this->setFrame(false);
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
@@ -67,15 +67,12 @@ void Bar::setCurrentTab(WebTab* tab)
 
     d->currentTab = tab;
     connect(tab, &WebTab::urlChanged, this, &Bar::updateInformation);
-    connect(tab, &WebTab::loadProgressChanged, this, &Bar::updateInformation);
-    connect(tab, &WebTab::sslStateChanged, this, &Bar::updateInformation);
 
     if (this->hasFocus()) {
         this->setText(tab->currentUrl().toString());
     } else {
         this->setText(tab->currentUrl().host());
     }
-    d->securityChunk->setCurrentCertificate(d->currentTab->currentUrl(), d->currentTab->pageCertificate());
 }
 
 void Bar::updateInformation() {
@@ -83,7 +80,6 @@ void Bar::updateInformation() {
         this->setText(d->currentTab->currentUrl().host());
     }
 
-    d->securityChunk->setCurrentCertificate(d->currentTab->currentUrl(), d->currentTab->pageCertificate());
     this->update();
 }
 
@@ -92,8 +88,7 @@ void Bar::focusInEvent(QFocusEvent* event)
     QLineEdit::focusInEvent(event);
     this->setCursor(QCursor(Qt::IBeamCursor));
     this->setText(d->currentTab->currentUrl().toString());
-    d->securityChunk->setVisible(false);
-    this->setContentsMargins(0, 0, 0, 0);
+//    d->securityChunk->setVisible(false);
     QTimer::singleShot(0, this, &Bar::selectAll);
 }
 
@@ -102,23 +97,15 @@ void Bar::focusOutEvent(QFocusEvent* event)
     QLineEdit::focusOutEvent(event);
     this->setCursor(QCursor(Qt::ArrowCursor));
     this->setText(d->currentTab->currentUrl().host());
-    d->securityChunk->setVisible(true);
-    this->setContentsMargins(d->securityChunk->width(), 0, 0, 0);
+//    d->securityChunk->setVisible(true);
 }
 
-void Bar::paintEvent(QPaintEvent*event)
+void Bar::paintEvent(QPaintEvent* event)
 {
-    QPainter painter(this);
-
-    if (d->currentTab->isLoading()) {
-        painter.setPen(Qt::transparent);
-        painter.setBrush(QColor(0, 150, 0));
-        painter.drawRect(0, this->height() - SC_DPI(3), static_cast<int>(this->width() * static_cast<float>(d->currentTab->loadProgress()) / 100), this->height() - SC_DPI(3));
-    }
     QLineEdit::paintEvent(event);
 }
 
 void Bar::resizeEvent(QResizeEvent* event)
 {
-    d->securityChunk->setFixedHeight(this->height());
+
 }

@@ -26,6 +26,12 @@ JsAlert::JsAlert(QString message, QWidget *parent) :
 {
     ui->setupUi(this);
 
+#ifdef Q_OS_MAC
+    ui->dismissButton->setVisible(false);
+#else
+    ui->macPane->setVisible(false);
+#endif
+
     ui->messageLabel->setText(message);
 }
 

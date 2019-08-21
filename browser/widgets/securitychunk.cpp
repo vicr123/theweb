@@ -25,28 +25,8 @@
 #include <QPainter>
 #include <QIcon>
 #include <QUrl>
+#include "managers/iconmanager.h"
 #include <the-libs_global.h>
-
-void tintImage(QImage &image, QColor tint) {
-    int failNum = 0;
-    for (int y = 0; y < image.height(); y++) {
-        for (int x = 0; x < image.width(); x++) {
-            QColor pixelCol = image.pixelColor(x, y);
-            if ((pixelCol.blue() > pixelCol.green() - 10 && pixelCol.blue() < pixelCol.green() + 10) &&
-                    (pixelCol.green() > pixelCol.red() - 10 && pixelCol.green() < pixelCol.red() + 10)) {
-            } else {
-                failNum++;
-            }
-        }
-    }
-
-    if (failNum < (image.size().width() * image.size().height()) / 8) {
-        QPainter painter(&image);
-        painter.setCompositionMode(QPainter::CompositionMode_SourceAtop);
-        painter.fillRect(0, 0, image.width(), image.height(), tint);
-        painter.end();
-    }
-}
 
 struct SecurityChunkPrivate {
     QPalette defaultPalette;
@@ -87,7 +67,7 @@ struct SecurityChunkPrivate {
 
     QImage getTintedImage(QString path, QColor tint) {
         QImage image = QIcon(path).pixmap(SC_DPI_T(QSize(16, 16), QSize)).toImage();
-        tintImage(image, tint);
+        IconManager::tintImage(image, tint);
         return image;
     }
 

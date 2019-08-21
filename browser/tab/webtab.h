@@ -41,13 +41,14 @@ class WebTab : public QWidget
         QWidget* getTabButton();
         QUrl currentUrl();
 
-        bool isLoading();
-        int loadProgress();
-
         QSslCertificate pageCertificate();
+
+        QColor tabColor();
+        QColor tabForegroundColor();
 
     public slots:
         void activated();
+        void deactivated();
         void close();
 
         void goBack();
@@ -62,8 +63,8 @@ class WebTab : public QWidget
         void urlChanged(QUrl url);
         void requestActivate();
         void closeTab();
-        void loadProgressChanged();
         void sslStateChanged();
+        void iconChanged();
 
         void goFullScreen(bool fullscreen);
 

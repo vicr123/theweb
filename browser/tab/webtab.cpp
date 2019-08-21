@@ -34,9 +34,6 @@ struct WebTabPrivate {
     WebPage* page;
     TabButton* tabButton;
 
-    bool isLoading = false;
-    int loadProgress = 0;
-
     int crashTimes = 0;
 
     QSslSocket certCheckSocket;
@@ -194,19 +191,13 @@ WebTab::WebTab(WebPage* page, QWidget *parent) :
         ui->permissionPopupsWidget->setFixedHeight(ui->permissionPopupsWidget->sizeHint().height());
     });
     connect(d->page, &WebPage::loadStarted, this, [=] {
-        d->isLoading = true;
-        d->loadProgress = 0;
-        emit loadProgressChanged();
+        d->tabButton->setLoadProgress(0, true);
     });
     connect(d->page, &WebPage::loadProgress, this, [=](int progress) {
-        d->isLoading = true;
-        d->loadProgress = progress;
-        emit loadProgressChanged();
+        d->tabButton->setLoadProgress(progress, true);
     });
     connect(d->page, &WebPage::loadFinished, this, [=] {
-        d->isLoading = false;
-        d->loadProgress = 0;
-        emit loadProgressChanged();
+        d->tabButton->setLoadProgress(0, false);
     });
     connect(d->page, &WebPage::renderProcessTerminated, this, [=](WebPage::RenderProcessTerminationStatus status, int exitCode) {
         d->crashTimes++;
@@ -227,6 +218,10 @@ WebTab::WebTab(WebPage* page, QWidget *parent) :
                 d->page->triggerAction(WebPage::Reload);
             });
         }
+    });
+    connect(d->page, &WebPage::iconChanged, this, [=] {
+        d->tabButton->setIcon(d->page->icon());
+        emit iconChanged();
     });
 
     connect(ui->sslErrorPane, &CertificateErrorPane::showPane, this, [=] {
@@ -265,24 +260,29 @@ QUrl WebTab::currentUrl()
     return d->view->url();
 }
 
-bool WebTab::isLoading()
-{
-    return d->isLoading;
-}
-
-int WebTab::loadProgress()
-{
-    return d->loadProgress;
-}
-
 QSslCertificate WebTab::pageCertificate()
 {
     return d->pageCertificate;
 }
 
+QColor WebTab::tabColor()
+{
+    return d->tabButton->color();
+}
+
+QColor WebTab::tabForegroundColor()
+{
+    return d->tabButton->foregroundColor();
+}
+
 void WebTab::activated()
 {
     d->tabButton->setChecked(true);
+}
+
+void WebTab::deactivated()
+{
+    d->tabButton->setChecked(false);
 }
 
 void WebTab::close()
