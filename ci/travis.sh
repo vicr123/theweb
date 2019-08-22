@@ -84,7 +84,7 @@ elif [ $STAGE = "before_install" ]; then
 #     sudo add-apt-repository 'deb https://vicr123.com/repo/apt/ubuntu bionic main'
 #     sudo apt-get update -qq
 #     sudo apt-get install libphonon4qt5-dev libtag1-dev qt5-qmake libqt5x11extras5-dev qt5-default qttools5-dev-tools phonon4qt5-backend-gstreamer libqt5svg5-dev
-#   else
+  else
     echo "[TRAVIS] Preparing to build for macOS"
   fi
 elif [ $STAGE = "after_success" ]; then
