@@ -81,6 +81,7 @@ SOURCES += \
         core/urlinterceptor.cpp \
         main.cpp \
         mainwindow.cpp \
+        managers/downloadmanager.cpp \
         managers/iconmanager.cpp \
         managers/profilemanager.cpp \
         managers/settingsmanager.cpp \
@@ -91,6 +92,8 @@ SOURCES += \
         tab/webpage.cpp \
         tab/webtab.cpp \
         widgets/bar.cpp \
+        widgets/downloads/downloadspopover.cpp \
+        widgets/downloads/downloadspopoveritem.cpp \
         widgets/securitychunk.cpp \
         widgets/tabbutton.cpp \
         widgets/toolbar.cpp \
@@ -100,6 +103,7 @@ HEADERS += \
         core/thewebschemehandler.h \
         core/urlinterceptor.h \
         mainwindow.h \
+        managers/downloadmanager.h \
         managers/iconmanager.h \
         managers/profilemanager.h \
         managers/settingsmanager.h \
@@ -110,6 +114,8 @@ HEADERS += \
         tab/webpage.h \
         tab/webtab.h \
         widgets/bar.h \
+        widgets/downloads/downloadspopover.h \
+        widgets/downloads/downloadspopoveritem.h \
         widgets/securitychunk.h \
         widgets/tabbutton.h \
         widgets/toolbar.h \
@@ -122,6 +128,8 @@ FORMS += \
         tab/certificateerrorpane.ui \
         tab/permissionpopup.ui \
         tab/webtab.ui \
+        widgets/downloads/downloadspopover.ui \
+        widgets/downloads/downloadspopoveritem.ui \
         widgets/securitychunk.ui \
         widgets/toolbar.ui
 

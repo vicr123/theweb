@@ -5,7 +5,10 @@
 #include <QIcon>
 #include <QPointer>
 #include <QSslCertificate>
+#include <tpopover.h>
+#include "downloads/downloadspopover.h"
 #include "managers/iconmanager.h"
+#include "managers/downloadmanager.h"
 #include "tab/webtab.h"
 
 extern void tintImage(QImage &image, QColor tint);
@@ -27,7 +30,9 @@ Toolbar::Toolbar(QWidget *parent) :
     ui->backButton->setIconSize(iconSize);
     ui->forwardButton->setIconSize(iconSize);
     ui->reloadButton->setIconSize(iconSize);
+    ui->downloadsButton->setIconSize(iconSize);
 
+    connect(DownloadManager::instance(), &DownloadManager::downloadAdded, this, &Toolbar::updateIcons);
     updateIcons();
 
     this->setAutoFillBackground(true);
@@ -109,9 +114,27 @@ void Toolbar::updateIcons()
     ui->backButton->setIcon(IconManager::getIcon("go-previous", tint, iconSize));
     ui->forwardButton->setIcon(IconManager::getIcon("go-next", tint, iconSize));
     ui->reloadButton->setIcon(IconManager::getIcon("view-refresh", tint, iconSize));
+    ui->downloadsButton->setIcon(IconManager::getIcon("cloud-download", tint, iconSize));
+
+    if (DownloadManager::getDownloads().count() > 0) {
+        ui->downloadsButton->setVisible(true);
+    } else {
+        ui->downloadsButton->setVisible(false);
+    }
 }
 
 void Toolbar::on_reloadButton_clicked()
 {
     d->currentTab->reload();
+}
+
+void Toolbar::on_downloadsButton_clicked()
+{
+    DownloadsPopover* d = new DownloadsPopover();
+    tPopover* popover = new tPopover(d);
+    popover->setPopoverWidth(SC_DPI(400));
+    connect(d, &DownloadsPopover::dismiss, popover, &tPopover::dismiss);
+    connect(popover, &tPopover::dismissed, popover, &tPopover::deleteLater);
+    connect(popover, &tPopover::dismissed, d, &DownloadsPopover::deleteLater);
+    popover->show(this->window());
 }

@@ -12,6 +12,7 @@
         <file>icons/theweb-oblivion-bar.svg</file>
         <file>icons/configure.svg</file>
         <file>icons/help-about.svg</file>
+        <file>icons/cloud-download.svg</file>
     </qresource>
     <qresource prefix="/scheme/theweb">
         <file>testjs.html</file>

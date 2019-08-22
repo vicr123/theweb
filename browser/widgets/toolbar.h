@@ -36,6 +36,8 @@ class Toolbar : public QWidget
 
         void on_reloadButton_clicked();
 
+        void on_downloadsButton_clicked();
+
     private:
         Ui::Toolbar *ui;
         ToolbarPrivate* d;

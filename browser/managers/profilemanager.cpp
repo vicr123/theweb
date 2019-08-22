@@ -23,6 +23,7 @@
 #include <QWebEngineProfile>
 #include "core/thewebschemehandler.h"
 #include "core/urlinterceptor.h"
+#include "downloadmanager.h"
 
 struct ProfileManagerPrivate {
     QWebEngineProfile* defaultProfile = nullptr;
@@ -38,13 +39,15 @@ QWebEngineProfile*ProfileManager::defaultProfile()
         d->defaultProfile->settings()->setAttribute(QWebEngineSettings::FullScreenSupportEnabled, true);
         d->defaultProfile->settings()->setAttribute(QWebEngineSettings::JavascriptCanAccessClipboard, true);
 
+        UrlInterceptor* interceptor = new UrlInterceptor(d->defaultProfile);
+
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 13, 0))
         //Only on Qt 5.13 or higher
         d->defaultProfile->setUseForGlobalCertificateVerification();
+        d->defaultProfile->setUrlRequestInterceptor(interceptor);
+#else
+        d->defaultProfile->setRequestInterceptor(interceptor)
 #endif
-
-        UrlInterceptor* interceptor = new UrlInterceptor();
-        //d->defaultProfile->setUrlRequestInterceptor(interceptor);
 
         thewebSchemeHandler* schemeHandler = new thewebSchemeHandler();
         d->defaultProfile->installUrlSchemeHandler("theweb", schemeHandler);
@@ -55,6 +58,8 @@ QWebEngineProfile*ProfileManager::defaultProfile()
             userAgent.insert(userAgent.indexOf("QtWebEngine/"), "theWeb/15.0 ");
             d->defaultProfile->setHttpUserAgent(userAgent);
         }
+
+        DownloadManager::registerProfile(d->defaultProfile);
     }
     return d->defaultProfile;
 }
@@ -67,6 +72,15 @@ QWebEngineProfile *ProfileManager::oblivionProfile()
         d->oblivionProfile->settings()->setAttribute(QWebEngineSettings::FullScreenSupportEnabled, true);
         d->oblivionProfile->settings()->setAttribute(QWebEngineSettings::JavascriptCanAccessClipboard, true);
 
+        UrlInterceptor* interceptor = new UrlInterceptor(d->oblivionProfile);
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 13, 0))
+        //Only on Qt 5.13 or higher
+        d->defaultProfile->setUrlRequestInterceptor(interceptor);
+#else
+        d->defaultProfile->setRequestInterceptor(interceptor)
+#endif
+
         thewebSchemeHandler* schemeHandler = new thewebSchemeHandler({{"oblivion", true}});
         d->oblivionProfile->installUrlSchemeHandler("theweb", schemeHandler);
 
@@ -76,6 +90,8 @@ QWebEngineProfile *ProfileManager::oblivionProfile()
             userAgent.insert(userAgent.indexOf("QtWebEngine/"), "theWeb/15.0 ");
             d->oblivionProfile->setHttpUserAgent(userAgent);
         }
+
+        DownloadManager::registerProfile(d->oblivionProfile);
     }
     return d->oblivionProfile;
 }

@@ -98,6 +98,57 @@
     </message>
 </context>
 <context>
+    <name>DownloadsPopover</name>
+    <message>
+        <location filename="../widgets/downloads/downloadspopover.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/downloads/downloadspopover.ui" line="70"/>
+        <source>Downloads</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DownloadsPopoverItem</name>
+    <message>
+        <location filename="../widgets/downloads/downloadspopoveritem.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/downloads/downloadspopoveritem.cpp" line="36"/>
+        <source>Waiting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/downloads/downloadspopoveritem.cpp" line="44"/>
+        <source>%1 of %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/downloads/downloadspopoveritem.cpp" line="49"/>
+        <source>Finishing up</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/downloads/downloadspopoveritem.cpp" line="55"/>
+        <source>Done</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/downloads/downloadspopoveritem.cpp" line="60"/>
+        <source>Cancelled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/downloads/downloadspopoveritem.cpp" line="65"/>
+        <source>Failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>JsAlert</name>
     <message>
         <location filename="../popovers/jsalert.ui" line="14"/>
