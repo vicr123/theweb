@@ -22,6 +22,7 @@ function ensureDeps {
     done
 }
 
+export CI="false"
 if [ $STAGE = "script" ]; then
   if [ $TRAVIS_OS_NAME = "linux" ]; then
     echo "[TRAVIS] Building and installing the-libs"
