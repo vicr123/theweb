@@ -50,6 +50,7 @@ MainWindow::MainWindow(QVariantMap options, QWidget *parent) :
     this->setWindowIcon(windowIcon);
 
     #ifdef Q_OS_MAC
+        setupMacOS();
     #else
         ui->menuBar->setVisible(false);
     #endif

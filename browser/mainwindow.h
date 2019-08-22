@@ -66,6 +66,10 @@ private:
         MainWindowPrivate* d;
 
         WebTab* currentTab();
+
+#ifdef Q_OS_MAC
+        void setupMacOS();
+#endif
 };
 
 #endif // MAINWINDOW_H
