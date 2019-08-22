@@ -49,7 +49,6 @@ if [ $STAGE = "script" ]; then
     export PATH="/usr/local/opt/qt/bin:$PATH"
     export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
     export CURRENT_BREW_QT_VERSION="5.13.0"
-    cd ..
     
     echo "[TRAVIS] Building and installing the-libs"
     git clone https://github.com/vicr123/the-libs.git
