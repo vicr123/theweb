@@ -61,7 +61,7 @@ if [ $STAGE = "script" ]; then
     cd ..
     
     echo "[TRAVIS] Building theWeb"
-    node buildtool.js
+    node buildtool.js --debug
     cd build/browser
     mkdir theWeb.app/Contents/Libraries
     cp /usr/local/lib/libthe-libs*.dylib theWeb.app/Contents/Libraries/
