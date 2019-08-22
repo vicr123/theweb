@@ -4,13 +4,13 @@ os:
   - osx
 before_install:
   - export STAGE=before_install
-  - ./travis.sh
+  - ./ci/travis.sh
 script:
   - export STAGE=script
-  - ./travis.sh
+  - ./ci/travis.sh
 after_success:
   - export STAGE=after_success
-  - ./travis.sh
+  - ./ci/travis.sh
 
 addons:
   homebrew:

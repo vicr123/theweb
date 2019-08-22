@@ -79,12 +79,12 @@ if [ $STAGE = "script" ]; then
   fi
 elif [ $STAGE = "before_install" ]; then
   if [ $TRAVIS_OS_NAME = "linux" ]; then
-    wget -O ~/vicr12345.gpg.key https://vicr123.com/repo/apt/vicr12345.gpg.key
-    sudo apt-key add ~/vicr12345.gpg.key
-    sudo add-apt-repository 'deb https://vicr123.com/repo/apt/ubuntu bionic main'
-    sudo apt-get update -qq
-    sudo apt-get install libphonon4qt5-dev libtag1-dev qt5-qmake libqt5x11extras5-dev qt5-default qttools5-dev-tools phonon4qt5-backend-gstreamer libqt5svg5-dev
-  else
+#     wget -O ~/vicr12345.gpg.key https://vicr123.com/repo/apt/vicr12345.gpg.key
+#     sudo apt-key add ~/vicr12345.gpg.key
+#     sudo add-apt-repository 'deb https://vicr123.com/repo/apt/ubuntu bionic main'
+#     sudo apt-get update -qq
+#     sudo apt-get install libphonon4qt5-dev libtag1-dev qt5-qmake libqt5x11extras5-dev qt5-default qttools5-dev-tools phonon4qt5-backend-gstreamer libqt5svg5-dev
+#   else
     echo "[TRAVIS] Preparing to build for macOS"
   fi
 elif [ $STAGE = "after_success" ]; then
