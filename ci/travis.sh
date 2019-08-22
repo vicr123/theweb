@@ -71,6 +71,11 @@ if [ $STAGE = "script" ]; then
     install_name_tool -change @rpath/QtCore.framework/Versions/5/QtCore @executable_path/../Frameworks/QtCore.framework/Versions/5/QtCore theWeb.app/Contents/Libraries/libthe-libs.1.dylib
     echo "[TRAVIS] Deploying Qt Libraries"
     macdeployqt theWeb.app
+    ln -s ../../../../../../ theWeb.app/Contents/Frameworks/QtWebEngineCore.framework/Helpers/QtWebEngineProcess.app/Contents/Frameworks
+    
+    for lib in QtGui QtCore QtWebEngineCore QtQuick QtWebChannel QtQml QtNetwork QtPositioning; do
+        install_name_tool -change /usr/local/Cellar/qt/5.13.0/lib/$lib.framework/Versions/5/$lib @executable_path/../Frameworks/$lib.framework/Versions/5/$lib theWeb.app/Contents/Frameworks/QtWebEngineCore.framework/Helpers/QtWebEngineProcess.app/Contents/MacOS/QtWebEngineProcess
+    done
 
     echo "[TRAVIS] Preparing Disk Image creator"
     npm install appdmg

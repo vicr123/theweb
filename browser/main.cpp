@@ -25,6 +25,12 @@
 
 int main(int argc, char *argv[])
 {
+#ifdef Q_OS_MAC
+    if (QDir(tApplication::macOSBundlePath() + "/Contents/Frameworks/QtWebEngineCore.framework").exists()) {
+        qputenv("QTWEBENGINEPROCESS_PATH", QString(tApplication::macOSBundlePath() + "/Contents/Frameworks/QtWebEngineCore.framework/Helpers/QtWebEngineProcess.app/Contents/MacOS/QtWebEngineProcess").toUtf8());
+    }
+#endif
+
     QWebEngineUrlScheme scheme("theweb");
     scheme.setSyntax(QWebEngineUrlScheme::Syntax::Path);
     scheme.setFlags(QWebEngineUrlScheme::LocalScheme | QWebEngineUrlScheme::SecureScheme | QWebEngineUrlScheme::LocalAccessAllowed | QWebEngineUrlScheme::ContentSecurityPolicyIgnored);
