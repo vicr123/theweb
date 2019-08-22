@@ -61,14 +61,14 @@ if [ $STAGE = "script" ]; then
     cd ..
     
     echo "[TRAVIS] Building theWeb"
-    node buildtool.js --debug
+    node buildtool.js
     cd build/browser
     mkdir theWeb.app/Contents/Libraries
     cp /usr/local/lib/libthe-libs*.dylib theWeb.app/Contents/Libraries/
     install_name_tool -change libthe-libs.1.dylib @executable_path/../Libraries/libthe-libs.1.dylib theWeb.app/Contents/MacOS/theWeb
-    install_name_tool -change @rpath/QtWidgets.framework/Versions/5/QtWidgets @executable_path/../Frameworks/QtWidgets.framework/Versions/5/QtWidgets theWeb.app/Libraries/libthe-libs.1.dylib
-    install_name_tool -change @rpath/QtGui.framework/Versions/5/QtGui @executable_path/../Frameworks/QtGui.framework/Versions/5/QtGui theWeb.app/Libraries/libthe-libs.1.dylib
-    install_name_tool -change @rpath/QtCore.framework/Versions/5/QtCore @executable_path/../Frameworks/QtCore.framework/Versions/5/QtCore theWeb.app/Libraries/libthe-libs.1.dylib
+    install_name_tool -change @rpath/QtWidgets.framework/Versions/5/QtWidgets @executable_path/../Frameworks/QtWidgets.framework/Versions/5/QtWidgets theWeb.app/Contents/Libraries/libthe-libs.1.dylib
+    install_name_tool -change @rpath/QtGui.framework/Versions/5/QtGui @executable_path/../Frameworks/QtGui.framework/Versions/5/QtGui theWeb.app/Contents/Libraries/libthe-libs.1.dylib
+    install_name_tool -change @rpath/QtCore.framework/Versions/5/QtCore @executable_path/../Frameworks/QtCore.framework/Versions/5/QtCore theWeb.app/Contents/Libraries/libthe-libs.1.dylib
     echo "[TRAVIS] Deploying Qt Libraries"
     macdeployqt theWeb.app
 
