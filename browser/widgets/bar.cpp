@@ -52,6 +52,7 @@ Bar::Bar(QWidget *parent) : QLineEdit(parent)
     });
 
     this->setCursor(QCursor(Qt::ArrowCursor));
+    this->setPlaceholderText(tr("Search or enter web address"));
 }
 
 Bar::~Bar() {

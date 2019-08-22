@@ -1,0 +1,32 @@
+language: cpp
+os:
+  - linux
+  - osx
+before_install:
+  - export STAGE=before_install
+  - ./travis.sh
+script:
+  - export STAGE=script
+  - ./travis.sh
+after_success:
+  - export STAGE=after_success
+  - ./travis.sh
+
+addons:
+  homebrew:
+    packages:
+      - qt5
+      - node
+    update: true
+
+compiler:
+  - gcc
+dist: trusty
+sudo: required
+
+osx_image: xcode10.2
+
+branches:
+  except:
+    - # Do not build tags that we create when we upload to GitHub Releases
+    - /^(?i:continuous)/
