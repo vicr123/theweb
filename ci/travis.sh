@@ -24,7 +24,7 @@ function ensureDeps {
 
 if [ $STAGE = "script" ]; then
   if [ $TRAVIS_OS_NAME = "linux" ]; then
-#     echo "[TRAVIS] Building and installing the-libs"
+    echo "[TRAVIS] Building and installing the-libs"
 #     git clone https://github.com/vicr123/the-libs.git
 #     cd the-libs
 #     git checkout blueprint
@@ -79,7 +79,7 @@ if [ $STAGE = "script" ]; then
   fi
 elif [ $STAGE = "before_install" ]; then
   if [ $TRAVIS_OS_NAME = "linux" ]; then
-#     wget -O ~/vicr12345.gpg.key https://vicr123.com/repo/apt/vicr12345.gpg.key
+    wget -O ~/vicr12345.gpg.key https://vicr123.com/repo/apt/vicr12345.gpg.key
 #     sudo apt-key add ~/vicr12345.gpg.key
 #     sudo add-apt-repository 'deb https://vicr123.com/repo/apt/ubuntu bionic main'
 #     sudo apt-get update -qq
@@ -89,7 +89,7 @@ elif [ $STAGE = "before_install" ]; then
   fi
 elif [ $STAGE = "after_success" ]; then
   if [ $TRAVIS_OS_NAME = "linux" ]; then
-#     echo "[TRAVIS] Publishing AppImage"
+    echo "[TRAVIS] Publishing AppImage"
 #     wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
 #     cp theBeat*.AppImage theBeat-linux.AppImage
 #     cp theBeat*.AppImage.zsync theBeat-linux.AppImage.zsync
