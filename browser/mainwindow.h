@@ -66,6 +66,7 @@ private:
         MainWindowPrivate* d;
 
         WebTab* currentTab();
+        void closeEvent(QCloseEvent* event);
 
 #ifdef Q_OS_MAC
         void setupMacOS();

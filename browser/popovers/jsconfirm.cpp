@@ -34,7 +34,14 @@ JsConfirm::JsConfirm(QString message, QWidget *parent) :
     ui->macPane->setVisible(false);
 #endif
 
-    ui->messageLabel->setText(message);
+    if (message == "Are you sure you want to leave this page? Changes that you made may not be saved.") {
+        ui->titleLabel->setText(tr("Leave this page?"));
+        ui->messageLabel->setText(tr("Unsaved data on this page may be lost."));
+        ui->macOkButton->setText(tr("Leave"));
+        ui->macCancelButton->setText(tr("Stay"));
+    } else {
+        ui->messageLabel->setText(message);
+    }
 }
 
 JsConfirm::~JsConfirm()

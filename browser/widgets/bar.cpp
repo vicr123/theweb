@@ -68,20 +68,25 @@ void Bar::setCurrentTab(WebTab* tab)
     }
 
     d->currentTab = tab;
-    connect(tab, &WebTab::urlChanged, this, &Bar::updateInformation);
 
-    if (tab->currentUrl().scheme() == "theweb" && tab->currentUrl().host() == "newtab") {
+    if (tab == nullptr) {
         this->setText("");
-    } else if (this->hasFocus()) {
-        this->setText(tab->currentUrl().toString());
     } else {
-        this->setText(tab->currentUrl().host());
+        connect(tab, &WebTab::urlChanged, this, &Bar::updateInformation);
+
+        if (tab->currentUrl().scheme() == "theweb" && tab->currentUrl().host() == "newtab") {
+            this->setText("");
+        } else if (this->hasFocus()) {
+            this->setText(tab->currentUrl().toString());
+        } else {
+            this->setText(tab->currentUrl().host());
+        }
     }
 }
 
 void Bar::updateInformation() {
     if (!this->hasFocus()) {
-        if (d->currentTab->currentUrl().scheme() == "theweb" && d->currentTab->currentUrl().host() == "newtab") {
+        if (d->currentTab.isNull() || d->currentTab->currentUrl().scheme() == "theweb" && d->currentTab->currentUrl().host() == "newtab") {
             this->setText("");
         } else {
             this->setText(d->currentTab->currentUrl().host());
@@ -95,7 +100,7 @@ void Bar::focusInEvent(QFocusEvent* event)
 {
     QLineEdit::focusInEvent(event);
     this->setCursor(QCursor(Qt::IBeamCursor));
-    if (d->currentTab->currentUrl().scheme() == "theweb" && d->currentTab->currentUrl().host() == "newtab") {
+    if (d->currentTab.isNull() || d->currentTab->currentUrl().scheme() == "theweb" && d->currentTab->currentUrl().host() == "newtab") {
         this->setText("");
     } else {
         this->setText(d->currentTab->currentUrl().toString());
@@ -108,7 +113,7 @@ void Bar::focusOutEvent(QFocusEvent* event)
 {
     QLineEdit::focusOutEvent(event);
     this->setCursor(QCursor(Qt::ArrowCursor));
-    if (d->currentTab->currentUrl().scheme() == "theweb" && d->currentTab->currentUrl().host() == "newtab") {
+    if (d->currentTab.isNull() || d->currentTab->currentUrl().scheme() == "theweb" && d->currentTab->currentUrl().host() == "newtab") {
         this->setText("");
     } else {
         this->setText(d->currentTab->currentUrl().host());

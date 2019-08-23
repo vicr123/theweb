@@ -201,6 +201,26 @@
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../popovers/jsconfirm.cpp" line="38"/>
+        <source>Leave this page?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../popovers/jsconfirm.cpp" line="39"/>
+        <source>Unsaved data on this page may be lost.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../popovers/jsconfirm.cpp" line="40"/>
+        <source>Leave</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../popovers/jsconfirm.cpp" line="41"/>
+        <source>Stay</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>

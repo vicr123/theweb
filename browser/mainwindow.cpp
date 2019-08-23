@@ -22,6 +22,7 @@
 
 #include <QShortcut>
 #include <QTimer>
+#include <QCloseEvent>
 #include "tab/webtab.h"
 #include "widgets/bar.h"
 #include "tab/webpage.h"
@@ -135,9 +136,14 @@ void MainWindow::on_tabs_currentChanged(int arg1)
     for (int i = 0; i < ui->tabs->count(); i++) {
         static_cast<WebTab*>(ui->tabs->widget(i))->deactivated();
     }
-    WebTab* currentTab = static_cast<WebTab*>(ui->tabs->widget(arg1));
-    currentTab->activated();
-    ui->toolbarWidget->setCurrentTab(currentTab);
+
+    if (arg1 == -1) {
+        this->close();
+    } else {
+        WebTab* currentTab = static_cast<WebTab*>(ui->tabs->widget(arg1));
+        currentTab->activated();
+        ui->toolbarWidget->setCurrentTab(currentTab);
+    }
 }
 
 void MainWindow::on_actionGoBack_triggered()
@@ -198,4 +204,18 @@ void MainWindow::on_actionNew_Oblivion_Window_triggered()
     });
 
     w->show();
+}
+
+void MainWindow::closeEvent(QCloseEvent *event) {
+    if (ui->tabs->count() != 0) {
+        //Ignore this event for now and ask all tabs to close
+        event->ignore();
+        QTimer::singleShot(0, [=] {
+            for (int i = 0; i < ui->tabs->count(); i++) {
+                static_cast<WebTab*>(ui->tabs->widget(i))->close();
+            }
+        });
+
+        //Window will automatically close when there are no tabs left
+    }
 }
