@@ -21,7 +21,8 @@ nmake release
 nmake install
 cd ..
 
-node buildtool.js
+set CI=false
+node buildtool.js --debug
 mkdir deploy
 mkdir deploy\translations
 copy build\browser\release\theWeb.exe deploy
