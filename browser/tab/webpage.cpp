@@ -66,7 +66,7 @@ QMenu* WebPage::createStandardContextMenu()
     QWebEngineContextMenuData cxData = this->contextMenuData();
 
     auto addSection = [=](QString text) {
-        #ifdef Q_OS_MAC
+        #if defined(Q_OS_MAC) || defined(Q_OS_WIN)
             menu->addSeparator();
             QAction* a = menu->addAction(text);
             a->setEnabled(false);

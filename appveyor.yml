@@ -1,0 +1,38 @@
+version: 1.0.{build}
+branches:
+  only:
+  - blueprint
+  - master
+skip_tags: true
+image: Visual Studio 2017
+clone_depth: 5
+
+environment:
+  GITHUB_TOKEN:
+    secure: +MUBs/3yUgI2yfOxaprDi4rsB1ag58IfRvksmxvnm0R3kOaI88czpsHdq7Fdpdhh
+  REPO_SLUG: vicr123/theWeb
+  deploy_project: theweb
+  deploy_version: ''
+  deploy_artifact: ''
+    
+build_script:
+- cmd: >-
+    ci\build.bat
+
+test: off
+
+artifacts:
+- path: deploy
+  name: theWeb-Windows
+  
+  
+before_deploy:
+- ps:
+    iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/deploy.ps1'))
+    
+deploy_script:
+- ps: >-
+    
+    Start-FileDownload 'https://github.com/probonopd/uploadtool/raw/master/upload.sh'
+    
+    sh -c "TRAVIS_BRANCH=$env:APPVEYOR_REPO_BRANCH TRAVIS_COMMIT=$env:APPVEYOR_REPO_COMMIT ./upload.sh /c/projects/theweb/theWeb-Windows.zip 2>/dev/null"

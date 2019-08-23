@@ -47,7 +47,7 @@ QWebEngineProfile *ProfileManager::defaultProfile()
         d->defaultProfile->setUseForGlobalCertificateVerification();
         d->defaultProfile->setUrlRequestInterceptor(interceptor);
 #else
-        d->defaultProfile->setRequestInterceptor(interceptor)
+        d->defaultProfile->setRequestInterceptor(interceptor);
 #endif
 
         thewebSchemeHandler* schemeHandler = new thewebSchemeHandler();
@@ -79,7 +79,7 @@ QWebEngineProfile *ProfileManager::oblivionProfile()
         //Only on Qt 5.13 or higher
         d->defaultProfile->setUrlRequestInterceptor(interceptor);
 #else
-        d->defaultProfile->setRequestInterceptor(interceptor)
+        d->defaultProfile->setRequestInterceptor(interceptor);
 #endif
 
         thewebSchemeHandler* schemeHandler = new thewebSchemeHandler({{"oblivion", true}});
@@ -108,7 +108,10 @@ QList<BarEntry> ProfileManager::entriesForUserInput(QString input, QWebEnginePro
     searchUrl.setHost("google.com");
     searchUrl.setScheme("https");
     searchUrl.setPath("/search");
-    searchUrl.setQuery(QUrlQuery({{"q", input}}));
+
+    QUrlQuery query;
+    query.addQueryItem("q", input);
+    searchUrl.setQuery(query);
     entries.append({searchUrl});
 
     return entries;
