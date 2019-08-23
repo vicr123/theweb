@@ -20,17 +20,21 @@
 #include "webtab.h"
 #include "ui_webtab.h"
 
+#include <QLabel>
 #include <QWebEngineFullScreenRequest>
 #include <QWebEngineView>
 #include "widgets/tabbutton.h"
 #include <QSslSocket>
 #include <QTimer>
+#include <QMenu>
 #include "managers/profilemanager.h"
 #include "webpage.h"
 #include "permissionpopup.h"
+#include "widgets/devtoolsheader.h"
 
 struct WebTabPrivate {
     QWebEngineView* view;
+    QWebEngineView* devtoolsView = nullptr;
     WebPage* page;
     QPointer<TabButton> tabButton;
 
@@ -67,9 +71,6 @@ WebTab::WebTab(WebPage* page, QWidget *parent) :
 
     connect(&d->certCheckSocket, &QSslSocket::encrypted, this, [=] {
         d->pageCertificate = d->certCheckSocket.peerCertificate();
-
-        qDebug() << "Certificate recieved for" << d->pageCertificate.subjectInfo(QSslCertificate::CommonName);
-        qDebug() << "Issued by" << d->pageCertificate.issuerInfo(QSslCertificate::CommonName);
 
         d->certCheckSocket.abort();
         emit sslStateChanged();
@@ -223,6 +224,7 @@ WebTab::WebTab(WebPage* page, QWidget *parent) :
         d->tabButton->setIcon(d->page->icon());
         emit iconChanged();
     });
+    connect(d->page, &WebPage::openDevtools, this, &WebTab::openDevtools);
 
     connect(ui->sslErrorPane, &CertificateErrorPane::showPane, this, [=] {
         ui->stackedWidget->setCurrentWidget(ui->sslErrorPage);
@@ -232,13 +234,22 @@ WebTab::WebTab(WebPage* page, QWidget *parent) :
         d->view->stop();
     });
     connect(ui->sslErrorPane, &CertificateErrorPane::returnToBrowser, this, [=] {
-        ui->stackedWidget->setCurrentWidget(d->view);
+        ui->stackedWidget->setCurrentWidget(ui->webPage);
     });
+
+    ui->webPageSplitter->setChildrenCollapsible(false);
+    ui->webPageSplitter->setHandleWidth(0);
+//    ui->webPageSplitter->setSizes({1, 0});
 
     d->view = new QWebEngineView();
     d->view->setPage(d->page);
-    ui->stackedWidget->insertWidget(0, d->view);
-    ui->stackedWidget->setCurrentWidget(d->view);
+    d->view->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(d->view, &QWebEngineView::customContextMenuRequested, this, [=](QPoint pos) {
+        QMenu* menu = d->page->createStandardContextMenu();
+        menu->popup(d->view->mapToGlobal(pos));
+    });
+    ui->webViewContainer->layout()->addWidget(d->view);
+    ui->stackedWidget->setCurrentWidget(ui->webPage);
 }
 
 WebTab::~WebTab()
@@ -313,6 +324,30 @@ void WebTab::reload()
 void WebTab::leaveFullScreen()
 {
     d->page->triggerAction(QWebEnginePage::ExitFullScreen);
+}
+
+void WebTab::openDevtools()
+{
+    if (d->devtoolsView != nullptr) return;
+    QWidget* container = new QWidget();
+    QBoxLayout* layout = new QBoxLayout(QBoxLayout::TopToBottom);
+    layout->setContentsMargins(0, 0, 0, 0);
+    layout->setSpacing(0);
+    container->setLayout(layout);
+
+    DevtoolsHeader* header = new DevtoolsHeader(container);
+    connect(header, &DevtoolsHeader::closeDevtools, this, [=] {
+        container->deleteLater();
+    });
+    layout->addWidget(header);
+
+    d->devtoolsView = new QWebEngineView(container);
+    d->devtoolsView->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
+    d->devtoolsView->page()->setInspectedPage(d->page);
+    layout->addWidget(d->devtoolsView);
+
+    ui->webPageSplitter->addWidget(container);
+    ui->webPageSplitter->setSizes({this->width() / 2, this->width() / 2});
 }
 
 void WebTab::resizeEvent(QResizeEvent* event)

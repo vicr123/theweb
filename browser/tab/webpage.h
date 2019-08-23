@@ -35,7 +35,10 @@ class WebPage : public QWebEnginePage
         void setParent(QWidget* parent);
         void setCertificateErrorPane(CertificateErrorPane* pane);
 
+        QMenu* createStandardContextMenu();
+
     signals:
+        void openDevtools();
         void spawnTab(WebPage* page, WebWindowType type);
 
     public slots:

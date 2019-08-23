@@ -94,6 +94,7 @@ SOURCES += \
         tab/webpage.cpp \
         tab/webtab.cpp \
         widgets/bar.cpp \
+        widgets/devtoolsheader.cpp \
         widgets/downloads/downloadspopover.cpp \
         widgets/downloads/downloadspopoveritem.cpp \
         widgets/securitychunk.cpp \
@@ -116,6 +117,7 @@ HEADERS += \
         tab/webpage.h \
         tab/webtab.h \
         widgets/bar.h \
+        widgets/devtoolsheader.h \
         widgets/downloads/downloadspopover.h \
         widgets/downloads/downloadspopoveritem.h \
         widgets/securitychunk.h \
@@ -130,6 +132,7 @@ FORMS += \
         tab/certificateerrorpane.ui \
         tab/permissionpopup.ui \
         tab/webtab.ui \
+        widgets/devtoolsheader.ui \
         widgets/downloads/downloadspopover.ui \
         widgets/downloads/downloadspopoveritem.ui \
         widgets/securitychunk.ui \

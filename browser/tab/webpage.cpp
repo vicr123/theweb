@@ -20,7 +20,10 @@
 #include "webpage.h"
 
 #include <QWebEngineCertificateError>
+#include <QMenu>
+#include <QWebEngineContextMenuData>
 #include <tpopover.h>
+#include "managers/iconmanager.h"
 #include "popovers/jsalert.h"
 #include "popovers/jsconfirm.h"
 #include "certificateerrorpane.h"
@@ -55,6 +58,28 @@ void WebPage::setParent(QWidget *parent)
 void WebPage::setCertificateErrorPane(CertificateErrorPane* pane)
 {
     d->certErrorPane = pane;
+}
+
+QMenu* WebPage::createStandardContextMenu()
+{
+    QMenu* menu = new QMenu();
+    QWebEngineContextMenuData cxData;
+
+    QColor iconTint = menu->palette().color(QPalette::WindowText);
+    QSize iconSize = SC_DPI_T(QSize(16, 16), QSize);
+    menu->addSection(tr("For Tab"));
+    menu->addAction(IconManager::getIcon("go-previous", iconTint, iconSize), tr("Back"), this, std::bind(&WebPage::triggerAction, this, Back, false));
+    menu->addAction(IconManager::getIcon("go-previous", iconTint, iconSize), tr("Forward"), this, std::bind(&WebPage::triggerAction, this, Forward, false));
+    menu->addAction(IconManager::getIcon("go-previous", iconTint, iconSize), tr("Reload"), this, std::bind(&WebPage::triggerAction, this, Reload, false));
+    menu->addSeparator();
+    menu->addAction(IconManager::getIcon("go-previous", iconTint, iconSize), tr("View Source"), this, std::bind(&WebPage::triggerAction, this, ViewSource, false));
+    menu->addSeparator();
+    menu->addAction(IconManager::getIcon("go-previous", iconTint, iconSize), tr("Inspect Element"), this, [=] {
+        emit openDevtools();
+        this->triggerAction(InspectElement);
+    });
+
+    return menu;
 }
 
 QWebEnginePage* WebPage::createWindow(WebPage::WebWindowType type) {

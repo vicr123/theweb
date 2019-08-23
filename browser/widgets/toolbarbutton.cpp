@@ -73,6 +73,7 @@ void ToolbarButton::paintEvent(QPaintEvent* event)
 
     QRect iconRect;
     QSize originalSizeHint = QToolButton::sizeHint();
+    originalSizeHint.setHeight(this->height());
     iconRect.setSize(this->iconSize());
     iconRect.moveCenter(QPoint(originalSizeHint.width() / 2, originalSizeHint.height() / 2));
     painter.drawPixmap(iconRect, this->icon().pixmap(this->iconSize()));

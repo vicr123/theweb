@@ -49,7 +49,7 @@ class MainWindow : public QMainWindow
 
         void on_actionNewTab_triggered();
 
-        void on_toolButton_clicked();
+        void on_closeTabButton_clicked();
 
         void on_actionReload_triggered();
 

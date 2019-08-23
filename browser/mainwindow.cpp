@@ -27,6 +27,7 @@
 #include "tab/webpage.h"
 #include "managers/profilemanager.h"
 #include "managers/settingsmanager.h"
+#include "managers/iconmanager.h"
 
 struct MainWindowPrivate {
 //    Bar* bar;
@@ -69,6 +70,8 @@ MainWindow::MainWindow(QVariantMap options, QWidget *parent) :
     menu->addAction(ui->actionExit);
     ui->toolbarWidget->setMenu(menu);
     ui->toolbarWidget->setMenuIcon(windowIcon);
+
+    ui->closeTabButton->setIcon(IconManager::getIcon("window-close", ui->closeTabButton->palette().color(QPalette::WindowText), ui->closeTabButton->iconSize()));
 
     if (d->profile == ProfileManager::oblivionProfile()) ui->toolbarWidget->setAsOblivion();
 
@@ -157,7 +160,7 @@ void MainWindow::on_actionNewTab_triggered()
     this->newTab();
 }
 
-void MainWindow::on_toolButton_clicked()
+void MainWindow::on_closeTabButton_clicked()
 {
     currentTab()->close();
 }

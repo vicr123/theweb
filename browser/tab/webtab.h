@@ -57,6 +57,7 @@ class WebTab : public QWidget
         void reload();
 
         void leaveFullScreen();
+        void openDevtools();
 
     signals:
         void spawnTab(WebTab* tab);

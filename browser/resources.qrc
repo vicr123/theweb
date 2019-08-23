@@ -13,6 +13,7 @@
         <file>icons/configure.svg</file>
         <file>icons/help-about.svg</file>
         <file>icons/cloud-download.svg</file>
+        <file>icons/window-close.svg</file>
     </qresource>
     <qresource prefix="/scheme/theweb">
         <file>testjs.html</file>

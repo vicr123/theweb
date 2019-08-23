@@ -98,6 +98,19 @@
     </message>
 </context>
 <context>
+    <name>DevtoolsHeader</name>
+    <message>
+        <location filename="../widgets/devtoolsheader.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/devtoolsheader.ui" line="51"/>
+        <source>Developer Tools</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>DownloadsPopover</name>
     <message>
         <location filename="../widgets/downloads/downloadspopover.ui" line="14"/>
@@ -197,97 +210,97 @@
         <translation>theWeb</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="98"/>
+        <location filename="../mainwindow.ui" line="104"/>
         <source>File</source>
         <translation>Tệp</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="110"/>
+        <location filename="../mainwindow.ui" line="116"/>
         <source>Edit</source>
         <translation>Sửa</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="115"/>
+        <location filename="../mainwindow.ui" line="121"/>
         <source>View</source>
         <translation>Xem</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="131"/>
+        <location filename="../mainwindow.ui" line="137"/>
         <source>Go Back</source>
         <translation>Trở lại</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="134"/>
+        <location filename="../mainwindow.ui" line="140"/>
         <source>Alt+Left</source>
         <translation>Alt+Left</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="143"/>
+        <location filename="../mainwindow.ui" line="149"/>
         <source>Go Forward</source>
         <translation>Bước tiếp</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="146"/>
+        <location filename="../mainwindow.ui" line="152"/>
         <source>Alt+Right</source>
         <translation>Alt+Right</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="155"/>
+        <location filename="../mainwindow.ui" line="161"/>
         <source>Reload</source>
         <translation>Tải lại</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="158"/>
+        <location filename="../mainwindow.ui" line="164"/>
         <source>Ctrl+R</source>
         <translation>Ctrl+R</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="167"/>
+        <location filename="../mainwindow.ui" line="173"/>
         <source>New Tab</source>
         <translation>Tab mới</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="170"/>
+        <location filename="../mainwindow.ui" line="176"/>
         <source>Ctrl+T</source>
         <translation>Ctrl+T</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="175"/>
+        <location filename="../mainwindow.ui" line="181"/>
         <source>New Window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="178"/>
+        <location filename="../mainwindow.ui" line="184"/>
         <source>Ctrl+N</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="183"/>
+        <location filename="../mainwindow.ui" line="189"/>
         <source>New Oblivion Window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="186"/>
+        <location filename="../mainwindow.ui" line="192"/>
         <source>Ctrl+Shift+N</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="191"/>
+        <location filename="../mainwindow.ui" line="197"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="194"/>
+        <location filename="../mainwindow.ui" line="200"/>
         <source>Ctrl+,</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="199"/>
+        <location filename="../mainwindow.ui" line="205"/>
         <source>Exit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="202"/>
+        <location filename="../mainwindow.ui" line="208"/>
         <source>Ctrl+Q</source>
         <translation type="unfinished"></translation>
     </message>
@@ -445,9 +458,42 @@
     <name>ToolbarButton</name>
     <message>
         <location filename="../widgets/toolbarbutton.cpp" line="37"/>
-        <location filename="../widgets/toolbarbutton.cpp" line="85"/>
-        <location filename="../widgets/toolbarbutton.cpp" line="89"/>
+        <location filename="../widgets/toolbarbutton.cpp" line="86"/>
+        <location filename="../widgets/toolbarbutton.cpp" line="90"/>
         <source>Oblivion</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>WebPage</name>
+    <message>
+        <location filename="../tab/webpage.cpp" line="70"/>
+        <source>For Tab</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webpage.cpp" line="71"/>
+        <source>Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webpage.cpp" line="72"/>
+        <source>Forward</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webpage.cpp" line="73"/>
+        <source>Reload</source>
+        <translation type="unfinished">Tải lại</translation>
+    </message>
+    <message>
+        <location filename="../tab/webpage.cpp" line="75"/>
+        <source>View Source</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webpage.cpp" line="77"/>
+        <source>Inspect Element</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
