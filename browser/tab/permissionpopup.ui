@@ -7,11 +7,11 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>32</height>
+    <height>34</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string notr="true">Form</string>
   </property>
   <property name="autoFillBackground">
    <bool>true</bool>
@@ -125,7 +125,8 @@
       <string/>
      </property>
      <property name="icon">
-      <iconset theme="dialog-close"/>
+      <iconset theme="dialog-close">
+       <normaloff>.</normaloff>.</iconset>
      </property>
      <property name="flat">
       <bool>true</bool>
