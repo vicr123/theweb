@@ -487,32 +487,135 @@
 <context>
     <name>WebPage</name>
     <message>
-        <location filename="../tab/webpage.cpp" line="70"/>
+        <location filename="../tab/webpage.cpp" line="83"/>
+        <source>For Misspelled Word &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webpage.cpp" line="92"/>
+        <source>For selected text &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webpage.cpp" line="93"/>
+        <location filename="../tab/webpage.cpp" line="109"/>
+        <location filename="../tab/webpage.cpp" line="116"/>
+        <source>Copy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webpage.cpp" line="94"/>
+        <source>Cut</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webpage.cpp" line="98"/>
+        <source>For Editable Box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webpage.cpp" line="99"/>
+        <source>Paste</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webpage.cpp" line="100"/>
+        <source>Undo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webpage.cpp" line="101"/>
+        <source>Redo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webpage.cpp" line="102"/>
+        <source>Select All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webpage.cpp" line="106"/>
+        <source>For link &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webpage.cpp" line="107"/>
+        <source>Open</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webpage.cpp" line="108"/>
+        <source>Open in New Tab</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webpage.cpp" line="115"/>
+        <source>For Image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webpage.cpp" line="117"/>
+        <location filename="../tab/webpage.cpp" line="137"/>
+        <source>Copy Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webpage.cpp" line="121"/>
+        <source>For Video</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webpage.cpp" line="124"/>
+        <source>For Audio</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webpage.cpp" line="127"/>
+        <source>For Media content</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webpage.cpp" line="132"/>
+        <source>Play</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webpage.cpp" line="134"/>
+        <source>Pause</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webpage.cpp" line="140"/>
         <source>For Tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="71"/>
+        <location filename="../tab/webpage.cpp" line="141"/>
         <source>Back</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="72"/>
+        <location filename="../tab/webpage.cpp" line="142"/>
         <source>Forward</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="73"/>
+        <location filename="../tab/webpage.cpp" line="143"/>
         <source>Reload</source>
         <translation type="unfinished">Tải lại</translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="75"/>
+        <location filename="../tab/webpage.cpp" line="145"/>
+        <source>Print</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webpage.cpp" line="148"/>
         <source>View Source</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="77"/>
+        <location filename="../tab/webpage.cpp" line="150"/>
         <source>Inspect Element</source>
         <translation type="unfinished"></translation>
     </message>

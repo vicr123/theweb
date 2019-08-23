@@ -63,18 +63,91 @@ void WebPage::setCertificateErrorPane(CertificateErrorPane* pane)
 QMenu* WebPage::createStandardContextMenu()
 {
     QMenu* menu = new QMenu();
-    QWebEngineContextMenuData cxData;
+    QWebEngineContextMenuData cxData = this->contextMenuData();
 
+    auto addSection = [=](QString text) {
+        #ifdef Q_OS_MAC
+            menu->addSeparator();
+            QAction* a = menu->addAction(text);
+            a->setEnabled(false);
+        #else
+            menu->addSection(text);
+        #endif
+    };
+
+    QFontMetrics fm = menu->fontMetrics();
     QColor iconTint = menu->palette().color(QPalette::WindowText);
     QSize iconSize = SC_DPI_T(QSize(16, 16), QSize);
-    menu->addSection(tr("For Tab"));
+
+    if (cxData.misspelledWord() != "") {
+        addSection(fm.elidedText(tr("For Misspelled Word \"%1\"").arg(cxData.misspelledWord()), Qt::ElideRight, SC_DPI(400)));
+        for (QString word : cxData.spellCheckerSuggestions()) {
+            menu->addAction(word, this, [=] {
+                this->replaceMisspelledWord(word);
+            });
+        }
+    }
+
+    if (cxData.selectedText() != "") {
+        addSection(fm.elidedText(tr("For selected text \"%1\"").arg(cxData.selectedText()), Qt::ElideRight, SC_DPI(400)));
+        if (cxData.editFlags() & QWebEngineContextMenuData::CanCopy) menu->addAction(IconManager::getIcon("edit-copy", iconTint, iconSize), tr("Copy"), this, std::bind(&WebPage::triggerAction, this, Copy, false));
+        if (cxData.editFlags() & QWebEngineContextMenuData::CanCut) menu->addAction(IconManager::getIcon("edit-cut", iconTint, iconSize), tr("Cut"), this, std::bind(&WebPage::triggerAction, this, Cut, false));
+    }
+
+    if (cxData.isContentEditable()) {
+        addSection(tr("For Editable Box"));
+        if (cxData.editFlags() & QWebEngineContextMenuData::CanPaste) menu->addAction(IconManager::getIcon("edit-paste", iconTint, iconSize), tr("Paste"), this, std::bind(&WebPage::triggerAction, this, Paste, false));
+        if (cxData.editFlags() & QWebEngineContextMenuData::CanUndo) menu->addAction(IconManager::getIcon("edit-undo", iconTint, iconSize), tr("Undo"), this, std::bind(&WebPage::triggerAction, this, Undo, false));
+        if (cxData.editFlags() & QWebEngineContextMenuData::CanRedo) menu->addAction(IconManager::getIcon("edit-redo", iconTint, iconSize), tr("Redo"), this, std::bind(&WebPage::triggerAction, this, Redo, false));
+        if (cxData.editFlags() & QWebEngineContextMenuData::CanSelectAll) menu->addAction(IconManager::getIcon("edit-select-all", iconTint, iconSize), tr("Select All"), this, std::bind(&WebPage::triggerAction, this, SelectAll, false));
+    }
+
+    if (!cxData.linkUrl().isEmpty()) {
+        addSection(fm.elidedText(tr("For link \"%1\"").arg(cxData.linkUrl().toString()), Qt::ElideRight, SC_DPI(400)));
+        menu->addAction(tr("Open"), this, std::bind(&WebPage::triggerAction, this, OpenLinkInThisWindow, false));
+        menu->addAction(IconManager::getIcon("tab-new", iconTint, iconSize), tr("Open in New Tab"), this, std::bind(&WebPage::triggerAction, this, OpenLinkInNewTab, false));
+        menu->addAction(IconManager::getIcon("edit-copy", iconTint, iconSize), tr("Copy"), this, std::bind(&WebPage::triggerAction, this, CopyLinkToClipboard, false));
+    }
+
+    if (cxData.mediaType() == QWebEngineContextMenuData::MediaTypeNone) {
+        //Do nothing here
+    } else if (cxData.mediaType() == QWebEngineContextMenuData::MediaTypeImage) {
+        addSection(tr("For Image"));
+        menu->addAction(IconManager::getIcon("edit-copy", iconTint, iconSize), tr("Copy"), this, std::bind(&WebPage::triggerAction, this, CopyImageToClipboard, false));
+        menu->addAction(IconManager::getIcon("edit-copy", iconTint, iconSize), tr("Copy Address"), this, std::bind(&WebPage::triggerAction, this, CopyImageUrlToClipboard, false));
+    } else {
+        switch (cxData.mediaType()) {
+            case QWebEngineContextMenuData::MediaTypeVideo:
+                addSection(tr("For Video"));
+                break;
+            case QWebEngineContextMenuData::MediaTypeAudio:
+                addSection(tr("For Audio"));
+                break;
+            default:
+                addSection(tr("For Media content"));
+                break;
+        }
+
+        if (cxData.mediaFlags() & QWebEngineContextMenuData::MediaPaused) {
+            menu->addAction(IconManager::getIcon("media-playback-start", iconTint, iconSize), tr("Play"), this, std::bind(&WebPage::triggerAction, this, ToggleMediaPlayPause, false));
+        } else {
+            menu->addAction(IconManager::getIcon("media-playback-pause", iconTint, iconSize), tr("Pause"), this, std::bind(&WebPage::triggerAction, this, ToggleMediaPlayPause, false));
+        }
+
+        menu->addAction(IconManager::getIcon("edit-copy", iconTint, iconSize), tr("Copy Address"), this, std::bind(&WebPage::triggerAction, this, CopyMediaUrlToClipboard, false));
+    }
+
+    addSection(tr("For Tab"));
     menu->addAction(IconManager::getIcon("go-previous", iconTint, iconSize), tr("Back"), this, std::bind(&WebPage::triggerAction, this, Back, false));
-    menu->addAction(IconManager::getIcon("go-previous", iconTint, iconSize), tr("Forward"), this, std::bind(&WebPage::triggerAction, this, Forward, false));
-    menu->addAction(IconManager::getIcon("go-previous", iconTint, iconSize), tr("Reload"), this, std::bind(&WebPage::triggerAction, this, Reload, false));
+    menu->addAction(IconManager::getIcon("go-next", iconTint, iconSize), tr("Forward"), this, std::bind(&WebPage::triggerAction, this, Forward, false));
+    menu->addAction(IconManager::getIcon("view-refresh", iconTint, iconSize), tr("Reload"), this, std::bind(&WebPage::triggerAction, this, Reload, false));
     menu->addSeparator();
-    menu->addAction(IconManager::getIcon("go-previous", iconTint, iconSize), tr("View Source"), this, std::bind(&WebPage::triggerAction, this, ViewSource, false));
+    menu->addAction(IconManager::getIcon("document-print", iconTint, iconSize), tr("Print"), this, [=] {
+        emit printRequested();
+    });
+    menu->addAction(tr("View Source"), this, std::bind(&WebPage::triggerAction, this, ViewSource, false));
     menu->addSeparator();
-    menu->addAction(IconManager::getIcon("go-previous", iconTint, iconSize), tr("Inspect Element"), this, [=] {
+    menu->addAction(tr("Inspect Element"), this, [=] {
         emit openDevtools();
         this->triggerAction(InspectElement);
     });
