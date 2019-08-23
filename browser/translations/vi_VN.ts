@@ -6,7 +6,7 @@
     <message>
         <location filename="../widgets/bar.cpp" line="55"/>
         <source>Search or enter web address</source>
-        <translation type="unfinished"></translation>
+        <translation>Tìm kiếm hoặc nhập địa chỉ web</translation>
     </message>
 </context>
 <context>
@@ -97,7 +97,7 @@
     <message>
         <location filename="../widgets/devtoolsheader.ui" line="51"/>
         <source>Developer Tools</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiện ích để phát triển</translation>
     </message>
 </context>
 <context>
@@ -105,7 +105,7 @@
     <message>
         <location filename="../widgets/downloads/downloadspopover.ui" line="71"/>
         <source>Downloads</source>
-        <translation type="unfinished"></translation>
+        <translation>Bản tải xuống</translation>
     </message>
 </context>
 <context>
@@ -113,32 +113,32 @@
     <message>
         <location filename="../widgets/downloads/downloadspopoveritem.cpp" line="36"/>
         <source>Waiting</source>
-        <translation type="unfinished"></translation>
+        <translation>Đang chờ</translation>
     </message>
     <message>
         <location filename="../widgets/downloads/downloadspopoveritem.cpp" line="44"/>
         <source>%1 of %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 trên %2</translation>
     </message>
     <message>
         <location filename="../widgets/downloads/downloadspopoveritem.cpp" line="49"/>
         <source>Finishing up</source>
-        <translation type="unfinished"></translation>
+        <translation>Đang hoàn thành</translation>
     </message>
     <message>
         <location filename="../widgets/downloads/downloadspopoveritem.cpp" line="55"/>
         <source>Done</source>
-        <translation type="unfinished"></translation>
+        <translation>Đã hoàn thành</translation>
     </message>
     <message>
         <location filename="../widgets/downloads/downloadspopoveritem.cpp" line="60"/>
         <source>Cancelled</source>
-        <translation type="unfinished"></translation>
+        <translation>Đã hủy</translation>
     </message>
     <message>
         <location filename="../widgets/downloads/downloadspopoveritem.cpp" line="65"/>
         <source>Failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Đã thất bại</translation>
     </message>
 </context>
 <context>
@@ -151,7 +151,7 @@
     <message>
         <location filename="../popovers/jsalert.ui" line="122"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -164,32 +164,32 @@
     <message>
         <location filename="../popovers/jsconfirm.ui" line="162"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Hủy</translation>
     </message>
     <message>
         <location filename="../popovers/jsconfirm.ui" line="169"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation>OK</translation>
     </message>
     <message>
         <location filename="../popovers/jsconfirm.cpp" line="38"/>
         <source>Leave this page?</source>
-        <translation type="unfinished"></translation>
+        <translation>Rời khỏi trang này?</translation>
     </message>
     <message>
         <location filename="../popovers/jsconfirm.cpp" line="39"/>
         <source>Unsaved data on this page may be lost.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dữ liệu trên trang này chưa bị lưu có thể bị mất</translation>
     </message>
     <message>
         <location filename="../popovers/jsconfirm.cpp" line="40"/>
         <source>Leave</source>
-        <translation type="unfinished"></translation>
+        <translation>Rời</translation>
     </message>
     <message>
         <location filename="../popovers/jsconfirm.cpp" line="41"/>
         <source>Stay</source>
-        <translation type="unfinished"></translation>
+        <translation>Ở lại</translation>
     </message>
 </context>
 <context>
@@ -257,42 +257,42 @@
     <message>
         <location filename="../mainwindow.ui" line="181"/>
         <source>New Window</source>
-        <translation type="unfinished"></translation>
+        <translation>Cửa sổ mới</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="184"/>
         <source>Ctrl+N</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+N</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="189"/>
         <source>New Oblivion Window</source>
-        <translation type="unfinished"></translation>
+        <translation>Cửa sổ lãng quên mới</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="192"/>
         <source>Ctrl+Shift+N</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Shift+N</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="197"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Cài đặt</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="200"/>
         <source>Ctrl+,</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+,</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="205"/>
         <source>Exit</source>
-        <translation type="unfinished"></translation>
+        <translation>Thoát</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="208"/>
         <source>Ctrl+Q</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Q</translation>
     </message>
 </context>
 <context>
@@ -390,12 +390,12 @@
     <message>
         <location filename="../tab/permissionpopup.cpp" line="83"/>
         <source>Page Reloaded</source>
-        <translation type="unfinished"></translation>
+        <translation>Trang bị tải lại</translation>
     </message>
     <message>
         <location filename="../tab/permissionpopup.cpp" line="84"/>
         <source>This page had a problem, so we had to reload it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Trang này xảy ra sự cố, vì vậy chúng tôi đá tải lại</translation>
     </message>
 </context>
 <context>
@@ -416,17 +416,17 @@
     <message>
         <location filename="../widgets/toolbar.ui" line="60"/>
         <source>Back</source>
-        <translation type="unfinished"></translation>
+        <translation>Trở lại</translation>
     </message>
     <message>
         <location filename="../widgets/toolbar.ui" line="76"/>
         <source>Forward</source>
-        <translation type="unfinished"></translation>
+        <translation>Bước tiếp</translation>
     </message>
     <message>
         <location filename="../widgets/toolbar.ui" line="92"/>
         <source>Reload</source>
-        <translation type="unfinished">Tải lại</translation>
+        <translation>Tải lại</translation>
     </message>
 </context>
 <context>
@@ -436,7 +436,7 @@
         <location filename="../widgets/toolbarbutton.cpp" line="86"/>
         <location filename="../widgets/toolbarbutton.cpp" line="90"/>
         <source>Oblivion</source>
-        <translation type="unfinished"></translation>
+        <translation>Lãng quên</translation>
     </message>
 </context>
 <context>
@@ -444,135 +444,135 @@
     <message>
         <location filename="../tab/webpage.cpp" line="83"/>
         <source>For Misspelled Word &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Cho từ viết sai chính tả &quot;%1&quot;</translation>
     </message>
     <message>
         <location filename="../tab/webpage.cpp" line="92"/>
         <source>For selected text &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Cho văn bản được chọn &quot;%1&quot;</translation>
     </message>
     <message>
         <location filename="../tab/webpage.cpp" line="93"/>
         <location filename="../tab/webpage.cpp" line="109"/>
         <location filename="../tab/webpage.cpp" line="116"/>
         <source>Copy</source>
-        <translation type="unfinished"></translation>
+        <translation>Chép</translation>
     </message>
     <message>
         <location filename="../tab/webpage.cpp" line="94"/>
         <source>Cut</source>
-        <translation type="unfinished"></translation>
+        <translation>Cắt</translation>
     </message>
     <message>
         <location filename="../tab/webpage.cpp" line="98"/>
         <source>For Editable Box</source>
-        <translation type="unfinished"></translation>
+        <translation>Cho trường</translation>
     </message>
     <message>
         <location filename="../tab/webpage.cpp" line="99"/>
         <source>Paste</source>
-        <translation type="unfinished"></translation>
+        <translation>Dán</translation>
     </message>
     <message>
         <location filename="../tab/webpage.cpp" line="100"/>
         <source>Undo</source>
-        <translation type="unfinished"></translation>
+        <translation>Hoàn tác</translation>
     </message>
     <message>
         <location filename="../tab/webpage.cpp" line="101"/>
         <source>Redo</source>
-        <translation type="unfinished"></translation>
+        <translation>Làm lại</translation>
     </message>
     <message>
         <location filename="../tab/webpage.cpp" line="102"/>
         <source>Select All</source>
-        <translation type="unfinished"></translation>
+        <translation>Chọn tất cả</translation>
     </message>
     <message>
         <location filename="../tab/webpage.cpp" line="106"/>
         <source>For link &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Cho liên kết &quot;%1&quot;</translation>
     </message>
     <message>
         <location filename="../tab/webpage.cpp" line="107"/>
         <source>Open</source>
-        <translation type="unfinished"></translation>
+        <translation>Mở</translation>
     </message>
     <message>
         <location filename="../tab/webpage.cpp" line="108"/>
         <source>Open in New Tab</source>
-        <translation type="unfinished"></translation>
+        <translation>Mở trong tab mới</translation>
     </message>
     <message>
         <location filename="../tab/webpage.cpp" line="115"/>
         <source>For Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Cho Ảnh</translation>
     </message>
     <message>
         <location filename="../tab/webpage.cpp" line="117"/>
         <location filename="../tab/webpage.cpp" line="137"/>
         <source>Copy Address</source>
-        <translation type="unfinished"></translation>
+        <translation>Chép địa chỉ</translation>
     </message>
     <message>
         <location filename="../tab/webpage.cpp" line="121"/>
         <source>For Video</source>
-        <translation type="unfinished"></translation>
+        <translation>Cho Phim</translation>
     </message>
     <message>
         <location filename="../tab/webpage.cpp" line="124"/>
         <source>For Audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Cho Âm Thanh</translation>
     </message>
     <message>
         <location filename="../tab/webpage.cpp" line="127"/>
         <source>For Media content</source>
-        <translation type="unfinished"></translation>
+        <translation>Cho phương tiện truyền thông</translation>
     </message>
     <message>
         <location filename="../tab/webpage.cpp" line="132"/>
         <source>Play</source>
-        <translation type="unfinished"></translation>
+        <translation>Phát</translation>
     </message>
     <message>
         <location filename="../tab/webpage.cpp" line="134"/>
         <source>Pause</source>
-        <translation type="unfinished"></translation>
+        <translation>Tạm dừng</translation>
     </message>
     <message>
         <location filename="../tab/webpage.cpp" line="140"/>
         <source>For Tab</source>
-        <translation type="unfinished"></translation>
+        <translation>Cho Tab</translation>
     </message>
     <message>
         <location filename="../tab/webpage.cpp" line="141"/>
         <source>Back</source>
-        <translation type="unfinished"></translation>
+        <translation>Trở lại</translation>
     </message>
     <message>
         <location filename="../tab/webpage.cpp" line="142"/>
         <source>Forward</source>
-        <translation type="unfinished"></translation>
+        <translation>Bước tiếp</translation>
     </message>
     <message>
         <location filename="../tab/webpage.cpp" line="143"/>
         <source>Reload</source>
-        <translation type="unfinished">Tải lại</translation>
+        <translation>Tải lại</translation>
     </message>
     <message>
         <location filename="../tab/webpage.cpp" line="145"/>
         <source>Print</source>
-        <translation type="unfinished"></translation>
+        <translation>In</translation>
     </message>
     <message>
         <location filename="../tab/webpage.cpp" line="148"/>
         <source>View Source</source>
-        <translation type="unfinished"></translation>
+        <translation>Xem nguồn</translation>
     </message>
     <message>
         <location filename="../tab/webpage.cpp" line="150"/>
         <source>Inspect Element</source>
-        <translation type="unfinished"></translation>
+        <translation>Kiểm tra thành phần</translation>
     </message>
 </context>
 <context>
