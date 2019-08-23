@@ -22,6 +22,11 @@
 
 #include <QObject>
 #include <QWebEngineProfile>
+#include <QUrl>
+
+struct BarEntry {
+    QUrl url;
+};
 
 struct ProfileManagerPrivate;
 class ProfileManager : public QObject
@@ -31,6 +36,7 @@ class ProfileManager : public QObject
         static QWebEngineProfile* defaultProfile();
         static QWebEngineProfile* oblivionProfile();
 
+        static QList<BarEntry> entriesForUserInput(QString input, QWebEngineProfile* profile);
     signals:
 
     public slots:

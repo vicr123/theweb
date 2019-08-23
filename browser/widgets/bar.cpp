@@ -25,6 +25,7 @@
 #include <the-libs_global.h>
 #include "tab/webtab.h"
 #include "securitychunk.h"
+#include "managers/profilemanager.h"
 
 struct BarPrivate {
     QPointer<WebTab> currentTab;
@@ -47,7 +48,9 @@ Bar::Bar(QWidget *parent) : QLineEdit(parent)
     this->setFrame(false);
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     connect(this, &Bar::returnPressed, this, [=] {
-        d->currentTab->navigate(QUrl::fromUserInput(this->text()));
+
+//        d->currentTab->navigate(QUrl::fromUserInput(this->text()));
+        d->currentTab->navigate(ProfileManager::entriesForUserInput(this->text(), d->currentTab->profile()).first().url);
         d->currentTab->setFocus();
     });
 
@@ -59,7 +62,6 @@ Bar::~Bar() {
     delete d;
 }
 
-#include <QDebug>
 void Bar::setCurrentTab(WebTab* tab)
 {
     //Disconnect all signals from the current tab

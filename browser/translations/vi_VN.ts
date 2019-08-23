@@ -4,7 +4,7 @@
 <context>
     <name>Bar</name>
     <message>
-        <location filename="../widgets/bar.cpp" line="55"/>
+        <location filename="../widgets/bar.cpp" line="58"/>
         <source>Search or enter web address</source>
         <translation>Tìm kiếm hoặc nhập địa chỉ web</translation>
     </message>

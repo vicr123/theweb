@@ -271,6 +271,11 @@ QUrl WebTab::currentUrl()
     return d->view->url();
 }
 
+QWebEngineProfile* WebTab::profile()
+{
+    return d->page->profile();
+}
+
 QSslCertificate WebTab::pageCertificate()
 {
     return d->pageCertificate;

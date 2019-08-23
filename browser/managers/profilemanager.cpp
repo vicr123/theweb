@@ -19,6 +19,7 @@
  * *************************************/
 #include "profilemanager.h"
 
+#include <QUrlQuery>
 #include <QWebEngineSettings>
 #include <QWebEngineProfile>
 #include "core/thewebschemehandler.h"
@@ -32,7 +33,7 @@ struct ProfileManagerPrivate {
 
 ProfileManagerPrivate* ProfileManager::d = new ProfileManagerPrivate();
 
-QWebEngineProfile*ProfileManager::defaultProfile()
+QWebEngineProfile *ProfileManager::defaultProfile()
 {
     if (d->defaultProfile == nullptr) {
         d->defaultProfile = new QWebEngineProfile("theweb-default-profile");
@@ -94,6 +95,23 @@ QWebEngineProfile *ProfileManager::oblivionProfile()
         DownloadManager::registerProfile(d->oblivionProfile);
     }
     return d->oblivionProfile;
+}
+
+QList<BarEntry> ProfileManager::entriesForUserInput(QString input, QWebEngineProfile* profile)
+{
+    QList<BarEntry> entries;
+    if (QUrl::fromUserInput(input).isValid()) {
+        entries.append({QUrl::fromUserInput(input)});
+    }
+
+    QUrl searchUrl;
+    searchUrl.setHost("google.com");
+    searchUrl.setScheme("https");
+    searchUrl.setPath("/search");
+    searchUrl.setQuery(QUrlQuery({{"q", input}}));
+    entries.append({searchUrl});
+
+    return entries;
 }
 
 ProfileManager::ProfileManager(QObject *parent) : QObject(parent)

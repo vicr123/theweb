@@ -28,6 +28,7 @@ namespace Ui {
 }
 
 class QSslCertificate;
+class QWebEngineProfile;
 class WebPage;
 struct WebTabPrivate;
 class WebTab : public QWidget
@@ -40,6 +41,7 @@ class WebTab : public QWidget
 
         QWidget* getTabButton();
         QUrl currentUrl();
+        QWebEngineProfile* profile();
 
         QSslCertificate pageCertificate();
 
