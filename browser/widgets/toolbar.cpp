@@ -31,6 +31,7 @@ Toolbar::Toolbar(QWidget *parent) :
     ui->forwardButton->setIconSize(iconSize);
     ui->reloadButton->setIconSize(iconSize);
     ui->downloadsButton->setIconSize(iconSize);
+    ui->newTabButton->setIconSize(iconSize);
 
     connect(DownloadManager::instance(), &DownloadManager::downloadAdded, this, &Toolbar::updateIcons);
     updateIcons();
@@ -115,6 +116,7 @@ void Toolbar::updateIcons()
     ui->forwardButton->setIcon(IconManager::getIcon("go-next", tint, iconSize));
     ui->reloadButton->setIcon(IconManager::getIcon("view-refresh", tint, iconSize));
     ui->downloadsButton->setIcon(IconManager::getIcon("cloud-download", tint, iconSize));
+    ui->newTabButton->setIcon(IconManager::getIcon("tab-new", tint, iconSize));
 
     if (DownloadManager::getDownloads().count() > 0) {
         ui->downloadsButton->setVisible(true);
@@ -137,4 +139,9 @@ void Toolbar::on_downloadsButton_clicked()
     connect(popover, &tPopover::dismissed, popover, &tPopover::deleteLater);
     connect(popover, &tPopover::dismissed, d, &DownloadsPopover::deleteLater);
     popover->show(this->window());
+}
+
+void Toolbar::on_newTabButton_clicked()
+{
+    emit newTabRequested();
 }

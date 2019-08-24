@@ -578,7 +578,7 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="../main.cpp" line="54"/>
+        <location filename="../main.cpp" line="59"/>
         <source>Web Browser</source>
         <translation>Trình duyệt web</translation>
     </message>

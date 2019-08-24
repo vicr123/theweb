@@ -30,6 +30,8 @@ class TabButton : public QPushButton
         explicit TabButton(QWidget *parent = nullptr);
         ~TabButton();
 
+        QSize sizeHint() const;
+
         QColor color();
         QColor foregroundColor();
 

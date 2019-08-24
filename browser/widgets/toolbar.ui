@@ -97,6 +97,19 @@
     </widget>
    </item>
    <item>
+    <widget class="ToolbarButton" name="newTabButton">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="SecurityChunk" name="securityChunk" native="true"/>
    </item>
    <item>
@@ -119,6 +132,11 @@
  </widget>
  <customwidgets>
   <customwidget>
+   <class>ToolbarButton</class>
+   <extends>QToolButton</extends>
+   <header>widgets/toolbarbutton.h</header>
+  </customwidget>
+  <customwidget>
    <class>Bar</class>
    <extends>QLineEdit</extends>
    <header>widgets/bar.h</header>
@@ -128,11 +146,6 @@
    <extends>QWidget</extends>
    <header>widgets/securitychunk.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>ToolbarButton</class>
-   <extends>QToolButton</extends>
-   <header>widgets/toolbarbutton.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

@@ -14,6 +14,7 @@
         <file>icons/help-about.svg</file>
         <file>icons/cloud-download.svg</file>
         <file>icons/window-close.svg</file>
+        <file>icons/tab-new.svg</file>
     </qresource>
     <qresource prefix="/scheme/theweb">
         <file>testjs.html</file>

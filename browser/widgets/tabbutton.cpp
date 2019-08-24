@@ -59,6 +59,13 @@ TabButton::~TabButton() {
     delete d;
 }
 
+QSize TabButton::sizeHint() const
+{
+    QSize sizeHint = QPushButton::sizeHint();
+    sizeHint.setHeight(qMax(this->fontMetrics().height(), this->iconSize().height()) + SC_DPI(12));
+    return sizeHint;
+}
+
 QColor TabButton::color()
 {
     return d->backgroundCol.darker();
@@ -157,14 +164,8 @@ void TabButton::paintEvent(QPaintEvent *event) {
 
     painter.setPen(Qt::transparent);
 
-    QBrush brush;
-    QPen textPen;
-
-#if defined(Q_OS_WIN) || defined(Q_OS_MACOS) && 0
-    brush = QBrush(pal.color(QPalette::Highlight));
-#else
-    brush = QBrush(pal.color(QPalette::Button));
-#endif
+    QBrush brush = d->backgroundCol;
+    QPen textPen = d->foregroundCol;
 
     /*if (button->state & QStyle::State_HasFocus) {
         brush = QBrush(pal.color(QPalette::Button).lighter(125));
@@ -175,11 +176,8 @@ void TabButton::paintEvent(QPaintEvent *event) {
     }*/
 
     if (this->isChecked()) {
-        brush = QBrush(pal.color(QPalette::Button).darker());
+        brush = d->backgroundCol.darker();
     }
-
-    textPen = pal.color(QPalette::ButtonText);
-
     painter.setBrush(brush);
     painter.drawRect(rect);
 

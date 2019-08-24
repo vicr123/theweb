@@ -40,6 +40,11 @@ int main(int argc, char *argv[])
     tApplication a(argc, argv);
     Q_INIT_RESOURCE(scheme);
 
+#ifdef Q_OS_WIN
+    QFont defaultFont("Segoe UI", 9);
+    a.setFont(defaultFont);
+#endif
+
     if (QDir("/usr/share/theweb").exists()) {
         a.setShareDir("/usr/share/theweb");
     } else if (QDir(QDir::cleanPath(QApplication::applicationDirPath() + "/../share/theweb/")).exists()) {

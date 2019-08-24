@@ -24,6 +24,9 @@ class Toolbar : public QWidget
 
         void setAsOblivion();
 
+    signals:
+        void newTabRequested();
+
     public slots:
         void focusBar();
 
@@ -38,7 +41,9 @@ class Toolbar : public QWidget
 
         void on_downloadsButton_clicked();
 
-    private:
+        void on_newTabButton_clicked();
+
+private:
         Ui::Toolbar *ui;
         ToolbarPrivate* d;
 

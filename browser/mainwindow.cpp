@@ -75,6 +75,7 @@ MainWindow::MainWindow(QVariantMap options, QWidget *parent) :
     ui->closeTabButton->setIcon(IconManager::getIcon("window-close", ui->closeTabButton->palette().color(QPalette::WindowText), ui->closeTabButton->iconSize()));
 
     if (d->profile == ProfileManager::oblivionProfile()) ui->toolbarWidget->setAsOblivion();
+    connect(ui->toolbarWidget, &Toolbar::newTabRequested, ui->actionNewTab, &QAction::trigger);
 
     d->leaveFullScreenShortcut = new QShortcut(QKeySequence(Qt::Key_Escape), this);
     connect(d->leaveFullScreenShortcut, &QShortcut::activated, this, [=] {
