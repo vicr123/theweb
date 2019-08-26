@@ -25,6 +25,9 @@ function ensureDeps {
 export CI="false"
 if [ $STAGE = "script" ]; then
   if [ $TRAVIS_OS_NAME = "linux" ]; then
+    echo "[TRAVIS] Preparing build environment"
+    source /opt/qt510/bin/qt510-env.sh
+
     echo "[TRAVIS] Building and installing the-libs"
     git clone https://github.com/vicr123/the-libs.git
     cd the-libs
