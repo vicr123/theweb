@@ -28,9 +28,12 @@
 #include <QTimer>
 #include <QMenu>
 #include "managers/profilemanager.h"
+#include "managers/downloadmanager.h"
 #include "webpage.h"
 #include "permissionpopup.h"
 #include "widgets/devtoolsheader.h"
+#include "widgets/downloads/downloadspopoveritem.h"
+#include <tpropertyanimation.h>
 
 struct WebTabPrivate {
     QWebEngineView* view;
@@ -237,6 +240,49 @@ WebTab::WebTab(WebPage* page, QWidget *parent) :
         ui->stackedWidget->setCurrentWidget(ui->webPage);
     });
 
+    connect(DownloadManager::instance(), &DownloadManager::downloadAdded, this, [=](DownloadManagerItem* item) {
+        if (item->page() == d->page) {
+            //Send the notification
+            DownloadsPopoverItem* w = new DownloadsPopoverItem(item, this);
+            w->setParent(this);
+            w->show();
+
+            QRect geometry;
+            geometry.setSize(QSize(SC_DPI(300), w->sizeHint().height()));
+            geometry.moveTopRight(QPoint(this->width(), -w->sizeHint().height()));
+            w->setGeometry(geometry);
+
+            tPropertyAnimation* anim = new tPropertyAnimation(w, "geometry");
+            anim->setStartValue(geometry);
+            anim->setEndValue(geometry.translated(0, geometry.height()));
+            anim->setDuration(500);
+            anim->setEasingCurve(QEasingCurve::OutCubic);
+            connect(anim, &tPropertyAnimation::finished, this, [=] {
+                if (anim->direction() == tPropertyAnimation::Forward) {
+                    anim->setDirection(tPropertyAnimation::Backward);
+                    anim->setEasingCurve(QEasingCurve::InCubic);
+                    QTimer::singleShot(5000, anim, [=] {
+                        anim->start();
+                    });
+                } else {
+                    anim->deleteLater();
+                    w->deleteLater();
+                }
+            });
+            anim->start();
+
+            connect(this, &WebTab::resized, w, [=] {
+                QRect geometry;
+                geometry.setSize(QSize(SC_DPI(300), w->sizeHint().height()));
+                geometry.moveTopRight(QPoint(this->width(), -w->sizeHint().height()));
+
+                anim->setStartValue(geometry);
+                anim->setEndValue(geometry.translated(0, geometry.height()));
+                anim->setCurrentTime(anim->currentTime());
+            });
+        }
+    });
+
     ui->webPageSplitter->setChildrenCollapsible(false);
     ui->webPageSplitter->setHandleWidth(0);
 //    ui->webPageSplitter->setSizes({1, 0});
@@ -360,4 +406,6 @@ void WebTab::resizeEvent(QResizeEvent* event)
     ui->permissionPopupsWidget->move(0, 0);
     ui->permissionPopupsSpacer->changeSize(this->width(), 0, QSizePolicy::Fixed, QSizePolicy::Fixed);
     ui->permissionPopupsWidget->setFixedWidth(this->width());
+
+    emit resized();
 }

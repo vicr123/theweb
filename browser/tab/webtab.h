@@ -70,6 +70,7 @@ class WebTab : public QWidget
         void iconChanged();
 
         void goFullScreen(bool fullscreen);
+        void resized();
 
     private:
         Ui::WebTab *ui;
