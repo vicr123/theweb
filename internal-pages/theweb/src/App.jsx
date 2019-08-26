@@ -38,7 +38,7 @@ class App extends React.Component {
             s.currentPane = "settings";
         } else if (path.startsWith("about")) {
             s.currentPane = "about";
-        } else if (path.startsWith("newTab") || true) {
+        } else if (path.startsWith("newtab")) {
             s.currentPane = "newtab";
             s.showSidebar = false;
         } else {
@@ -125,6 +125,7 @@ class App extends React.Component {
         return <Translation>{(t, {i18n}) => {
             if (i18n.language !== this.state.lang) i18n.changeLanguage(this.state.lang);
             return <div className="App">
+                <div id="modalContainer" />
                 {this.sidebarElement()}
                 <div className="AppContainer">
                     {this.componentNode()}

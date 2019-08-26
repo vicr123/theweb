@@ -1,5 +1,9 @@
 :root {
     --bg-color: rgb(40, 40, 40);
+    --bg-color-faded: rgba(40, 40, 40, 0.75);
+    --bg-hover-color: rgb(60, 60, 60);
+    --bg-active-color: rgb(20, 20, 20);
+    
     --fg-color: white;
     --font-family: Contemporary;
     --font-size: 10pt;
@@ -45,17 +49,37 @@ div.Sidebar {
 }
 
 div.header {
-    display: block;
+    display: flex;
     font-size: 15pt;
     
-    padding: 9px;
     border-bottom: 1px solid var(--fg-color);
+}
+
+div.headerText {
+    padding: 9px;
+    flex-grow: 1;
 }
 
 div.miniheader {
     display: block;
     font-weight: bold;
     text-transform: uppercase;
+}
+
+div.headerButton {
+    display: flex;
+    height: 42px;
+    width: 42px;
+    align-items: center;
+    justify-content: center;
+}
+
+div.headerButton:hover {
+    background-color: var(--bg-hover-color);
+}
+
+div.headerButton:active {
+    background-color: var(--bg-active-color);
 }
 
 .Content {
@@ -123,4 +147,31 @@ div.alert {
     width: 100%;
     box-sizing: border-box;
     padding: 3px;
+}
+
+#modalContainer {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 0px;
+    height: 0px;
+}
+
+div.modalBackground {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    
+    display: flex;
+    justify-content: flex-end;
+    
+    background-color: var(--bg-color-faded);
+}
+
+div.modalBox {
+    height: 100%;
+    background-color: var(--bg-color);
+    border-left: 1px solid var(--fg-color);
 }

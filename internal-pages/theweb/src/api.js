@@ -54,6 +54,10 @@ class Settings extends Api {
             request.send();
         });
     }
+    
+    clear() {
+        return this.get("theweb://api/settings/clear");
+    }
 }
 
 let api = new Api();

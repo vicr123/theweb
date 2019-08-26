@@ -65,6 +65,12 @@ void SettingsManager::set(QString key, QVariant value)
     d->settings.sync();
 }
 
+void SettingsManager::resetSettings()
+{
+    d->settings.clear();
+    d->settings.sync();
+}
+
 void SettingsManager::initialize()
 {
     Q_ASSERT(d == nullptr);

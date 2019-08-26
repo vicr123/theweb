@@ -29,6 +29,7 @@ class SettingsManager : public QObject
     public:
         static QByteArray getJson();
         static void set(QString key, QVariant value);
+        static void resetSettings();
 
         static void initialize();
 

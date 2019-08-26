@@ -19,6 +19,7 @@
  * *************************************/
 #include "thewebschemehandler.h"
 
+#include <functional>
 #include <QUrlQuery>
 #include <QBuffer>
 #include <QDebug>
@@ -31,12 +32,40 @@
 
 struct thewebSchemeHandlerPrivate {
     QVariantMap options;
+    QMap<QString, std::function<QByteArray(QWebEngineUrlRequestJob*)>> apiPaths;
 };
 
 thewebSchemeHandler::thewebSchemeHandler(QVariantMap options, QObject *parent) : QWebEngineUrlSchemeHandler(parent)
 {
     d = new thewebSchemeHandlerPrivate();
     d->options = options;
+
+    d->apiPaths.insert("/settings", [=](QWebEngineUrlRequestJob* job) {
+        return SettingsManager::getJson();
+    });
+    d->apiPaths.insert("/settings/set", [=](QWebEngineUrlRequestJob* job) {
+        QUrlQuery query(job->requestUrl().query());
+        QString key = query.queryItemValue("key", QUrl::FullyDecoded);
+        QString value = query.queryItemValue("value", QUrl::FullyDecoded);
+        SettingsManager::set(key, value);
+        return "{\"Status\":\"OK\"}";
+    });
+    d->apiPaths.insert("/settings/clear", [=](QWebEngineUrlRequestJob* job) {
+        //Reset theWeb settings back to the defaults
+        SettingsManager::resetSettings();
+
+        //Clear profile cache
+
+        //Clear profile cookies
+
+        return "{\"Status\":\"OK\"}";
+    });
+    d->apiPaths.insert("/lang", [=](QWebEngineUrlRequestJob* job) {
+        return QLocale().name().toUtf8();
+    });
+    d->apiPaths.insert("/oblivion", [=](QWebEngineUrlRequestJob* job) {
+        return QString("{\"isOblivion\":%1}").arg(d->options.value("oblivion", false).toBool() ? "true" : "false").toUtf8();
+    });
 }
 
 thewebSchemeHandler::~thewebSchemeHandler()
@@ -49,22 +78,14 @@ void thewebSchemeHandler::requestStarted(QWebEngineUrlRequestJob* job)
     QUrl url = job->requestUrl();
 
     if (url.host() == "api") {
-        QBuffer* buf = new QBuffer(job);
-        if (url.path() == "/settings") {
-            buf->setData(SettingsManager::getJson());
-        } else if (url.path() == "/settings/set") {
-            QUrlQuery query(url.query());
-            QString key = query.queryItemValue("key", QUrl::FullyDecoded);
-            QString value = query.queryItemValue("value", QUrl::FullyDecoded);
-            SettingsManager::set(key, value);
-            buf->setData("{\"Status\":\"OK\"}");
-        } else if (url.path() == "/lang") {
-            buf->setData(QLocale().name().toUtf8());
-        } else if (url.path() == "/oblivion") {
-            buf->setData(QString("{\"isOblivion\":%1}").arg(d->options.value("oblivion", false).toBool() ? "true" : "false").toUtf8());
+        if (d->apiPaths.contains(url.path())) {
+            QBuffer* buf = new QBuffer(job);
+            buf->setData(d->apiPaths.value(url.path())(job));
+            buf->open(QBuffer::ReadOnly);
+            job->reply("application/json", buf);
+        } else {
+            job->fail(QWebEngineUrlRequestJob::UrlInvalid);
         }
-        buf->open(QBuffer::ReadOnly);
-        job->reply("application/json", buf);
         return;
     } else if (url.host() == "sysicons") {
         if (url.path() != "/") {

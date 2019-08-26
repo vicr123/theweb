@@ -8,7 +8,9 @@ class Header extends React.Component {
     
     render() {
         return <div className="header">
-            {this.props.title}
+            {this.props.leftElements}
+            <div className="headerText">{this.props.title}</div>
+            {this.props.rightElements}
         </div>
     }
 }
