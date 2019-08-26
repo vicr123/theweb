@@ -48,6 +48,8 @@ if [ $STAGE = "script" ]; then
     chmod a+x linuxdeployqt-continuous-x86_64.AppImage
     echo "[TRAVIS] Building AppImage"
     ./linuxdeployqt-continuous-x86_64.AppImage ~/appdir/usr/share/applications/*.desktop -appimage -extra-plugins=iconengines/libqsvgicon.so,imageformats/libqsvg.so
+    cp theWeb*.AppImage ~/theWeb-linux.AppImage
+    cp theWeb*.AppImage.zsync ~/theWeb-linux.AppImage.zsync
   else
     echo "[TRAVIS] Building for macOS"
     export PATH="/usr/local/opt/qt/bin:$PATH"
@@ -100,8 +102,6 @@ elif [ $STAGE = "after_success" ]; then
   if [ $TRAVIS_OS_NAME = "linux" ]; then
     echo "[TRAVIS] Publishing AppImage"
     wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
-    cp theWeb*.AppImage theWeb-linux.AppImage
-    cp theWeb*.AppImage.zsync theWeb-linux.AppImage.zsync
     bash upload.sh theWeb-linux.AppImage*
   else
     echo "[TRAVIS] Publishing Disk Image"
