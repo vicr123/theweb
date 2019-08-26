@@ -44,7 +44,6 @@ if [ $STAGE = "script" ]; then
     echo "[TRAVIS] Installing into appdir"
     make install INSTALL_ROOT=~/appdir
     echo "[TRAVIS] Getting linuxdeployqt"
-    cd ~
     wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
     chmod a+x linuxdeployqt-continuous-x86_64.AppImage
     echo "[TRAVIS] Building AppImage"
@@ -101,6 +100,7 @@ elif [ $STAGE = "after_success" ]; then
   if [ $TRAVIS_OS_NAME = "linux" ]; then
     echo "[TRAVIS] Publishing AppImage"
     wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
+    ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
     cp theWeb*.AppImage theWeb-linux.AppImage
     cp theWeb*.AppImage.zsync theWeb-linux.AppImage.zsync
     bash upload.sh theWeb-linux.AppImage*
