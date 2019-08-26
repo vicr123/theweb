@@ -7,4 +7,4 @@ GenericName=Web Browser
 GenericName[vi]=Bộ duyệt Web
 Exec=theweb
 Icon=theweb
-Categories=web;browser;internet;
+Categories=Network;WebBrowser;
