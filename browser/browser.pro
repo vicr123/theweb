@@ -35,11 +35,11 @@ unix:!macx {
 
     target.path = /usr/bin
 
-#    desktop.path = /usr/share/applications
-#    desktop.files = com.vicr123.theweb.desktop
+    desktop.path = /usr/share/applications
+    desktop.files = com.vicr123.theweb.desktop
 
-#    icon.path = /usr/share/icons/hicolor/scalable/apps/
-#    icon.files = icons/theweb.svg
+    icon.path = /usr/share/icons/hicolor/scalable/apps/
+    icon.files = icons/theweb.svg
 
     INSTALLS += target desktop icon
 }
@@ -158,3 +158,6 @@ else:win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../inte
 else:win32:!win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../internal-pages/release/internal-pages.lib
 else:win32:!win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../internal-pages/debug/internal-pages.lib
 else:unix: PRE_TARGETDEPS += $$OUT_PWD/../internal-pages/libinternal-pages.a
+
+DISTFILES += \
+    com.vicr123.theweb.desktop

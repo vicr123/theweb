@@ -1,0 +1,10 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=theWeb
+GenericName=Web Browser
+GenericName[vi]=Bộ soạn văn bản
+Exec=theweb
+Icon=theweb
+Categories=web;browser;internet;
