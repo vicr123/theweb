@@ -37,12 +37,16 @@ WebPage::WebPage(QWidget *parent) : QWebEnginePage(parent)
 {
     d = new WebPagePrivate();
     d->parent = parent;
+
+    this->resetZoom();
 }
 
 WebPage::WebPage(QWebEngineProfile* profile, QWidget* parent) : QWebEnginePage(profile, parent)
 {
     d = new WebPagePrivate();
     d->parent = parent;
+
+    this->resetZoom();
 }
 
 WebPage::~WebPage()
@@ -153,6 +157,21 @@ QMenu* WebPage::createStandardContextMenu()
     });
 
     return menu;
+}
+
+void WebPage::resetZoom()
+{
+//    this->setZoomFactor(theLibsGlobal::getDPIScaling());
+}
+
+void WebPage::zoomIn()
+{
+//    this->setZoomFactor(this->zoomFactor() + 0.1);
+}
+
+void WebPage::zoomOut()
+{
+//    this->setZoomFactor(this->zoomFactor() - 0.1);
 }
 
 QWebEnginePage* WebPage::createWindow(WebPage::WebWindowType type) {

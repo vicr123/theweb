@@ -86,7 +86,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QStackedWidget" name="tabs"/>
+     <widget class="tStackedWidget" name="tabs"/>
     </item>
    </layout>
   </widget>
@@ -221,6 +221,12 @@
    <class>ToolbarButton</class>
    <extends>QToolButton</extends>
    <header>widgets/toolbarbutton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>tStackedWidget</class>
+   <extends>QStackedWidget</extends>
+   <header location="global">tstackedwidget.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources>

@@ -51,6 +51,8 @@ MainWindow::MainWindow(QVariantMap options, QWidget *parent) :
     QIcon windowIcon = d->profile == ProfileManager::oblivionProfile() ? QIcon::fromTheme("theweb-oblivion", QIcon(":/icons/theweb-oblivion.svg")) : QIcon::fromTheme("theweb", QIcon(":/icons/theweb.svg"));
     this->setWindowIcon(windowIcon);
 
+    ui->tabs->setCurrentAnimation(tStackedWidget::SlideHorizontal);
+
     #ifdef Q_OS_MAC
         setupMacOS();
     #else
@@ -86,6 +88,8 @@ MainWindow::MainWindow(QVariantMap options, QWidget *parent) :
     WebPage* page = new WebPage(d->profile, nullptr);
     page->setUrl(SettingsManager::getHomePage());
     newTab(new WebTab(page));
+
+    on_tabs_switchingFrame(0);
 }
 
 MainWindow::~MainWindow()
@@ -132,7 +136,7 @@ void MainWindow::newTab(WebTab* tab)
     connect(tab, &WebTab::spawnTab, this, QOverload<WebTab*>::of(&MainWindow::newTab));
 }
 
-void MainWindow::on_tabs_currentChanged(int arg1)
+void MainWindow::on_tabs_switchingFrame(int arg1)
 {
     for (int i = 0; i < ui->tabs->count(); i++) {
         static_cast<WebTab*>(ui->tabs->widget(i))->deactivated();
@@ -219,4 +223,9 @@ void MainWindow::closeEvent(QCloseEvent *event) {
 
         //Window will automatically close when there are no tabs left
     }
+}
+
+void MainWindow::on_tabs_currentChanged(int arg1)
+{
+    on_tabs_switchingFrame(arg1);
 }

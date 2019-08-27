@@ -42,6 +42,9 @@ class WebPage : public QWebEnginePage
         void spawnTab(WebPage* page, WebWindowType type);
 
     public slots:
+        void resetZoom();
+        void zoomIn();
+        void zoomOut();
 
     private:
         QWebEnginePage* createWindow(WebWindowType type);

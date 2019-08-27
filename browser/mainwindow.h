@@ -41,7 +41,7 @@ class MainWindow : public QMainWindow
         void newTab(WebTab* tab);
 
     private slots:
-        void on_tabs_currentChanged(int arg1);
+        void on_tabs_switchingFrame(int arg1);
 
         void on_actionGoBack_triggered();
 
@@ -61,7 +61,9 @@ class MainWindow : public QMainWindow
 
         void on_actionNew_Oblivion_Window_triggered();
 
-private:
+        void on_tabs_currentChanged(int arg1);
+
+    private:
         Ui::MainWindow *ui;
         MainWindowPrivate* d;
 

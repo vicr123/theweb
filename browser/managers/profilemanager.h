@@ -44,6 +44,11 @@ class ProfileManager : public QObject
     private:
         explicit ProfileManager(QObject *parent = nullptr);
 
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 13, 0))
+        typedef std::unique_ptr<QWebEngineNotification> QWebEngineNotificationPtr;
+        static void notificationPresenter(QWebEngineNotificationPtr notification);
+#endif
+
         static ProfileManagerPrivate* d;
 };
 

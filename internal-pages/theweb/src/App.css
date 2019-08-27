@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'Contemporary';
+  src: local('Contemporary'), url(./fonts/Contemporary-Regular.ttf) format('ttf');
+}
+
 :root {
     --bg-color: rgb(40, 40, 40);
     --bg-color-faded: rgba(40, 40, 40, 0.75);
@@ -14,6 +19,7 @@
 
 body {
     margin: 0px;
+    user-select: none;
 }
 
 h1 {

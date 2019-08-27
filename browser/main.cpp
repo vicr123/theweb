@@ -36,6 +36,7 @@ int main(int argc, char *argv[])
     scheme.setFlags(QWebEngineUrlScheme::LocalScheme | QWebEngineUrlScheme::SecureScheme | QWebEngineUrlScheme::LocalAccessAllowed | QWebEngineUrlScheme::ContentSecurityPolicyIgnored);
     QWebEngineUrlScheme::registerScheme(scheme);
 
+    tApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     tApplication a(argc, argv);
     Q_INIT_RESOURCE(scheme);

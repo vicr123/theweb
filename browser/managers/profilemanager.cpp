@@ -19,6 +19,7 @@
  * *************************************/
 #include "profilemanager.h"
 
+#include <tnotification.h>
 #include <QUrlQuery>
 #include <QWebEngineSettings>
 #include <QWebEngineProfile>
@@ -26,9 +27,17 @@
 #include "core/urlinterceptor.h"
 #include "downloadmanager.h"
 
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 13, 0))
+#include <QWebEngineNotification>
+#endif
+
 struct ProfileManagerPrivate {
     QWebEngineProfile* defaultProfile = nullptr;
     QWebEngineProfile* oblivionProfile = nullptr;
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 13, 0))
+    QMap<tNotification*, std::unique_ptr<QWebEngineNotification>> notificationsMap;
+#endif
 };
 
 ProfileManagerPrivate* ProfileManager::d = new ProfileManagerPrivate();
@@ -46,6 +55,7 @@ QWebEngineProfile *ProfileManager::defaultProfile()
         //Only on Qt 5.13 or higher
         d->defaultProfile->setUseForGlobalCertificateVerification();
         d->defaultProfile->setUrlRequestInterceptor(interceptor);
+        d->defaultProfile->setNotificationPresenter(&ProfileManager::notificationPresenter);
 #else
         d->defaultProfile->setRequestInterceptor(interceptor);
 #endif
@@ -78,6 +88,7 @@ QWebEngineProfile *ProfileManager::oblivionProfile()
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 13, 0))
         //Only on Qt 5.13 or higher
         d->defaultProfile->setUrlRequestInterceptor(interceptor);
+        d->defaultProfile->setNotificationPresenter(&ProfileManager::notificationPresenter);
 #else
         d->defaultProfile->setRequestInterceptor(interceptor);
 #endif
@@ -121,3 +132,35 @@ ProfileManager::ProfileManager(QObject *parent) : QObject(parent)
 {
 
 }
+
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 13, 0))
+void ProfileManager::notificationPresenter(QWebEngineNotificationPtr notification) {
+    tNotification* n = nullptr;
+    /*for (tNotification* key : d->notificationsMap.keys()) {
+        if (d->notificationsMap.value(key)->matches(notification.get())) {
+            //Update this notification instead
+            n = key;
+        }
+    }*/
+
+    if (n == nullptr) n = new tNotification();
+    n->setSummary(notification->title());
+    n->setText(notification->message() + QStringLiteral("\n- ") + tr("from %1").arg(notification->origin().host()));
+//    n->insertAction("activate", tr("Activate"));
+//    n->insertAction("stop", tr("Stop Notifications"));
+//    n->insertAction("configure", tr("Configure Notifications"));
+//    connect(n, &tNotification::actionClicked, [=](QString key) {
+//        if (key == "activate") {
+//            notification->show();
+//        }
+//    });
+    n->post(false);
+
+    notification->show();
+
+//    QWebEngineNotificationPtr insertNotification;
+//    insertNotification.swap(notification);
+//    d->notificationsMap.insert(n, insertNotification);
+}
+#endif
