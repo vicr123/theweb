@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>24</height>
+    <height>25</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -103,6 +103,9 @@
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
+     </property>
+     <property name="toolTip">
+      <string>New Tab</string>
      </property>
      <property name="text">
       <string/>

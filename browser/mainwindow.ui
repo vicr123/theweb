@@ -177,6 +177,9 @@
    </property>
   </action>
   <action name="actionNew_Window">
+   <property name="icon">
+    <iconset theme="window-new"/>
+   </property>
    <property name="text">
     <string>New Window</string>
    </property>
@@ -185,6 +188,9 @@
    </property>
   </action>
   <action name="actionNew_Oblivion_Window">
+   <property name="icon">
+    <iconset theme="window-new"/>
+   </property>
    <property name="text">
     <string>New Oblivion Window</string>
    </property>
@@ -193,6 +199,9 @@
    </property>
   </action>
   <action name="actionSettings">
+   <property name="icon">
+    <iconset theme="configure"/>
+   </property>
    <property name="text">
     <string>Settings</string>
    </property>
@@ -201,6 +210,9 @@
    </property>
   </action>
   <action name="actionExit">
+   <property name="icon">
+    <iconset theme="application-exit"/>
+   </property>
    <property name="text">
     <string>Exit</string>
    </property>

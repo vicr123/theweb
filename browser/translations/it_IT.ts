@@ -255,42 +255,42 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="181"/>
+        <location filename="../mainwindow.ui" line="184"/>
         <source>New Window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="184"/>
+        <location filename="../mainwindow.ui" line="187"/>
         <source>Ctrl+N</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="189"/>
+        <location filename="../mainwindow.ui" line="195"/>
         <source>New Oblivion Window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="192"/>
+        <location filename="../mainwindow.ui" line="198"/>
         <source>Ctrl+Shift+N</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="197"/>
+        <location filename="../mainwindow.ui" line="206"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="200"/>
+        <location filename="../mainwindow.ui" line="209"/>
         <source>Ctrl+,</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="205"/>
+        <location filename="../mainwindow.ui" line="217"/>
         <source>Exit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="208"/>
+        <location filename="../mainwindow.ui" line="220"/>
         <source>Ctrl+Q</source>
         <translation type="unfinished"></translation>
     </message>
@@ -308,92 +308,92 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/permissionpopup.cpp" line="41"/>
+        <location filename="../tab/permissionpopup.cpp" line="42"/>
         <source>Full Screen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/permissionpopup.cpp" line="42"/>
-        <source>%1 is now full screen.</source>
+        <location filename="../tab/permissionpopup.cpp" line="43"/>
+        <source>%1 is now full screen. You can hit %2 to exit at any time.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/permissionpopup.cpp" line="47"/>
+        <location filename="../tab/permissionpopup.cpp" line="51"/>
         <source>Geolocation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/permissionpopup.cpp" line="48"/>
+        <location filename="../tab/permissionpopup.cpp" line="52"/>
         <source>Allow %1 to access your physical location?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/permissionpopup.cpp" line="52"/>
+        <location filename="../tab/permissionpopup.cpp" line="56"/>
         <source>Camera</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/permissionpopup.cpp" line="53"/>
+        <location filename="../tab/permissionpopup.cpp" line="57"/>
         <source>Allow %1 to access your camera?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/permissionpopup.cpp" line="57"/>
+        <location filename="../tab/permissionpopup.cpp" line="61"/>
         <source>Microphone</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/permissionpopup.cpp" line="58"/>
+        <location filename="../tab/permissionpopup.cpp" line="62"/>
         <source>Allow %1 to access your microphone?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/permissionpopup.cpp" line="62"/>
+        <location filename="../tab/permissionpopup.cpp" line="66"/>
         <source>Camera and Microphone</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/permissionpopup.cpp" line="63"/>
+        <location filename="../tab/permissionpopup.cpp" line="67"/>
         <source>Allow %1 to access your camera and microphone?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/permissionpopup.cpp" line="68"/>
+        <location filename="../tab/permissionpopup.cpp" line="72"/>
         <source>Screen Recording</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/permissionpopup.cpp" line="69"/>
+        <location filename="../tab/permissionpopup.cpp" line="73"/>
         <source>Allow %1 to record your screen?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/permissionpopup.cpp" line="73"/>
+        <location filename="../tab/permissionpopup.cpp" line="77"/>
         <source>Notifications</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/permissionpopup.cpp" line="74"/>
+        <location filename="../tab/permissionpopup.cpp" line="78"/>
         <source>Allow %1 to send notifications?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/permissionpopup.cpp" line="78"/>
+        <location filename="../tab/permissionpopup.cpp" line="82"/>
         <source>Mouse Control</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/permissionpopup.cpp" line="79"/>
+        <location filename="../tab/permissionpopup.cpp" line="83"/>
         <source>Allow %1 to take exclusive control of your mouse?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/permissionpopup.cpp" line="83"/>
+        <location filename="../tab/permissionpopup.cpp" line="87"/>
         <source>Page Reloaded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/permissionpopup.cpp" line="84"/>
+        <location filename="../tab/permissionpopup.cpp" line="88"/>
         <source>This page had a problem, so we had to reload it.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -434,6 +434,11 @@
     <message>
         <location filename="../widgets/toolbar.ui" line="92"/>
         <source>Reload</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/toolbar.ui" line="108"/>
+        <source>New Tab</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

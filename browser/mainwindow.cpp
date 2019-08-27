@@ -122,12 +122,12 @@ void MainWindow::newTab(WebTab* tab)
             d->stateBeforeFullScreen = this->windowState() & ~Qt::WindowFullScreen;
             d->fullScreenTab = tab;
             ui->tabFrame->setVisible(false);
-//            ui->mainToolBar->setVisible(false);
+            ui->toolbarWidget->setVisible(false);
             d->leaveFullScreenShortcut->setEnabled(true);
             this->showFullScreen();
         } else {
             ui->tabFrame->setVisible(true);
-//            ui->mainToolBar->setVisible(true);
+            ui->toolbarWidget->setVisible(true);
             d->leaveFullScreenShortcut->setEnabled(false);
             this->setWindowState(d->stateBeforeFullScreen);
             d->fullScreenTab = nullptr;

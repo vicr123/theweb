@@ -22,6 +22,7 @@
 
 #include <the-libs_global.h>
 #include <QUrl>
+#include <QTimer>
 
 struct PermissionPopupPrivate {
     PermissionPopup::PermissionType type;
@@ -39,9 +40,12 @@ PermissionPopup::PermissionPopup(QUrl originUrl, PermissionPopup::PermissionType
     switch (type) {
         case FullScreen:
             ui->titleLabel->setText(tr("Full Screen"));
-            ui->textLabel->setText(tr("%1 is now full screen.").arg(host));
+            ui->textLabel->setText(tr("%1 is now full screen. You can hit %2 to exit at any time.").arg(host).arg("ESC"));
             ui->permissionButtons->setVisible(false);
             ui->iconLabel->setVisible(false);
+
+            //Automatically dismiss after 5 seconds
+            QTimer::singleShot(5000, this, &PermissionPopup::on_dismissButton_clicked);
             break;
         case Geolocation:
             ui->titleLabel->setText(tr("Geolocation"));
