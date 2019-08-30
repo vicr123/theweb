@@ -116,6 +116,6 @@ void PermissionPopup::on_denyButton_clicked()
 
 void PermissionPopup::on_dismissButton_clicked()
 {
-    emit deny();
+    emit dismiss();
     this->deleteLater();
 }

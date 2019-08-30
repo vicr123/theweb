@@ -667,34 +667,34 @@
 <context>
     <name>WebTab</name>
     <message>
-        <location filename="../tab/webtab.cpp" line="226"/>
+        <location filename="../tab/webtab.cpp" line="263"/>
         <source>Okay, this page is having some serious issues.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webtab.cpp" line="227"/>
+        <location filename="../tab/webtab.cpp" line="264"/>
         <source>We&apos;ve tried reloading it multiple times, but it keeps causing problems.
 
 Usually this is a temporary problem, so we recommend waiting a couple hours and then trying again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webtab.cpp" line="228"/>
+        <location filename="../tab/webtab.cpp" line="265"/>
         <source>Reload Anyway</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webtab.cpp" line="231"/>
+        <location filename="../tab/webtab.cpp" line="268"/>
         <source>Your device might be running out of memory.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webtab.cpp" line="232"/>
+        <location filename="../tab/webtab.cpp" line="269"/>
         <source>Your system has stopped this webpage. Check your memory usage and then reload the page.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webtab.cpp" line="233"/>
+        <location filename="../tab/webtab.cpp" line="270"/>
         <source>Reload</source>
         <translation type="unfinished"></translation>
     </message>

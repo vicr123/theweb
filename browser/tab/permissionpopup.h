@@ -54,6 +54,7 @@ class PermissionPopup : public QWidget
     signals:
         void allow();
         void deny();
+        void dismiss();
 
     private slots:
         void on_allowButton_clicked();

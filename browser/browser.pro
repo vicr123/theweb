@@ -84,6 +84,7 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
         managers/downloadmanager.cpp \
+        managers/featuremanager.cpp \
         managers/historymanager.cpp \
         managers/iconmanager.cpp \
         managers/profilemanager.cpp \
@@ -110,6 +111,7 @@ HEADERS += \
         core/urlinterceptor.h \
         mainwindow.h \
         managers/downloadmanager.h \
+        managers/featuremanager.h \
         managers/historymanager.h \
         managers/iconmanager.h \
         managers/profilemanager.h \

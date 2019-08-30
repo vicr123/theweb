@@ -30,6 +30,7 @@
 #include "managers/profilemanager.h"
 #include "managers/downloadmanager.h"
 #include "managers/historymanager.h"
+#include "managers/featuremanager.h"
 #include "webpage.h"
 #include "permissionpopup.h"
 #include "widgets/devtoolsheader.h"
@@ -48,6 +49,7 @@ struct WebTabPrivate {
     QSslCertificate pageCertificate;
 
     HistoryManager* history;
+    FeatureManager* features;
 
     QList<PermissionPopup*> permissionPopups;
     void removePermissionPopups(PermissionPopup::PermissionType type) {
@@ -76,6 +78,7 @@ WebTab::WebTab(WebPage* page, QWidget *parent) :
     ui->permissionPopupsWidget->raise();
 
     d->history = HistoryManager::managerFor(page->profile());
+    d->features = FeatureManager::managerFor(page->profile());
 
     connect(&d->certCheckSocket, &QSslSocket::encrypted, this, [=] {
         d->pageCertificate = d->certCheckSocket.peerCertificate();
@@ -129,18 +132,24 @@ WebTab::WebTab(WebPage* page, QWidget *parent) :
     });
     connect(d->page, &WebPage::featurePermissionRequested, this, [=](QUrl securityOrigin, WebPage::Feature feature) {
         PermissionPopup::PermissionType permission = PermissionPopup::Unknown;
+        QList<FeatureManager::Feature> permissionManagerFeatures;
         switch (feature) {
             case WebPage::Geolocation:
                 permission = PermissionPopup::Geolocation;
+                permissionManagerFeatures.append(FeatureManager::Location);
                 break;
             case WebPage::MediaAudioCapture:
                 permission = PermissionPopup::Microphone;
+                permissionManagerFeatures.append(FeatureManager::Microphone);
                 break;
             case WebPage::MediaVideoCapture:
                 permission = PermissionPopup::Webcam;
+                permissionManagerFeatures.append(FeatureManager::Camera);
                 break;
             case WebPage::MediaAudioVideoCapture:
                 permission = PermissionPopup::WebcamAndMicrophone;
+                permissionManagerFeatures.append(FeatureManager::Microphone);
+                permissionManagerFeatures.append(FeatureManager::Camera);
                 break;
             case WebPage::DesktopVideoCapture:
                 permission = PermissionPopup::ScreenRecord;
@@ -158,18 +167,46 @@ WebTab::WebTab(WebPage* page, QWidget *parent) :
         if (permission == PermissionPopup::Unknown) {
             d->page->setFeaturePermission(securityOrigin, feature, WebPage::PermissionUnknown);
         } else {
-            PermissionPopup* popup = new PermissionPopup(securityOrigin, permission);
-            ui->permissionPopups->insertWidget(0, popup);
-            connect(popup, &PermissionPopup::destroyed, this, [=] {
-                d->permissionPopups.removeAll(popup);
-            });
-            connect(popup, &PermissionPopup::allow, this, [=] {
-                d->page->setFeaturePermission(securityOrigin, feature, WebPage::PermissionGrantedByUser);
-            });
-            connect(popup, &PermissionPopup::deny, this, [=] {
-                d->page->setFeaturePermission(securityOrigin, feature, WebPage::PermissionDeniedByUser);
-            });
-            d->permissionPopups.append(popup);
+            //Check if the site was previously allowed to access this feature
+            FeatureManager::FeatureAllowed decision = FeatureManager::Allow;
+            for (FeatureManager::Feature feature : permissionManagerFeatures) {
+                decision = qMax(decision, d->features->isFeatureAllowed(securityOrigin, feature));
+            }
+
+            switch (decision) {
+                case FeatureManager::Allow:
+                    d->page->setFeaturePermission(securityOrigin, feature, WebPage::PermissionGrantedByUser);
+                    break;
+                case FeatureManager::Deny:
+                    d->page->setFeaturePermission(securityOrigin, feature, WebPage::PermissionDeniedByUser);
+                    break;
+                case FeatureManager::Ask: {
+                    PermissionPopup* popup = new PermissionPopup(securityOrigin, permission);
+                    ui->permissionPopups->insertWidget(0, popup);
+                    connect(popup, &PermissionPopup::destroyed, this, [=] {
+                        d->permissionPopups.removeAll(popup);
+                    });
+                    connect(popup, &PermissionPopup::allow, this, [=] {
+                        for (FeatureManager::Feature feature : permissionManagerFeatures) {
+                            d->features->setFeatureAllowed(securityOrigin, feature, FeatureManager::Allow);
+                        }
+                        d->page->setFeaturePermission(securityOrigin, feature, WebPage::PermissionGrantedByUser);
+                    });
+                    connect(popup, &PermissionPopup::deny, this, [=] {
+                        for (FeatureManager::Feature feature : permissionManagerFeatures) {
+                            d->features->setFeatureAllowed(securityOrigin, feature, FeatureManager::Deny);
+                        }
+                        d->page->setFeaturePermission(securityOrigin, feature, WebPage::PermissionDeniedByUser);
+                    });
+                    connect(popup, &PermissionPopup::dismiss, this, [=] {
+                        //Don't tell the features manager; we're denying once
+                        d->page->setFeaturePermission(securityOrigin, feature, WebPage::PermissionDeniedByUser);
+                    });
+                    d->permissionPopups.append(popup);
+                    break;
+                }
+            }
+
         }
     });
     connect(d->page, &WebPage::featurePermissionRequestCanceled, this, [=](QUrl securityOrigin, WebPage::Feature feature) {
