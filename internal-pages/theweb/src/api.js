@@ -1,5 +1,5 @@
 class Api {
-    get(url) {
+    makeRequest(method, url) {
         return new Promise((res, rej) => {
             let request = new XMLHttpRequest();
             request.addEventListener("load", () => {
@@ -8,9 +8,17 @@ class Api {
             request.addEventListener("error", () => {
                 rej();
             });
-            request.open("GET", url);
+            request.open(method, url);
             request.send();
         });
+    }
+    
+    get(url) {
+        return this.makeRequest("GET", url);
+    }
+    
+    delete(url) {
+        return this.makeRequest("DELETE", url);
     }
     
     lang() {

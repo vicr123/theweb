@@ -68,6 +68,7 @@ MainWindow::MainWindow(QVariantMap options, QWidget *parent) :
     menu->addAction(ui->actionGoForward);
     menu->addAction(ui->actionReload);
     menu->addSeparator();
+    menu->addMenu(ui->menuHistory);
     menu->addAction(ui->actionSettings);
     menu->addSeparator();
     menu->addAction(ui->actionExit);
@@ -228,4 +229,11 @@ void MainWindow::closeEvent(QCloseEvent *event) {
 void MainWindow::on_tabs_currentChanged(int arg1)
 {
     on_tabs_switchingFrame(arg1);
+}
+
+void MainWindow::on_actionViewFullHistory_triggered()
+{
+    WebPage* page = new WebPage(d->profile, nullptr);
+    page->setUrl(QUrl("theweb://history"));
+    this->newTab(new WebTab(page));
 }

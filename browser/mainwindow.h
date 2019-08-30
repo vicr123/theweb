@@ -63,6 +63,8 @@ class MainWindow : public QMainWindow
 
         void on_tabs_currentChanged(int arg1);
 
+        void on_actionViewFullHistory_triggered();
+
     private:
         Ui::MainWindow *ui;
         MainWindowPrivate* d;

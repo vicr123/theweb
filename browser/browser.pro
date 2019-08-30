@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui webenginecore webenginewidgets network
+QT       += core gui webenginecore webenginewidgets network sql
 SHARE_APP_NAME = theweb
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -84,6 +84,7 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
         managers/downloadmanager.cpp \
+        managers/historymanager.cpp \
         managers/iconmanager.cpp \
         managers/profilemanager.cpp \
         managers/settingsmanager.cpp \
@@ -107,6 +108,7 @@ HEADERS += \
         core/urlinterceptor.h \
         mainwindow.h \
         managers/downloadmanager.h \
+        managers/historymanager.h \
         managers/iconmanager.h \
         managers/profilemanager.h \
         managers/settingsmanager.h \

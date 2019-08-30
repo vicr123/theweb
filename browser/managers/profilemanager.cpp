@@ -23,6 +23,8 @@
 #include <QUrlQuery>
 #include <QWebEngineSettings>
 #include <QWebEngineProfile>
+#include <QStandardPaths>
+#include <QDir>
 #include "core/thewebschemehandler.h"
 #include "core/urlinterceptor.h"
 #include "downloadmanager.h"
@@ -46,8 +48,13 @@ QWebEngineProfile *ProfileManager::defaultProfile()
 {
     if (d->defaultProfile == nullptr) {
         d->defaultProfile = new QWebEngineProfile("theweb-default-profile");
+
+        d->defaultProfile->setPersistentStoragePath(QDir::cleanPath(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + "/profiles/theweb-default-profile"));
+        d->defaultProfile->setCachePath(QDir::cleanPath(QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + "/profiles/theweb-default-profile"));
+
         d->defaultProfile->settings()->setAttribute(QWebEngineSettings::FullScreenSupportEnabled, true);
         d->defaultProfile->settings()->setAttribute(QWebEngineSettings::JavascriptCanAccessClipboard, true);
+        d->defaultProfile->settings()->setAttribute(QWebEngineSettings::ScrollAnimatorEnabled, true);
 
         UrlInterceptor* interceptor = new UrlInterceptor(d->defaultProfile);
 
@@ -60,7 +67,7 @@ QWebEngineProfile *ProfileManager::defaultProfile()
         d->defaultProfile->setRequestInterceptor(interceptor);
 #endif
 
-        thewebSchemeHandler* schemeHandler = new thewebSchemeHandler();
+        thewebSchemeHandler* schemeHandler = new thewebSchemeHandler({{"profile", QVariant::fromValue(d->defaultProfile)}});
         d->defaultProfile->installUrlSchemeHandler("theweb", schemeHandler);
 
         //Edit the current user agent and insert theWeb before QtWebEngine
@@ -82,6 +89,7 @@ QWebEngineProfile *ProfileManager::oblivionProfile()
         d->oblivionProfile = new QWebEngineProfile();
         d->oblivionProfile->settings()->setAttribute(QWebEngineSettings::FullScreenSupportEnabled, true);
         d->oblivionProfile->settings()->setAttribute(QWebEngineSettings::JavascriptCanAccessClipboard, true);
+        d->oblivionProfile->settings()->setAttribute(QWebEngineSettings::ScrollAnimatorEnabled, true);
 
         UrlInterceptor* interceptor = new UrlInterceptor(d->oblivionProfile);
 
@@ -93,7 +101,7 @@ QWebEngineProfile *ProfileManager::oblivionProfile()
         d->defaultProfile->setRequestInterceptor(interceptor);
 #endif
 
-        thewebSchemeHandler* schemeHandler = new thewebSchemeHandler({{"oblivion", true}});
+        thewebSchemeHandler* schemeHandler = new thewebSchemeHandler({{"oblivion", true}, {"profile", QVariant::fromValue(d->oblivionProfile)}});
         d->oblivionProfile->installUrlSchemeHandler("theweb", schemeHandler);
 
         //Edit the current user agent and insert theWeb before QtWebEngine

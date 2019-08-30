@@ -10,6 +10,7 @@
     --bg-active-color: rgb(20, 20, 20);
     
     --fg-color: white;
+    --fg-disabled-color: rgb(127, 127, 127);
     --font-family: Contemporary;
     --font-size: 10pt;
     
@@ -61,6 +62,13 @@ div.header {
     border-bottom: 1px solid var(--fg-color);
 }
 
+div.header.sticky {
+    position: sticky;
+    top: 0px;
+    
+    background-color: var(--bg-color);
+}
+
 div.headerText {
     padding: 9px;
     flex-grow: 1;
@@ -92,15 +100,24 @@ div.headerButton:active {
     padding: 9px;
 }
 
+.Scrollable {
+    overflow-y: auto;
+}
+
 div.verticalContent {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
 }
 
-div.verticalContent * {
+div.verticalContent > * {
     margin-top: 3px;
     margin-bottom: 3px;
+}
+
+div.verticalContent.NoSpacing > * {
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 div.verticalContent *:first-child {
@@ -180,4 +197,22 @@ div.modalBox {
     height: 100%;
     background-color: var(--bg-color);
     border-left: 1px solid var(--fg-color);
+}
+
+div.ListItem.HistoryItem {
+    display: flex;
+}
+
+div.ListItem.HistoryItem .url {
+    color: var(--fg-disabled-color);
+}
+
+@media (max-width: 500px) {
+    div#AppSidebar {
+        width: 50px;
+    }
+    
+    div#AppSidebar span.ListItemText {
+        display: none;
+    }
 }

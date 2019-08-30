@@ -6,6 +6,7 @@ import { Header } from './textblocks.jsx'
 import Settings from './settings.jsx';
 import About from './about.jsx';
 import NewTab from './newtab.jsx';
+import History from './history.jsx';
 
 import i18n from 'i18next';
 import XHR from 'i18next-xhr-backend';
@@ -38,6 +39,8 @@ class App extends React.Component {
             s.currentPane = "settings";
         } else if (path.startsWith("about")) {
             s.currentPane = "about";
+        } else if (path.startsWith("history")) {
+            s.currentPane = "history";
         } else if (path.startsWith("newtab")) {
             s.currentPane = "newtab";
             s.showSidebar = false;
@@ -84,6 +87,9 @@ class App extends React.Component {
                 case "newtab":
                     document.title = t('NEWTAB_TITLE');
                     return <NewTab />
+                case "history":
+                    document.title = t('HISTORY_TITLE');
+                    return <History />
                 default:
                     document.title = "theWeb";
                     return <div>
@@ -104,6 +110,9 @@ class App extends React.Component {
                     break;
                 case "about":
                     window.history.pushState({}, "", "theweb://about");
+                    break;
+                case "history":
+                    window.history.pushState({}, "", "theweb://history");
                     break;
             }
         } catch (err) {
@@ -127,7 +136,7 @@ class App extends React.Component {
             return <div className="App">
                 <div id="modalContainer" />
                 {this.sidebarElement()}
-                <div className="AppContainer">
+                <div className="AppContainer Scrollable">
                     {this.componentNode()}
                 </div>
             </div>

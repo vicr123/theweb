@@ -27,8 +27,16 @@
 #include <QFile>
 #include <QMimeDatabase>
 #include <QIcon>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QDateTime>
+#include <QJsonObject>
+#include <QWebEngineProfile>
 #include "managers/settingsmanager.h"
 #include "managers/iconmanager.h"
+#include "managers/historymanager.h"
+
+#define API_PATH_FAIL QByteArray("API_FAIL")
 
 struct thewebSchemeHandlerPrivate {
     QVariantMap options;
@@ -40,6 +48,7 @@ thewebSchemeHandler::thewebSchemeHandler(QVariantMap options, QObject *parent) :
     d = new thewebSchemeHandlerPrivate();
     d->options = options;
 
+    //Settings API paths
     d->apiPaths.insert("/settings", [=](QWebEngineUrlRequestJob* job) {
         return SettingsManager::getJson();
     });
@@ -60,6 +69,43 @@ thewebSchemeHandler::thewebSchemeHandler(QVariantMap options, QObject *parent) :
 
         return "{\"Status\":\"OK\"}";
     });
+
+    d->apiPaths.insert("/history", [=](QWebEngineUrlRequestJob* job) {
+        HistoryManager* history = HistoryManager::managerFor(options.value("profile").value<QWebEngineProfile*>());
+        QUrlQuery query(job->requestUrl().query());
+
+        QDateTime latest = QDateTime::currentDateTime(), earliest = QDateTime::currentDateTime().addYears(-1);
+        if (query.hasQueryItem("latest")) {
+            latest = QDateTime::fromMSecsSinceEpoch(query.queryItemValue("latest").toLongLong());
+        }
+        if (query.hasQueryItem("earliest")) {
+            earliest = QDateTime::fromMSecsSinceEpoch(query.queryItemValue("earliest").toLongLong());
+        }
+
+        if (job->requestMethod() == "GET") {
+            QJsonArray array;
+            for (HistoryManager::HistoryEntry entry : history->historyEntries(latest, earliest)) {
+                QJsonObject jsonEntry;
+                jsonEntry.insert("url", entry.url.toString());
+                jsonEntry.insert("accessed", entry.accessTime.toMSecsSinceEpoch());
+                jsonEntry.insert("title", entry.pageTitle);
+                array.append(jsonEntry);
+            }
+
+            return QJsonDocument(array).toJson();
+        } else if (job->requestMethod() == "DELETE") {
+            if (!query.hasQueryItem("latest") && !query.hasQueryItem("earliest")) {
+                history->clearHistory();
+            } else {
+                history->clearHistory(latest, earliest);
+            }
+            return QByteArray("{\"Status\":\"OK\"}");
+        } else {
+            return API_PATH_FAIL;
+        }
+    });
+
+    //Misc. API paths
     d->apiPaths.insert("/lang", [=](QWebEngineUrlRequestJob* job) {
         return QLocale().name().toUtf8();
     });
@@ -75,14 +121,24 @@ thewebSchemeHandler::~thewebSchemeHandler()
 
 void thewebSchemeHandler::requestStarted(QWebEngineUrlRequestJob* job)
 {
+    if (job->initiator().scheme() != "theweb" && job->initiator().scheme() != "" && job->initiator().host() != "localhost") {
+        job->fail(QWebEngineUrlRequestJob::RequestDenied);
+        return;
+    }
+
     QUrl url = job->requestUrl();
 
     if (url.host() == "api") {
         if (d->apiPaths.contains(url.path())) {
             QBuffer* buf = new QBuffer(job);
-            buf->setData(d->apiPaths.value(url.path())(job));
-            buf->open(QBuffer::ReadOnly);
-            job->reply("application/json", buf);
+            QByteArray data = d->apiPaths.value(url.path())(job);
+            if (data == API_PATH_FAIL) {
+                job->fail(QWebEngineUrlRequestJob::RequestFailed);
+            } else {
+                buf->setData(data);
+                buf->open(QBuffer::ReadOnly);
+                job->reply("application/json", buf);
+            }
         } else {
             job->fail(QWebEngineUrlRequestJob::UrlInvalid);
         }
@@ -131,7 +187,7 @@ void thewebSchemeHandler::requestStarted(QWebEngineUrlRequestJob* job)
     }
 
     QStringList tryFiles;
-    QStringList pageHosts = {"settings", "newtab"};
+    QStringList pageHosts = {"settings", "newtab", "history", "about"};
     if (url.path() == "") {
         if (pageHosts.contains(url.host())) {
             tryFiles.append(":/scheme/theweb/index.html");

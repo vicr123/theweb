@@ -6,8 +6,14 @@ class Header extends React.Component {
         super(props);
     }
     
+    className() {
+        let cn = ["header"];
+        if (this.props.sticky) cn.push("sticky");
+        return cn.join(" ");
+    }
+    
     render() {
-        return <div className="header">
+        return <div className={this.className()} >
             {this.props.leftElements}
             <div className="headerText">{this.props.title}</div>
             {this.props.rightElements}

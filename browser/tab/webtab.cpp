@@ -29,6 +29,7 @@
 #include <QMenu>
 #include "managers/profilemanager.h"
 #include "managers/downloadmanager.h"
+#include "managers/historymanager.h"
 #include "webpage.h"
 #include "permissionpopup.h"
 #include "widgets/devtoolsheader.h"
@@ -45,6 +46,8 @@ struct WebTabPrivate {
 
     QSslSocket certCheckSocket;
     QSslCertificate pageCertificate;
+
+    HistoryManager* history;
 
     QList<PermissionPopup*> permissionPopups;
     void removePermissionPopups(PermissionPopup::PermissionType type) {
@@ -71,6 +74,8 @@ WebTab::WebTab(WebPage* page, QWidget *parent) :
     ui->permissionPopupsWidget->setParent(this);
     ui->permissionPopupsWidget->setVisible(true);
     ui->permissionPopupsWidget->raise();
+
+    d->history = HistoryManager::managerFor(page->profile());
 
     connect(&d->certCheckSocket, &QSslSocket::encrypted, this, [=] {
         d->pageCertificate = d->certCheckSocket.peerCertificate();
@@ -202,6 +207,9 @@ WebTab::WebTab(WebPage* page, QWidget *parent) :
     });
     connect(d->page, &WebPage::loadFinished, this, [=] {
         d->tabButton->setLoadProgress(100, false);
+
+        //Add the current page to the history entry
+        d->history->addEntry(d->page->url(), d->page->title());
     });
     connect(d->page, &WebPage::renderProcessTerminated, this, [=](WebPage::RenderProcessTerminationStatus status, int exitCode) {
         d->crashTimes++;

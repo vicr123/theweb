@@ -215,84 +215,99 @@
         <translation>Xem</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="137"/>
+        <location filename="../mainwindow.ui" line="129"/>
+        <source>History</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="144"/>
         <source>Go Back</source>
         <translation>Trở lại</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="140"/>
+        <location filename="../mainwindow.ui" line="147"/>
         <source>Alt+Left</source>
         <translation>Alt+Left</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="149"/>
+        <location filename="../mainwindow.ui" line="156"/>
         <source>Go Forward</source>
         <translation>Bước tiếp</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="152"/>
+        <location filename="../mainwindow.ui" line="159"/>
         <source>Alt+Right</source>
         <translation>Alt+Right</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="161"/>
+        <location filename="../mainwindow.ui" line="168"/>
         <source>Reload</source>
         <translation>Tải lại</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="164"/>
+        <location filename="../mainwindow.ui" line="171"/>
         <source>Ctrl+R</source>
         <translation>Ctrl+R</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="173"/>
+        <location filename="../mainwindow.ui" line="180"/>
         <source>New Tab</source>
         <translation>Tab mới</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="176"/>
+        <location filename="../mainwindow.ui" line="183"/>
         <source>Ctrl+T</source>
         <translation>Ctrl+T</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="184"/>
+        <location filename="../mainwindow.ui" line="192"/>
         <source>New Window</source>
         <translation>Cửa sổ mới</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="187"/>
+        <location filename="../mainwindow.ui" line="195"/>
         <source>Ctrl+N</source>
         <translation>Ctrl+N</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="195"/>
+        <location filename="../mainwindow.ui" line="204"/>
         <source>New Oblivion Window</source>
         <translation>Cửa sổ lãng quên mới</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="198"/>
+        <location filename="../mainwindow.ui" line="207"/>
         <source>Ctrl+Shift+N</source>
         <translation>Ctrl+Shift+N</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="206"/>
+        <location filename="../mainwindow.ui" line="216"/>
         <source>Settings</source>
         <translation>Cài đặt</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="209"/>
+        <location filename="../mainwindow.ui" line="219"/>
         <source>Ctrl+,</source>
         <translation>Ctrl+,</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="217"/>
+        <location filename="../mainwindow.ui" line="228"/>
         <source>Exit</source>
         <translation>Thoát</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="220"/>
+        <location filename="../mainwindow.ui" line="231"/>
         <source>Ctrl+Q</source>
         <translation>Ctrl+Q</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="240"/>
+        <source>View Full History</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="243"/>
+        <source>Ctrl+H</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -401,7 +416,7 @@
 <context>
     <name>ProfileManager</name>
     <message>
-        <location filename="../managers/profilemanager.cpp" line="149"/>
+        <location filename="../managers/profilemanager.cpp" line="157"/>
         <source>from %1</source>
         <translation type="unfinished"></translation>
     </message>

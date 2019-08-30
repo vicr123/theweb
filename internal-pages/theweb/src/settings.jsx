@@ -5,7 +5,7 @@ import { VerticalLayout, HorizontalLine } from './layouts.jsx'
 import ListItem from './listitem.jsx'
 import { Translation } from 'react-i18next';
 import { RadioButtonGroup, LineEdit, CheckBox } from './settingstoggles.jsx'
-import { settings } from './api.js';
+import { api, settings } from './api.js';
 import Modal from './modal.jsx'
 
 class SettingsSidebar extends React.Component {
@@ -30,35 +30,110 @@ class SettingsSidebar extends React.Component {
     }
 }
 
-class SettingsPrivacyPane extends React.Component {
-    clearData() {
-        let performClearData = () => {
-            Modal.unmount();
-            alert("Will clear data");
+class SettingsPrivacyClearDataPane extends React.Component {
+    constructor(props) {
+        super(props);
+        
+        this.state = {
+            timeRange: "all",
+            clearHistory: true,
+            clearCookies: false,
+            clearCache: false
+        }
+    }
+    
+    performClearData() {
+        
+        let latest = new Date();
+        let earliest;
+        
+        switch (this.state.timeRange) {
+            case "all":
+                earliest = new Date(0);
+                break;
+            case "hour":
+                earliest = new Date(latest.getTime() - (60 * 60 * 1000));
+                break;
+            case "day":
+                earliest = new Date(latest.getTime() - (24 * 60 * 60 * 1000));
+                break;
+            case "week":
+                earliest = new Date(latest.getTime() - (7 * 24 * 60 * 60 * 1000));
+                break;
+            case "month":
+                earliest = new Date(latest.getTime() - (4 * 7 * 24 * 60 * 60 * 1000));
+                break;
         }
         
+        if (this.state.clearHistory) {
+            if (this.state.timeRange == "all") {
+                api.delete("theweb://api/history");
+            } else {
+                api.delete(`theweb://api/history?earliest=${earliest.getTime()}&latest=${latest.getTime()}`);
+            }
+        }
         
-        Modal.mount(<Translation>{(t, {i18n}) =>
-            <Modal title={t("SETTINGS_PRIVACY_CLEAR")} cancelable={true} buttons={["ok"]} onOk={performClearData} width="400px">
+        Modal.unmount();
+    }
+    
+    render() {
+        let timeRangeChangeHandler = (e) => {
+            this.setState({
+                timeRange: e.target.value
+            });
+        }
+        let clearHistoryChangeHandler = (e) => {
+            this.setState({
+                clearHistory: e.target.checked
+            });
+        }
+        let clearCookiesChangeHandler = (e) => {
+            this.setState({
+                clearCookies: e.target.checked
+            });
+        }
+        let clearCacheChangeHandler = (e) => {
+            this.setState({
+                clearCache: e.target.checked
+            });
+        }
+        
+        return <Translation>{(t, {i18n}) =>
+            <Modal title={t("SETTINGS_PRIVACY_CLEAR")} cancelable={true} buttons={["ok"]} onOk={this.performClearData.bind(this)} width="400px">
                 <VerticalLayout>
                     <MiniHeader title={t("SETTINGS_PRIVACY_CLEAR_TIME_RANGE_TITLE")} />
-                    <select>
-                        <option>{t("SETTINGS_PRIVACY_CLEAR_TIME_RANGE_HOUR_TITLE")}</option>
-                        <option>{t("SETTINGS_PRIVACY_CLEAR_TIME_RANGE_DAY_TITLE")}</option>
-                        <option>{t("SETTINGS_PRIVACY_CLEAR_TIME_RANGE_WEEK_TITLE")}</option>
-                        <option>{t("SETTINGS_PRIVACY_CLEAR_TIME_RANGE_MONTH_TITLE")}</option>
-                        <option>{t("SETTINGS_PRIVACY_CLEAR_TIME_RANGE_ALL_TITLE")}</option>
+                    <select value={this.state.timeRange} onChange={timeRangeChangeHandler}>
+                        <option value="hour">{t("SETTINGS_PRIVACY_CLEAR_TIME_RANGE_HOUR_TITLE")}</option>
+                        <option value="day">{t("SETTINGS_PRIVACY_CLEAR_TIME_RANGE_DAY_TITLE")}</option>
+                        <option value="week">{t("SETTINGS_PRIVACY_CLEAR_TIME_RANGE_WEEK_TITLE")}</option>
+                        <option value="month">{t("SETTINGS_PRIVACY_CLEAR_TIME_RANGE_MONTH_TITLE")}</option>
+                        <option value="all">{t("SETTINGS_PRIVACY_CLEAR_TIME_RANGE_ALL_TITLE")}</option>
                     </select>
                 </VerticalLayout>
                 <HorizontalLine />
                 <VerticalLayout>
                     <MiniHeader title={t("SETTINGS_PRIVACY_CLEAR_ITEMS_TITLE")} />
-                    <CheckBox text={t('SETTINGS_PRIVACY_CLEAR_HISTORY')} defaultValue={true} />
-                    <CheckBox text={t('SETTINGS_PRIVACY_CLEAR_COOKIES')} defaultValue={true} />
-                    <CheckBox text={t('SETTINGS_PRIVACY_CLEAR_CACHE')} defaultValue={true} />
+                    <label>
+                        <input type="checkbox" checked={this.state.clearHistory} onChange={clearHistoryChangeHandler} />
+                        {t('SETTINGS_PRIVACY_CLEAR_HISTORY')}
+                    </label>
+                    <label>
+                        <input disabled={true} type="checkbox" checked={this.state.clearCookies} onChange={clearCookiesChangeHandler} />
+                        {t('SETTINGS_PRIVACY_CLEAR_COOKIES')}
+                    </label>
+                    <label>
+                        <input disabled={true} type="checkbox" checked={this.state.clearCache} onChange={clearCacheChangeHandler} />
+                        {t('SETTINGS_PRIVACY_CLEAR_CACHE')}
+                    </label>
                 </VerticalLayout>
             </Modal>
-        }</Translation>);
+        }</Translation>;
+    }
+}
+
+class SettingsPrivacyPane extends React.Component {
+    clearData() {
+        Modal.mount(<SettingsPrivacyClearDataPane />);
     }
     
     render() {
