@@ -100,7 +100,7 @@ HistoryManager::HistoryManager(QWebEngineProfile* profile) : QObject(nullptr)
     d = new HistoryManagerPrivate();
     d->profile = profile;
 
-    d->db = QSqlDatabase::addDatabase("QSQLITE");
+    d->db = QSqlDatabase::addDatabase("QSQLITE", "db_history_" + profile->storageName());
     d->db.setDatabaseName(QDir::cleanPath(profile->persistentStoragePath() + "/history"));
     if (!d->db.open()) {
         qDebug() << "Database error!";

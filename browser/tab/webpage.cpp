@@ -26,6 +26,8 @@
 #include "managers/iconmanager.h"
 #include "popovers/jsalert.h"
 #include "popovers/jsconfirm.h"
+#include "popovers/jsprompt.h"
+#include "popovers/httpauthentication.h"
 #include "certificateerrorpane.h"
 
 struct WebPagePrivate {
@@ -38,6 +40,23 @@ WebPage::WebPage(QWidget *parent) : QWebEnginePage(parent)
     d = new WebPagePrivate();
     d->parent = parent;
 
+    connect(this, &WebPage::authenticationRequired, this, [=](QUrl url, QAuthenticator* authenticator) {
+        QEventLoop loop;
+
+        HttpAuthentication* alert = new HttpAuthentication(url, authenticator);
+        tPopover* popover = new tPopover(alert);
+        popover->setPopoverSide(tPopover::Bottom);
+        popover->setPopoverWidth(alert->sizeHint().height());
+        popover->setDismissable(false);
+        connect(alert, &HttpAuthentication::accept, popover, &tPopover::dismiss);
+        connect(alert, &HttpAuthentication::accept, &loop, std::bind(&QEventLoop::exit, &loop, 1));
+        connect(alert, &HttpAuthentication::reject, popover, &tPopover::dismiss);
+        connect(alert, &HttpAuthentication::reject, &loop, std::bind(&QEventLoop::exit, &loop, 0));
+        connect(popover, &tPopover::dismissed, alert, &HttpAuthentication::deleteLater);
+        connect(popover, &tPopover::dismissed, popover, &tPopover::deleteLater);
+        popover->show(d->parent);
+    });
+
     this->resetZoom();
 }
 
@@ -45,6 +64,24 @@ WebPage::WebPage(QWebEngineProfile* profile, QWidget* parent) : QWebEnginePage(p
 {
     d = new WebPagePrivate();
     d->parent = parent;
+
+    connect(this, &WebPage::authenticationRequired, this, [=](QUrl url, QAuthenticator* authenticator) {
+        QEventLoop loop;
+
+        HttpAuthentication* alert = new HttpAuthentication(url, authenticator);
+        tPopover* popover = new tPopover(alert);
+        popover->setPopoverSide(tPopover::Bottom);
+        popover->setPopoverWidth(alert->sizeHint().height());
+        popover->setDismissable(false);
+        connect(alert, &HttpAuthentication::accept, popover, &tPopover::dismiss);
+        connect(alert, &HttpAuthentication::accept, &loop, std::bind(&QEventLoop::exit, &loop, 1));
+        connect(alert, &HttpAuthentication::reject, popover, &tPopover::dismiss);
+        connect(alert, &HttpAuthentication::reject, &loop, std::bind(&QEventLoop::exit, &loop, 0));
+        connect(popover, &tPopover::dismissed, alert, &JsAlert::deleteLater);
+        connect(popover, &tPopover::dismissed, popover, &tPopover::deleteLater);
+        popover->show(d->parent);
+        loop.exec();
+    });
 
     this->resetZoom();
 }
@@ -216,7 +253,29 @@ bool WebPage::javaScriptConfirm(const QUrl& securityOrigin, const QString &msg)
     connect(alert, &JsConfirm::accept, &loop, std::bind(&QEventLoop::exit, &loop, 1));
     connect(alert, &JsConfirm::reject, popover, &tPopover::dismiss);
     connect(alert, &JsConfirm::reject, &loop, std::bind(&QEventLoop::exit, &loop, 0));
-    connect(popover, &tPopover::dismissed, alert, &JsAlert::deleteLater);
+    connect(popover, &tPopover::dismissed, alert, &JsConfirm::deleteLater);
+    connect(popover, &tPopover::dismissed, popover, &tPopover::deleteLater);
+    popover->show(d->parent);
+    return loop.exec();
+}
+
+bool WebPage::javaScriptPrompt(const QUrl& securityOrigin, const QString& msg, const QString& defaultValue, QString* result)
+{
+    QEventLoop loop;
+
+    JsPrompt* alert = new JsPrompt(msg, defaultValue);
+    tPopover* popover = new tPopover(alert);
+    popover->setPopoverSide(tPopover::Bottom);
+    popover->setPopoverWidth(alert->sizeHint().height());
+    popover->setDismissable(false);
+    connect(alert, &JsPrompt::accept, this, [=, &result](QString response) {
+        result->swap(response);
+    });
+    connect(alert, &JsPrompt::accept, popover, &tPopover::dismiss);
+    connect(alert, &JsPrompt::accept, &loop, std::bind(&QEventLoop::exit, &loop, 1));
+    connect(alert, &JsPrompt::reject, popover, &tPopover::dismiss);
+    connect(alert, &JsPrompt::reject, &loop, std::bind(&QEventLoop::exit, &loop, 0));
+    connect(popover, &tPopover::dismissed, alert, &JsPrompt::deleteLater);
     connect(popover, &tPopover::dismissed, popover, &tPopover::deleteLater);
     popover->show(d->parent);
     return loop.exec();

@@ -51,6 +51,7 @@ class WebPage : public QWebEnginePage
         bool certificateError(const QWebEngineCertificateError &certificateError);
         void javaScriptAlert(const QUrl &securityOrigin, const QString &msg);
         bool javaScriptConfirm(const QUrl &securityOrigin, const QString &msg);
+        bool javaScriptPrompt(const QUrl &securityOrigin, const QString &msg, const QString &defaultValue, QString *result);
         WebPagePrivate* d;
 };
 

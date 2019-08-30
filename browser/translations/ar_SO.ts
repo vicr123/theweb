@@ -142,6 +142,49 @@
     </message>
 </context>
 <context>
+    <name>HttpAuthentication</name>
+    <message>
+        <location filename="../popovers/httpauthentication.ui" line="71"/>
+        <source>Authentication</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../popovers/httpauthentication.ui" line="147"/>
+        <source>Your connection to this server is not secure.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../popovers/httpauthentication.ui" line="154"/>
+        <source>Username</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../popovers/httpauthentication.ui" line="164"/>
+        <source>Password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../popovers/httpauthentication.ui" line="189"/>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../popovers/httpauthentication.ui" line="196"/>
+        <source>OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../popovers/httpauthentication.cpp" line="43"/>
+        <source>Log in to %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../popovers/httpauthentication.cpp" line="44"/>
+        <source>Server Realm: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>JsAlert</name>
     <message>
         <location filename="../popovers/jsalert.ui" line="51"/>
@@ -189,6 +232,24 @@
     <message>
         <location filename="../popovers/jsconfirm.cpp" line="41"/>
         <source>Stay</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>JsPrompt</name>
+    <message>
+        <location filename="../popovers/jsprompt.ui" line="71"/>
+        <source>Message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../popovers/jsprompt.ui" line="181"/>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../popovers/jsprompt.ui" line="188"/>
+        <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -470,135 +531,135 @@
 <context>
     <name>WebPage</name>
     <message>
-        <location filename="../tab/webpage.cpp" line="87"/>
+        <location filename="../tab/webpage.cpp" line="124"/>
         <source>For Misspelled Word &quot;%1&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="96"/>
+        <location filename="../tab/webpage.cpp" line="133"/>
         <source>For selected text &quot;%1&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="97"/>
-        <location filename="../tab/webpage.cpp" line="113"/>
-        <location filename="../tab/webpage.cpp" line="120"/>
+        <location filename="../tab/webpage.cpp" line="134"/>
+        <location filename="../tab/webpage.cpp" line="150"/>
+        <location filename="../tab/webpage.cpp" line="157"/>
         <source>Copy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="98"/>
+        <location filename="../tab/webpage.cpp" line="135"/>
         <source>Cut</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="102"/>
+        <location filename="../tab/webpage.cpp" line="139"/>
         <source>For Editable Box</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="103"/>
+        <location filename="../tab/webpage.cpp" line="140"/>
         <source>Paste</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="104"/>
+        <location filename="../tab/webpage.cpp" line="141"/>
         <source>Undo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="105"/>
+        <location filename="../tab/webpage.cpp" line="142"/>
         <source>Redo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="106"/>
+        <location filename="../tab/webpage.cpp" line="143"/>
         <source>Select All</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="110"/>
+        <location filename="../tab/webpage.cpp" line="147"/>
         <source>For link &quot;%1&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="111"/>
+        <location filename="../tab/webpage.cpp" line="148"/>
         <source>Open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="112"/>
+        <location filename="../tab/webpage.cpp" line="149"/>
         <source>Open in New Tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="119"/>
+        <location filename="../tab/webpage.cpp" line="156"/>
         <source>For Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="121"/>
-        <location filename="../tab/webpage.cpp" line="141"/>
+        <location filename="../tab/webpage.cpp" line="158"/>
+        <location filename="../tab/webpage.cpp" line="178"/>
         <source>Copy Address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="125"/>
+        <location filename="../tab/webpage.cpp" line="162"/>
         <source>For Video</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="128"/>
+        <location filename="../tab/webpage.cpp" line="165"/>
         <source>For Audio</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="131"/>
+        <location filename="../tab/webpage.cpp" line="168"/>
         <source>For Media content</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="136"/>
+        <location filename="../tab/webpage.cpp" line="173"/>
         <source>Play</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="138"/>
+        <location filename="../tab/webpage.cpp" line="175"/>
         <source>Pause</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="144"/>
+        <location filename="../tab/webpage.cpp" line="181"/>
         <source>For Tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="145"/>
+        <location filename="../tab/webpage.cpp" line="182"/>
         <source>Back</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="146"/>
+        <location filename="../tab/webpage.cpp" line="183"/>
         <source>Forward</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="147"/>
+        <location filename="../tab/webpage.cpp" line="184"/>
         <source>Reload</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="149"/>
+        <location filename="../tab/webpage.cpp" line="186"/>
         <source>Print</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="152"/>
+        <location filename="../tab/webpage.cpp" line="189"/>
         <source>View Source</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="154"/>
+        <location filename="../tab/webpage.cpp" line="191"/>
         <source>Inspect Element</source>
         <translation type="unfinished"></translation>
     </message>

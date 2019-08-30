@@ -88,8 +88,10 @@ SOURCES += \
         managers/iconmanager.cpp \
         managers/profilemanager.cpp \
         managers/settingsmanager.cpp \
+        popovers/httpauthentication.cpp \
         popovers/jsalert.cpp \
         popovers/jsconfirm.cpp \
+        popovers/jsprompt.cpp \
         tab/certificateerrorpane.cpp \
         tab/permissionpopup.cpp \
         tab/webpage.cpp \
@@ -112,8 +114,10 @@ HEADERS += \
         managers/iconmanager.h \
         managers/profilemanager.h \
         managers/settingsmanager.h \
+        popovers/httpauthentication.h \
         popovers/jsalert.h \
         popovers/jsconfirm.h \
+        popovers/jsprompt.h \
         tab/certificateerrorpane.h \
         tab/permissionpopup.h \
         tab/webpage.h \
@@ -129,8 +133,10 @@ HEADERS += \
 
 FORMS += \
         mainwindow.ui \
+        popovers/httpauthentication.ui \
         popovers/jsalert.ui \
         popovers/jsconfirm.ui \
+        popovers/jsprompt.ui \
         tab/certificateerrorpane.ui \
         tab/permissionpopup.ui \
         tab/webtab.ui \
