@@ -55,6 +55,7 @@ QWebEngineProfile *ProfileManager::defaultProfile()
         d->defaultProfile->settings()->setAttribute(QWebEngineSettings::FullScreenSupportEnabled, true);
         d->defaultProfile->settings()->setAttribute(QWebEngineSettings::JavascriptCanAccessClipboard, true);
         d->defaultProfile->settings()->setAttribute(QWebEngineSettings::ScrollAnimatorEnabled, true);
+        d->defaultProfile->settings()->setAttribute(QWebEngineSettings::PluginsEnabled, true);
 
         UrlInterceptor* interceptor = new UrlInterceptor(d->defaultProfile);
 
@@ -90,6 +91,7 @@ QWebEngineProfile *ProfileManager::oblivionProfile()
         d->oblivionProfile->settings()->setAttribute(QWebEngineSettings::FullScreenSupportEnabled, true);
         d->oblivionProfile->settings()->setAttribute(QWebEngineSettings::JavascriptCanAccessClipboard, true);
         d->oblivionProfile->settings()->setAttribute(QWebEngineSettings::ScrollAnimatorEnabled, true);
+        d->oblivionProfile->settings()->setAttribute(QWebEngineSettings::PluginsEnabled, true);
 
         UrlInterceptor* interceptor = new UrlInterceptor(d->oblivionProfile);
 

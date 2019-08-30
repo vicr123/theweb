@@ -46,6 +46,11 @@ class Bar : public QLineEdit
         void paintEvent(QPaintEvent *event);
         void resizeEvent(QResizeEvent* event);
 
+        QString unfocusedText();
+        QString unfocusedText(QUrl url);
+        QString focusedText();
+        QString focusedText(QUrl url);
+
         void updateText();
 };
 

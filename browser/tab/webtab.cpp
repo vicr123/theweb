@@ -93,6 +93,8 @@ WebTab::WebTab(WebPage* page, QWidget *parent) :
     }
     d->page->setCertificateErrorPane(ui->sslErrorPane);
     connect(d->page, &WebPage::urlChanged, this, [=](QUrl url) {
+        if (ui->stackedWidget->currentWidget() == ui->renderProcessErrorPage) ui->stackedWidget->setCurrentWidget(ui->webPage);
+
         d->certCheckSocket.abort();
         d->pageCertificate = QSslCertificate();
 
@@ -217,6 +219,22 @@ WebTab::WebTab(WebPage* page, QWidget *parent) :
             //Show the error pane
             d->removePermissionPopups(PermissionPopup::RenderProcessTerminate);
 
+            switch (status) {
+                case QWebEnginePage::NormalTerminationStatus:
+                case QWebEnginePage::AbnormalTerminationStatus:
+                case QWebEnginePage::CrashedTerminationStatus:
+                    ui->renderProcessCrashTitle->setText(tr("Okay, this page is having some serious issues."));
+                    ui->renderProcessCrashMessage->setText(tr("We've tried reloading it multiple times, but it keeps causing problems.\n\nUsually this is a temporary problem, so we recommend waiting a couple hours and then trying again."));
+                    ui->reloadAfterRenderCrashButton->setText(tr("Reload Anyway"));
+                    break;
+                case QWebEnginePage::KilledTerminationStatus:
+                    ui->renderProcessCrashTitle->setText(tr("Your device might be running out of memory."));
+                    ui->renderProcessCrashMessage->setText(tr("Your system has stopped this webpage. Check your memory usage and then reload the page."));
+                    ui->reloadAfterRenderCrashButton->setText(tr("Reload"));
+                    break;
+            }
+
+            ui->stackedWidget->setCurrentWidget(ui->renderProcessErrorPage);
         } else {
             //Just reload the page
             PermissionPopup* popup = new PermissionPopup(QUrl(), PermissionPopup::RenderProcessTerminate);
@@ -362,21 +380,25 @@ void WebTab::close()
 
 void WebTab::goBack()
 {
+    if (ui->stackedWidget->currentWidget() == ui->renderProcessErrorPage) ui->stackedWidget->setCurrentWidget(ui->webPage);
     d->view->back();
 }
 
 void WebTab::goForward()
 {
+    if (ui->stackedWidget->currentWidget() == ui->renderProcessErrorPage) ui->stackedWidget->setCurrentWidget(ui->webPage);
     d->view->forward();
 }
 
 void WebTab::navigate(QUrl url)
 {
+    if (ui->stackedWidget->currentWidget() == ui->renderProcessErrorPage) ui->stackedWidget->setCurrentWidget(ui->webPage);
     d->view->load(url);
 }
 
 void WebTab::reload()
 {
+    if (ui->stackedWidget->currentWidget() == ui->renderProcessErrorPage) ui->stackedWidget->setCurrentWidget(ui->webPage);
     d->view->reload();
 }
 
@@ -416,4 +438,9 @@ void WebTab::resizeEvent(QResizeEvent* event)
     ui->permissionPopupsWidget->setFixedWidth(this->width());
 
     emit resized();
+}
+
+void WebTab::on_reloadAfterRenderCrashButton_clicked()
+{
+    this->reload();
 }

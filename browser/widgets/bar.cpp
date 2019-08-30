@@ -71,28 +71,20 @@ void Bar::setCurrentTab(WebTab* tab)
 
     d->currentTab = tab;
 
-    if (tab == nullptr) {
-        this->setText("");
-    } else {
+    if (tab != nullptr) {
         connect(tab, &WebTab::urlChanged, this, &Bar::updateInformation);
+    }
 
-        if (tab->currentUrl().scheme() == "theweb" && tab->currentUrl().host() == "newtab") {
-            this->setText("");
-        } else if (this->hasFocus()) {
-            this->setText(tab->currentUrl().toString());
-        } else {
-            this->setText(tab->currentUrl().host());
-        }
+    if (this->hasFocus()) {
+        this->setText(focusedText());
+    } else {
+        this->setText(unfocusedText());
     }
 }
 
 void Bar::updateInformation() {
     if (!this->hasFocus()) {
-        if (d->currentTab.isNull() || d->currentTab->currentUrl().scheme() == "theweb" && d->currentTab->currentUrl().host() == "newtab") {
-            this->setText("");
-        } else {
-            this->setText(d->currentTab->currentUrl().host());
-        }
+        this->setText(unfocusedText());
     }
 
     this->update();
@@ -102,11 +94,7 @@ void Bar::focusInEvent(QFocusEvent* event)
 {
     QLineEdit::focusInEvent(event);
     this->setCursor(QCursor(Qt::IBeamCursor));
-    if (d->currentTab.isNull() || d->currentTab->currentUrl().scheme() == "theweb" && d->currentTab->currentUrl().host() == "newtab") {
-        this->setText("");
-    } else {
-        this->setText(d->currentTab->currentUrl().toString());
-    }
+    this->setText(focusedText());
 //    d->securityChunk->setVisible(false);
     QTimer::singleShot(0, this, &Bar::selectAll);
 }
@@ -115,11 +103,7 @@ void Bar::focusOutEvent(QFocusEvent* event)
 {
     QLineEdit::focusOutEvent(event);
     this->setCursor(QCursor(Qt::ArrowCursor));
-    if (d->currentTab.isNull() || d->currentTab->currentUrl().scheme() == "theweb" && d->currentTab->currentUrl().host() == "newtab") {
-        this->setText("");
-    } else {
-        this->setText(d->currentTab->currentUrl().host());
-    }
+    this->setText(unfocusedText());
     this->setSelection(0, 0);
 //    d->securityChunk->setVisible(true);
 }
@@ -132,4 +116,36 @@ void Bar::paintEvent(QPaintEvent* event)
 void Bar::resizeEvent(QResizeEvent* event)
 {
 
+}
+
+QString Bar::unfocusedText() {
+    return unfocusedText(d->currentTab->currentUrl());
+}
+
+QString Bar::unfocusedText(QUrl url)
+{
+    if (d->currentTab.isNull()) return "";
+    if (url.scheme() == "theweb" && url.host() == "newtab") return "";
+
+    //Special handling for the PDF viewer
+    if (url.scheme() == "chrome-extension" && url.host() == "mhjfbmdgcfjbbpaeojofohoefgiehjai") {
+        return unfocusedText(QUrl(url.query()));
+    }
+    return url.host();
+}
+
+QString Bar::focusedText() {
+    return focusedText(d->currentTab->currentUrl());
+}
+
+QString Bar::focusedText(QUrl url)
+{
+    if (d->currentTab.isNull()) return "";
+    if (url.scheme() == "theweb" && url.host() == "newtab") return "";
+
+    //Special handling for the PDF viewer
+    if (url.scheme() == "chrome-extension" && url.host() == "mhjfbmdgcfjbbpaeojofohoefgiehjai") {
+        return focusedText(QUrl(url.query()));
+    }
+    return url.toString();
 }

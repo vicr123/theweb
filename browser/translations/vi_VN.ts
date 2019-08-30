@@ -477,7 +477,7 @@
 <context>
     <name>ProfileManager</name>
     <message>
-        <location filename="../managers/profilemanager.cpp" line="157"/>
+        <location filename="../managers/profilemanager.cpp" line="159"/>
         <source>from %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -662,6 +662,41 @@
         <location filename="../tab/webpage.cpp" line="191"/>
         <source>Inspect Element</source>
         <translation>Kiểm tra thành phần</translation>
+    </message>
+</context>
+<context>
+    <name>WebTab</name>
+    <message>
+        <location filename="../tab/webtab.cpp" line="226"/>
+        <source>Okay, this page is having some serious issues.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webtab.cpp" line="227"/>
+        <source>We&apos;ve tried reloading it multiple times, but it keeps causing problems.
+
+Usually this is a temporary problem, so we recommend waiting a couple hours and then trying again.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webtab.cpp" line="228"/>
+        <source>Reload Anyway</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webtab.cpp" line="231"/>
+        <source>Your device might be running out of memory.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webtab.cpp" line="232"/>
+        <source>Your system has stopped this webpage. Check your memory usage and then reload the page.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webtab.cpp" line="233"/>
+        <source>Reload</source>
+        <translation type="unfinished">Tải lại</translation>
     </message>
 </context>
 <context>

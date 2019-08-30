@@ -72,6 +72,9 @@ class WebTab : public QWidget
         void goFullScreen(bool fullscreen);
         void resized();
 
+    private slots:
+        void on_reloadAfterRenderCrashButton_clicked();
+
     private:
         Ui::WebTab *ui;
         WebTabPrivate* d;

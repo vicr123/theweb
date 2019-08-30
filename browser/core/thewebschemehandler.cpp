@@ -194,6 +194,8 @@ void thewebSchemeHandler::requestStarted(QWebEngineUrlRequestJob* job)
         }
     }
 
+
+
     tryFiles.append(":/scheme/theweb/" + url.host() + url.path());
     if (url.path() != "") tryFiles.append(":/scheme/theweb/" + url.path());
     tryFiles.append(":/scheme/theweb/" + url.host() + ".html");
