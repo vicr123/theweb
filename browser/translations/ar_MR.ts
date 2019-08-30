@@ -174,12 +174,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../popovers/httpauthentication.cpp" line="43"/>
+        <location filename="../popovers/httpauthentication.cpp" line="42"/>
         <source>Log in to %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../popovers/httpauthentication.cpp" line="44"/>
+        <location filename="../popovers/httpauthentication.cpp" line="43"/>
         <source>Server Realm: %1</source>
         <translation type="unfinished"></translation>
     </message>

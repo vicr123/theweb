@@ -30,7 +30,6 @@ HttpAuthentication::HttpAuthentication(QUrl url, QAuthenticator* authenticator, 
 
 #ifdef Q_OS_MAC
     ui->okButton->setVisible(false);
-    ui->noButton->setVisible(false);
     ui->backButton->setVisible(false);
 #else
     ui->macPane->setVisible(false);
