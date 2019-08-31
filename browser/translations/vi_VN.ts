@@ -702,9 +702,30 @@ Usually this is a temporary problem, so we recommend waiting a couple hours and 
 <context>
     <name>main</name>
     <message>
-        <location filename="../main.cpp" line="60"/>
+        <location filename="../main.cpp" line="61"/>
+        <location filename="../main.cpp" line="75"/>
         <source>Web Browser</source>
         <translation>Trình duyệt web</translation>
+    </message>
+    <message>
+        <location filename="../main.cpp" line="81"/>
+        <source>Open an Oblivion window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../main.cpp" line="84"/>
+        <source>urls</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../main.cpp" line="84"/>
+        <source>URLs to open</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../main.cpp" line="84"/>
+        <source>[urls...]</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

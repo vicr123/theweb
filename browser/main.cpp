@@ -20,6 +20,7 @@
 #include "mainwindow.h"
 #include <QDir>
 #include <tapplication.h>
+#include <QCommandLineParser>
 #include <QWebEngineUrlScheme>
 #include "managers/settingsmanager.h"
 
@@ -69,6 +70,22 @@ int main(int argc, char *argv[])
     #endif
 
     SettingsManager::initialize();
+
+    QCommandLineParser parser;
+    parser.setApplicationDescription(a.translate("main", "Web Browser"));
+    parser.setOptionsAfterPositionalArgumentsMode(QCommandLineParser::ParseAsOptions);
+    QCommandLineOption helpOption = parser.addHelpOption();
+    QCommandLineOption versionOption = parser.addVersionOption();
+    parser.addOptions({
+        {
+            {"o", "oblivion"}, a.translate("main", "Open an Oblivion window")
+        }
+    });
+    parser.addPositionalArgument(a.translate("main", "urls"), a.translate("main", "URLs to open"), a.translate("main", "[urls...]"));
+    parser.parse(a.arguments());
+
+    if (parser.isSet(helpOption)) parser.showHelp();
+    if (parser.isSet(versionOption)) parser.showVersion();
 
     MainWindow w;
     w.show();
