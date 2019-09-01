@@ -21,6 +21,7 @@ class SettingsSidebar extends React.Component {
         return <Translation>{(t, {i18n}) =>
             <div className="Sidebar">
                 <Header title={t('SETTINGS_TITLE')} />
+                <ListItem text={t('SETTINGS_PROFILES')} onClick={_("profiles")} selected={sel("profiles")} />
                 <ListItem text={t('SETTINGS_GENERAL')} onClick={_("general")} selected={sel("general")} />
                 <ListItem text={t('SETTINGS_PRIVACY')} onClick={_("privacy")} selected={sel("privacy")} />
                 <ListItem text={t('SETTINGS_WEBSITES')} onClick={_("websites")} selected={sel("websites")} />
@@ -128,6 +129,19 @@ class SettingsPrivacyClearDataPane extends React.Component {
                 </VerticalLayout>
             </Modal>
         }</Translation>;
+    }
+}
+
+class SettingsProfilesPane extends React.Component {
+    render() {
+        return <Translation>{(t, {i18n}) =>
+            <div>
+                <Header title={t('SETTINGS_PROFILES')} />
+                <VerticalLayout>
+                    <p>{t('SETTINGS_PROFILES_COMING_SOON')}</p>
+                </VerticalLayout>
+            </div>
+        }</Translation>
     }
 }
 
@@ -242,6 +256,8 @@ class Settings extends React.Component {
                 return <SettingsPrivacyPane />;
             case "advanced":
                 return <SettingsAdvancedPane />;
+            case "profiles":
+                return <SettingsProfilesPane />;
             default:
                 return <Translation>{(t, {i18n}) => 
                     <div>

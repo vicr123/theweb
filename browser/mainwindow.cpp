@@ -86,9 +86,12 @@ MainWindow::MainWindow(QVariantMap options, QWidget *parent) :
     });
     d->leaveFullScreenShortcut->setEnabled(false);
 
-    WebPage* page = new WebPage(d->profile, nullptr);
-    page->setUrl(SettingsManager::getHomePage());
-    newTab(new WebTab(page));
+    QList<QUrl> urlsToOpen = options.value("urls", QVariant::fromValue(QList<QUrl>({SettingsManager::getHomePage()}))).value<QList<QUrl>>();
+    for (QUrl url : urlsToOpen) {
+        WebPage* page = new WebPage(d->profile, nullptr);
+        page->setUrl(url);
+        newTab(new WebTab(page));
+    }
 
     on_tabs_switchingFrame(0);
 }

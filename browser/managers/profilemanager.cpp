@@ -97,10 +97,10 @@ QWebEngineProfile *ProfileManager::oblivionProfile()
 
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 13, 0))
         //Only on Qt 5.13 or higher
-        d->defaultProfile->setUrlRequestInterceptor(interceptor);
-        d->defaultProfile->setNotificationPresenter(&ProfileManager::notificationPresenter);
+        d->oblivionProfile->setUrlRequestInterceptor(interceptor);
+        d->oblivionProfile->setNotificationPresenter(&ProfileManager::notificationPresenter);
 #else
-        d->defaultProfile->setRequestInterceptor(interceptor);
+        d->oblivionProfile->setRequestInterceptor(interceptor);
 #endif
 
         thewebSchemeHandler* schemeHandler = new thewebSchemeHandler({{"oblivion", true}, {"profile", QVariant::fromValue(d->oblivionProfile)}});

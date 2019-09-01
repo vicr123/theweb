@@ -42,6 +42,8 @@ div.App {
 div.AppContainer {
 /*     max-width: 800px; */
     width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 div.AppPanes {
@@ -60,6 +62,10 @@ div.header {
     font-size: 15pt;
     
     border-bottom: 1px solid var(--fg-color);
+}
+
+div.header.noBorder {
+    border-bottom: none;
 }
 
 div.header.sticky {
@@ -104,34 +110,62 @@ div.headerButton:active {
     overflow-y: auto;
 }
 
-div.verticalContent {
+div.directionalContent {
     display: flex;
-    flex-direction: column;
     align-items: stretch;
 }
 
-div.verticalContent > * {
+div.directionalContent.vertical {
+    flex-direction: column;
+}
+
+div.directionalContent.horizontal {
+    flex-direction: row;
+}
+
+div.directionalContent.vertical > * {
     margin-top: 3px;
     margin-bottom: 3px;
 }
 
-div.verticalContent.NoSpacing > * {
+div.directionalContent.horizontal > * {
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+div.directionalContent.NoSpacing > * {
     margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+div.directionalContent.vertical *:first-child {
+    margin-top: 0px;
+}
+
+div.directionalContent.horizontal *:first-child {
+    margin-left: 0px;
+}
+
+div.directionalContent.vertical *:last-child {
     margin-bottom: 0px;
 }
 
-div.verticalContent *:first-child {
-    margin-top: 0px;
-}
-
-div.verticalContent *:last-child {
-    margin-bottom: 0px;
+div.directionalContent.horizontal *:last-child {
+    margin-right: 0px;
 }
 
 div.horizontalLine {
     display: block;
     height: 0px;
     border-bottom: 1px solid var(--fg-color);
+}
+
+div.verticalLine {
+    display: block;
+    width: 0px;
+    border-right: 1px solid var(--fg-color);
 }
 
 div.ListItem {

@@ -9,6 +9,7 @@ class Header extends React.Component {
     className() {
         let cn = ["header"];
         if (this.props.sticky) cn.push("sticky");
+        if (this.props.noBorder) cn.push("noBorder");
         return cn.join(" ");
     }
     

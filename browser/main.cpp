@@ -23,6 +23,7 @@
 #include <QCommandLineParser>
 #include <QWebEngineUrlScheme>
 #include "managers/settingsmanager.h"
+#include "managers/profilemanager.h"
 
 int main(int argc, char *argv[])
 {
@@ -71,6 +72,8 @@ int main(int argc, char *argv[])
 
     SettingsManager::initialize();
 
+    QVariantMap mainWindowOptions;
+
     QCommandLineParser parser;
     parser.setApplicationDescription(a.translate("main", "Web Browser"));
     parser.setOptionsAfterPositionalArgumentsMode(QCommandLineParser::ParseAsOptions);
@@ -87,7 +90,18 @@ int main(int argc, char *argv[])
     if (parser.isSet(helpOption)) parser.showHelp();
     if (parser.isSet(versionOption)) parser.showVersion();
 
-    MainWindow w;
+    if (parser.isSet("oblivion")) {
+        mainWindowOptions.insert("profile", QVariant::fromValue(ProfileManager::oblivionProfile()));
+    }
+
+    QList<QUrl> urls;
+    for (QString option : parser.positionalArguments()) {
+        urls.append(QUrl::fromUserInput(option));
+    }
+
+    if (urls.count() > 0) mainWindowOptions.insert("urls", QVariant::fromValue(urls));
+
+    MainWindow w(mainWindowOptions);
     w.show();
 
     return a.exec();

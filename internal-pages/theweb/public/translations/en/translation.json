@@ -3,6 +3,10 @@
     "INVALID_PAGE_CONTENT": "There was a problem. Try going to a different page.",
     "BOOKMARKS_TITLE": "Bookmarks",
     "SETTINGS_TITLE": "Settings",
+    
+    "SETTINGS_PROFILES": "Profiles",
+    "SETTINGS_PROFILES_COMING_SOON": "Profiles are coming soon. Stay tuned!",
+    
     "SETTINGS_GENERAL": "General",
     "SETTINGS_GENERAL_STARTUP": "Startup",
     "SETTINGS_GENERAL_STARTUP_EXPLANATION": "What do you want theWeb to do when it starts?",
@@ -47,6 +51,12 @@
     "HISTORY_TITLE": "History",
     
     "ABOUT_TITLE": "About theWeb",
+    "ABOUT_APPLICATION_GENERIC_NAME": "Web Browser",
+    "ABOUT_SOFTWARE": "Software",
+    "ABOUT_COPYRIGHT": "Copyright",
+    "ABOUT_COPYRIGHT_HOLDER": "Copyright © Victor Tran {{year}}.",
+    "ABOUT_COPYRIGHT_MESSAGE": "Licensed under the terms of the GNU General Public License, version 3, or later.",
+    "ABOUT_COPYRIGHT_CHROMIUM": "Made possible by the Chromium open source project and other open source software.",
     
     "NEWTAB_TITLE": "New Tab",
     "NEWTAB_OBLIVION_TITLE": "Browsing Oblivion",
