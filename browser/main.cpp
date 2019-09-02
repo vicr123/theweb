@@ -24,6 +24,8 @@
 #include <QWebEngineUrlScheme>
 #include "managers/settingsmanager.h"
 #include "managers/profilemanager.h"
+#include "managers/singleinstancemanager.h"
+#include <QDebug>
 
 int main(int argc, char *argv[])
 {
@@ -91,15 +93,28 @@ int main(int argc, char *argv[])
     if (parser.isSet(versionOption)) parser.showVersion();
 
     if (parser.isSet("oblivion")) {
-        mainWindowOptions.insert("profile", QVariant::fromValue(ProfileManager::oblivionProfile()));
+        mainWindowOptions.insert("setOblivionProfile", true);
     }
 
-    QList<QUrl> urls;
+    QStringList urls;
     for (QString option : parser.positionalArguments()) {
-        urls.append(QUrl::fromUserInput(option));
+        urls.append(QUrl::fromUserInput(option).toString(QUrl::FullyEncoded));
     }
 
     if (urls.count() > 0) mainWindowOptions.insert("urls", QVariant::fromValue(urls));
+
+    //Ensure only a single instance is running
+    SingleInstanceManager singleInstance;
+    if (!singleInstance.shouldRun()) {
+        qDebug() << "Passing control to already running process";
+        singleInstance.handOverControl(mainWindowOptions);
+        return 0;
+    }
+
+    QObject::connect(&singleInstance, &SingleInstanceManager::optionsRequested, [=](QVariantMap options) {
+        MainWindow* w = new MainWindow(options);
+        w->show();
+    });
 
     MainWindow w(mainWindowOptions);
     w.show();

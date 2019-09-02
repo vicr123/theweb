@@ -47,7 +47,11 @@ MainWindow::MainWindow(QVariantMap options, QWidget *parent) :
     ui->setupUi(this);
     d = new MainWindowPrivate();
 
-    d->profile = options.value("profile", QVariant::fromValue(ProfileManager::defaultProfile())).value<QWebEngineProfile*>();
+    if (options.value("setOblivionProfile", false).toBool()) {
+        d->profile = ProfileManager::oblivionProfile();
+    } else {
+        d->profile = options.value("profile", QVariant::fromValue(ProfileManager::defaultProfile())).value<QWebEngineProfile*>();
+    }
     QIcon windowIcon = d->profile == ProfileManager::oblivionProfile() ? QIcon::fromTheme("theweb-oblivion", QIcon(":/icons/theweb-oblivion.svg")) : QIcon::fromTheme("theweb", QIcon(":/icons/theweb.svg"));
     this->setWindowIcon(windowIcon);
 
@@ -86,10 +90,10 @@ MainWindow::MainWindow(QVariantMap options, QWidget *parent) :
     });
     d->leaveFullScreenShortcut->setEnabled(false);
 
-    QList<QUrl> urlsToOpen = options.value("urls", QVariant::fromValue(QList<QUrl>({SettingsManager::getHomePage()}))).value<QList<QUrl>>();
-    for (QUrl url : urlsToOpen) {
+    QStringList urlsToOpen = options.value("urls", QVariant::fromValue(QStringList({SettingsManager::getHomePage().toString(QUrl::FullyEncoded)}))).toStringList();
+    for (QString url : urlsToOpen) {
         WebPage* page = new WebPage(d->profile, nullptr);
-        page->setUrl(url);
+        page->setUrl(QUrl(url));
         newTab(new WebTab(page));
     }
 

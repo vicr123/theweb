@@ -89,6 +89,7 @@ SOURCES += \
         managers/iconmanager.cpp \
         managers/profilemanager.cpp \
         managers/settingsmanager.cpp \
+        managers/singleinstancemanager.cpp \
         popovers/httpauthentication.cpp \
         popovers/jsalert.cpp \
         popovers/jsconfirm.cpp \
@@ -116,6 +117,7 @@ HEADERS += \
         managers/iconmanager.h \
         managers/profilemanager.h \
         managers/settingsmanager.h \
+        managers/singleinstancemanager.h \
         popovers/httpauthentication.h \
         popovers/jsalert.h \
         popovers/jsconfirm.h \

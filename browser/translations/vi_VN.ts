@@ -712,28 +712,28 @@ Usually this is a temporary problem, so we recommend waiting a couple hours and 
 <context>
     <name>main</name>
     <message>
-        <location filename="../main.cpp" line="62"/>
-        <location filename="../main.cpp" line="78"/>
+        <location filename="../main.cpp" line="64"/>
+        <location filename="../main.cpp" line="80"/>
         <source>Web Browser</source>
         <translation>Trình duyệt web</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="84"/>
+        <location filename="../main.cpp" line="86"/>
         <source>Open an Oblivion window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="87"/>
+        <location filename="../main.cpp" line="89"/>
         <source>urls</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="87"/>
+        <location filename="../main.cpp" line="89"/>
         <source>URLs to open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="87"/>
+        <location filename="../main.cpp" line="89"/>
         <source>[urls...]</source>
         <translation type="unfinished"></translation>
     </message>
