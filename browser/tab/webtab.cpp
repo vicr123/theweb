@@ -380,6 +380,11 @@ QUrl WebTab::currentUrl()
     return d->view->url();
 }
 
+QWebEngineHistory* WebTab::history()
+{
+    return d->page->history();
+}
+
 QWebEngineProfile* WebTab::profile()
 {
     return d->page->profile();

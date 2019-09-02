@@ -517,13 +517,23 @@
         <source>New Tab</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../widgets/toolbar.cpp" line="44"/>
+        <source>Go Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/toolbar.cpp" line="59"/>
+        <source>Go Forward</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ToolbarButton</name>
     <message>
-        <location filename="../widgets/toolbarbutton.cpp" line="37"/>
-        <location filename="../widgets/toolbarbutton.cpp" line="86"/>
-        <location filename="../widgets/toolbarbutton.cpp" line="90"/>
+        <location filename="../widgets/toolbarbutton.cpp" line="38"/>
+        <location filename="../widgets/toolbarbutton.cpp" line="89"/>
+        <location filename="../widgets/toolbarbutton.cpp" line="93"/>
         <source>Oblivion</source>
         <translation type="unfinished"></translation>
     </message>

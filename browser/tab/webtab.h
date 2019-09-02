@@ -30,6 +30,7 @@ namespace Ui {
 class QSslCertificate;
 class QWebEngineProfile;
 class WebPage;
+class QWebEngineHistory;
 struct WebTabPrivate;
 class WebTab : public QWidget
 {
@@ -41,6 +42,7 @@ class WebTab : public QWidget
 
         QWidget* getTabButton();
         QUrl currentUrl();
+        QWebEngineHistory* history();
         QWebEngineProfile* profile();
 
         QSslCertificate pageCertificate();

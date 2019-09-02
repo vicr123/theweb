@@ -5,6 +5,8 @@
 #include <QIcon>
 #include <QPointer>
 #include <QSslCertificate>
+#include <QMenu>
+#include <QWebEngineHistory>
 #include <tpopover.h>
 #include "downloads/downloadspopover.h"
 #include "managers/iconmanager.h"
@@ -35,6 +37,35 @@ Toolbar::Toolbar(QWidget *parent) :
 
     connect(DownloadManager::instance(), &DownloadManager::downloadAdded, this, &Toolbar::updateIcons);
     updateIcons();
+
+    QMenu* backMenu = new QMenu();
+    connect(backMenu, &QMenu::aboutToShow, this, [=] {
+        backMenu->clear();
+        backMenu->addSection(tr("Go Back"));
+
+        //Iterate in reverse order
+        QList<QWebEngineHistoryItem> history = d->currentTab->history()->backItems(20);
+        for (auto i = history.crbegin(); i != history.crend(); i++) {
+            backMenu->addAction(i->title(), [=] {
+                d->currentTab->history()->goToItem(*i);
+            });
+        }
+    });
+    ui->backButton->setMenu(backMenu);
+
+    QMenu* forwardMenu = new QMenu();
+    connect(forwardMenu, &QMenu::aboutToShow, this, [=] {
+        forwardMenu->clear();
+        forwardMenu->addSection(tr("Go Forward"));
+
+        QList<QWebEngineHistoryItem> history = d->currentTab->history()->forwardItems(20);
+        for (auto i = history.cbegin(); i != history.cend(); i++) {
+            forwardMenu->addAction(i->title(), [=] {
+                d->currentTab->history()->goToItem(*i);
+            });
+        }
+    });
+    ui->forwardButton->setMenu(forwardMenu);
 
     this->setAutoFillBackground(true);
 }
@@ -71,6 +102,8 @@ void Toolbar::setCurrentTab(WebTab* tab)
 
     ui->bar->setCurrentTab(tab);
     ui->securityChunk->setCurrentCertificate(d->currentTab->currentUrl(), d->currentTab->pageCertificate());
+    ui->backButton->setEnabled(tab->history()->canGoBack());
+    ui->forwardButton->setEnabled(tab->history()->canGoForward());
 }
 
 void Toolbar::setAsOblivion()
@@ -86,6 +119,8 @@ void Toolbar::focusBar()
 void Toolbar::updateInformation()
 {
     ui->securityChunk->setCurrentCertificate(d->currentTab->currentUrl(), d->currentTab->pageCertificate());
+    ui->backButton->setEnabled(d->currentTab->history()->canGoBack());
+    ui->forwardButton->setEnabled(d->currentTab->history()->canGoForward());
 }
 
 void Toolbar::on_backButton_clicked()

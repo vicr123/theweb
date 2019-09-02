@@ -3,6 +3,7 @@
 #include <QPainter>
 #include <QStyleOptionToolButton>
 #include <the-libs_global.h>
+#include "managers/iconmanager.h"
 
 struct ToolbarButtonPrivate {
     bool oblivion = false;
@@ -53,7 +54,9 @@ void ToolbarButton::paintEvent(QPaintEvent* event)
     }
 
     QColor backgroundCol = Qt::transparent;
-    if (this->isDown()) {
+    if ((styleOption.state & QStyle::State_Enabled) == 0) {
+        painter.setOpacity(0.5);
+    } else if (this->isDown()) {
         QColor windowCol = styleOption.palette.color(QPalette::Window);
         if ((windowCol.red() + windowCol.green() + windowCol.blue()) / 3 < 127) {
             backgroundCol = QColor(0, 0, 0, 50);
