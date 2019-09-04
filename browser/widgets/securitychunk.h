@@ -34,18 +34,21 @@ class SecurityChunk : public QWidget
 
     public:
         explicit SecurityChunk(QWidget *parent = nullptr);
-        ~SecurityChunk();
+        ~SecurityChunk() override;
 
         void setCurrentCertificate(QUrl url, QSslCertificate certificate);
 
     signals:
         void resized();
+        void toggleSecurityWidget();
 
     private:
         Ui::SecurityChunk *ui;
         SecurityChunkPrivate* d;
 
-        void resizeEvent(QResizeEvent *event);
+        void resizeEvent(QResizeEvent *event) override;
+        void mousePressEvent(QMouseEvent *event) override;
+        void mouseReleaseEvent(QMouseEvent *event) override;
 };
 
 #endif // SECURITYCHUNK_H

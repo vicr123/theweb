@@ -119,6 +119,7 @@ void Bar::resizeEvent(QResizeEvent* event)
 }
 
 QString Bar::unfocusedText() {
+    if (d->currentTab.isNull()) return "";
     return unfocusedText(d->currentTab->currentUrl());
 }
 

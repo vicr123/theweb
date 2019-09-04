@@ -7,6 +7,7 @@
 #include <QSslCertificate>
 #include <QMenu>
 #include <QWebEngineHistory>
+#include <tvariantanimation.h>
 #include <tpopover.h>
 #include "downloads/downloadspopover.h"
 #include "managers/iconmanager.h"
@@ -35,6 +36,8 @@ Toolbar::Toolbar(QWidget *parent) :
     ui->reloadButton->setIconSize(iconSize);
     ui->downloadsButton->setIconSize(iconSize);
     ui->newTabButton->setIconSize(iconSize);
+
+    ui->auxContainer->setFixedHeight(0);
 
     connect(DownloadManager::instance(), &DownloadManager::downloadAdded, this, &Toolbar::updateIcons);
     updateIcons();
@@ -69,6 +72,21 @@ Toolbar::Toolbar(QWidget *parent) :
     ui->forwardButton->setMenu(forwardMenu);
 
     this->setAutoFillBackground(true);
+
+    connect(ui->securityChunk, &SecurityChunk::toggleSecurityWidget, this, [=] {
+        ui->auxStack->setCurrentWidget(ui->securityPage);
+
+        tVariantAnimation* anim = new tVariantAnimation();
+        anim->setStartValue(ui->auxContainer->height());
+        anim->setEndValue(ui->auxContainer->height() == 0 ? ui->securityPage->height() : 0);
+        anim->setDuration(500);
+        anim->setEasingCurve(QEasingCurve::OutCubic);
+        connect(anim, &tVariantAnimation::valueChanged, this, [=](QVariant value) {
+            ui->auxContainer->setFixedHeight(value.toInt());
+        });
+        connect(anim, &tVariantAnimation::finished, anim, &tVariantAnimation::deleteLater);
+        anim->start();
+    });
 }
 
 Toolbar::~Toolbar()
@@ -102,10 +120,13 @@ void Toolbar::setCurrentTab(WebTab* tab)
     connect(tab, &WebTab::iconChanged, this, &Toolbar::updateIcons);
     connect(qobject_cast<TabButton*>(tab->getTabButton()), &TabButton::paletteUpdated, this, &Toolbar::updateIcons);
 
+    ui->securityPage->setProfile(d->currentTab->profile());
+
     updateIcons();
 
     ui->bar->setCurrentTab(tab);
     ui->securityChunk->setCurrentCertificate(d->currentTab->currentUrl(), d->currentTab->pageCertificate());
+    ui->securityPage->setCurrentCertificate(d->currentTab->currentUrl(), d->currentTab->pageCertificate());
     ui->backButton->setEnabled(tab->history()->canGoBack());
     ui->forwardButton->setEnabled(tab->history()->canGoForward());
     this->window()->setWindowTitle(QStringLiteral("%1 - theWeb").arg(tab->currentTitle()));
@@ -124,6 +145,7 @@ void Toolbar::focusBar()
 void Toolbar::updateInformation()
 {
     ui->securityChunk->setCurrentCertificate(d->currentTab->currentUrl(), d->currentTab->pageCertificate());
+    ui->securityPage->setCurrentCertificate(d->currentTab->currentUrl(), d->currentTab->pageCertificate());
     ui->backButton->setEnabled(d->currentTab->history()->canGoBack());
     ui->forwardButton->setEnabled(d->currentTab->history()->canGoForward());
     this->window()->setWindowTitle(QStringLiteral("%1 - theWeb").arg(d->currentTab->currentTitle()));

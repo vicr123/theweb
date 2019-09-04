@@ -105,6 +105,8 @@ SOURCES += \
         widgets/securitychunk.cpp \
         widgets/tabbutton.cpp \
         widgets/toolbar.cpp \
+        widgets/toolbar/securityinfo.cpp \
+        widgets/toolbar/securityinfopermissionswitch.cpp \
         widgets/toolbarbutton.cpp
 
 HEADERS += \
@@ -133,6 +135,8 @@ HEADERS += \
         widgets/securitychunk.h \
         widgets/tabbutton.h \
         widgets/toolbar.h \
+        widgets/toolbar/securityinfo.h \
+        widgets/toolbar/securityinfopermissionswitch.h \
         widgets/toolbarbutton.h
 
 FORMS += \
@@ -148,7 +152,9 @@ FORMS += \
         widgets/downloads/downloadspopover.ui \
         widgets/downloads/downloadspopoveritem.ui \
         widgets/securitychunk.ui \
-        widgets/toolbar.ui
+        widgets/toolbar.ui \
+        widgets/toolbar/securityinfo.ui \
+        widgets/toolbar/securityinfopermissionswitch.ui
 
 RESOURCES += \
     resources.qrc

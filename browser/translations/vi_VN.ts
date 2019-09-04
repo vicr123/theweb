@@ -261,112 +261,112 @@
         <translation>theWeb</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="104"/>
+        <location filename="../mainwindow.ui" line="111"/>
         <source>File</source>
         <translation>Tệp</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="116"/>
+        <location filename="../mainwindow.ui" line="123"/>
         <source>Edit</source>
         <translation>Sửa</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="121"/>
+        <location filename="../mainwindow.ui" line="128"/>
         <source>View</source>
         <translation>Xem</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="129"/>
+        <location filename="../mainwindow.ui" line="136"/>
         <source>History</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="144"/>
+        <location filename="../mainwindow.ui" line="151"/>
         <source>Go Back</source>
         <translation>Trở lại</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="147"/>
+        <location filename="../mainwindow.ui" line="154"/>
         <source>Alt+Left</source>
         <translation>Alt+Left</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="156"/>
+        <location filename="../mainwindow.ui" line="163"/>
         <source>Go Forward</source>
         <translation>Bước tiếp</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="159"/>
+        <location filename="../mainwindow.ui" line="166"/>
         <source>Alt+Right</source>
         <translation>Alt+Right</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="168"/>
+        <location filename="../mainwindow.ui" line="175"/>
         <source>Reload</source>
         <translation>Tải lại</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="171"/>
+        <location filename="../mainwindow.ui" line="178"/>
         <source>Ctrl+R</source>
         <translation>Ctrl+R</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="180"/>
+        <location filename="../mainwindow.ui" line="187"/>
         <source>New Tab</source>
         <translation>Tab mới</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="183"/>
+        <location filename="../mainwindow.ui" line="190"/>
         <source>Ctrl+T</source>
         <translation>Ctrl+T</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="192"/>
+        <location filename="../mainwindow.ui" line="199"/>
         <source>New Window</source>
         <translation>Cửa sổ mới</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="195"/>
+        <location filename="../mainwindow.ui" line="202"/>
         <source>Ctrl+N</source>
         <translation>Ctrl+N</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="204"/>
+        <location filename="../mainwindow.ui" line="211"/>
         <source>New Oblivion Window</source>
         <translation>Cửa sổ lãng quên mới</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="207"/>
+        <location filename="../mainwindow.ui" line="214"/>
         <source>Ctrl+Shift+N</source>
         <translation>Ctrl+Shift+N</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="216"/>
+        <location filename="../mainwindow.ui" line="223"/>
         <source>Settings</source>
         <translation>Cài đặt</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="219"/>
+        <location filename="../mainwindow.ui" line="226"/>
         <source>Ctrl+,</source>
         <translation>Ctrl+,</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="228"/>
+        <location filename="../mainwindow.ui" line="235"/>
         <source>Exit</source>
         <translation>Thoát</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="231"/>
+        <location filename="../mainwindow.ui" line="238"/>
         <source>Ctrl+Q</source>
         <translation>Ctrl+Q</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="240"/>
+        <location filename="../mainwindow.ui" line="247"/>
         <source>View Full History</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="243"/>
+        <location filename="../mainwindow.ui" line="250"/>
         <source>Ctrl+H</source>
         <translation type="unfinished"></translation>
     </message>
@@ -496,34 +496,120 @@
     </message>
 </context>
 <context>
+    <name>SecurityInfo</name>
+    <message>
+        <location filename="../widgets/toolbar/securityinfo.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/toolbar/securityinfo.ui" line="40"/>
+        <source>Security</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/toolbar/securityinfo.ui" line="110"/>
+        <source>TextLabel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/toolbar/securityinfo.ui" line="122"/>
+        <source>View Certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/toolbar/securityinfo.ui" line="189"/>
+        <source>PERMISSIONS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/toolbar/securityinfo.cpp" line="64"/>
+        <source>GENERATED BY THEWEB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/toolbar/securityinfo.cpp" line="65"/>
+        <source>This content is generated by theWeb</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/toolbar/securityinfo.cpp" line="68"/>
+        <source>INSECURE CONNECTION</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/toolbar/securityinfo.cpp" line="69"/>
+        <source>Don&apos;t enter sensitive information into this site; it can easily be intercepted and stolen.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/toolbar/securityinfo.cpp" line="74"/>
+        <source>SECURE CONNECTION</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/toolbar/securityinfo.cpp" line="75"/>
+        <source>Sensitive information is encrypted and secured when sent to this site.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/toolbar/securityinfo.cpp" line="103"/>
+        <source>This site hasn&apos;t asked for any permissions yet.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SecurityInfoPermissionSwitch</name>
+    <message>
+        <location filename="../widgets/toolbar/securityinfopermissionswitch.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/toolbar/securityinfopermissionswitch.cpp" line="48"/>
+        <source>Location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/toolbar/securityinfopermissionswitch.cpp" line="51"/>
+        <source>Camera</source>
+        <translation type="unfinished">Máy ảnh</translation>
+    </message>
+    <message>
+        <location filename="../widgets/toolbar/securityinfopermissionswitch.cpp" line="54"/>
+        <source>Microphone</source>
+        <translation type="unfinished">Micrô</translation>
+    </message>
+</context>
+<context>
     <name>Toolbar</name>
     <message>
-        <location filename="../widgets/toolbar.ui" line="60"/>
+        <location filename="../widgets/toolbar.ui" line="77"/>
         <source>Back</source>
         <translation>Trở lại</translation>
     </message>
     <message>
-        <location filename="../widgets/toolbar.ui" line="76"/>
+        <location filename="../widgets/toolbar.ui" line="93"/>
         <source>Forward</source>
         <translation>Bước tiếp</translation>
     </message>
     <message>
-        <location filename="../widgets/toolbar.ui" line="92"/>
+        <location filename="../widgets/toolbar.ui" line="109"/>
         <source>Reload</source>
         <translation>Tải lại</translation>
     </message>
     <message>
-        <location filename="../widgets/toolbar.ui" line="108"/>
+        <location filename="../widgets/toolbar.ui" line="125"/>
         <source>New Tab</source>
         <translation type="unfinished">Tab mới</translation>
     </message>
     <message>
-        <location filename="../widgets/toolbar.cpp" line="45"/>
+        <location filename="../widgets/toolbar.cpp" line="48"/>
         <source>Go Back</source>
         <translation type="unfinished">Trở lại</translation>
     </message>
     <message>
-        <location filename="../widgets/toolbar.cpp" line="60"/>
+        <location filename="../widgets/toolbar.cpp" line="63"/>
         <source>Go Forward</source>
         <translation type="unfinished">Bước tiếp</translation>
     </message>

@@ -85,6 +85,15 @@ void FeatureManager::setFeatureAllowed(QUrl originUrl, FeatureManager::Feature f
     query.exec();
 }
 
+QList<FeatureManager::Feature> FeatureManager::allFeatures()
+{
+    QList<Feature> f;
+    for (int i = 0; i < FeatureManager::LastFeature; i++) {
+        f.append(static_cast<Feature>(i));
+    }
+    return f;
+}
+
 FeatureManager::FeatureManager(QWebEngineProfile* profile) : QObject(nullptr)
 {
     d = new FeatureManagerPrivate();

@@ -145,3 +145,13 @@ void SecurityChunk::resizeEvent(QResizeEvent*event)
 {
     emit resized();
 }
+
+void SecurityChunk::mousePressEvent(QMouseEvent* event)
+{
+
+}
+
+void SecurityChunk::mouseReleaseEvent(QMouseEvent* event)
+{
+    emit toggleSecurityWidget();
+}

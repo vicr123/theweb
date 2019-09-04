@@ -46,6 +46,7 @@ class FeatureManager : public QObject
 
         FeatureAllowed isFeatureAllowed(QUrl originUrl, Feature feature);
         void setFeatureAllowed(QUrl originUrl, Feature feature, FeatureAllowed allowed);
+        static QList<Feature> allFeatures();
 
     signals:
 
