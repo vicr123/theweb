@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
     a.setOrganizationName("theSuite");
     a.setOrganizationDomain("");
     a.setApplicationIcon(QIcon::fromTheme("theweb", QIcon(":/icons/theweb.svg")));
-    a.setApplicationVersion("0.1");
+    a.setApplicationVersion("16.0");
     a.setGenericName(QApplication::translate("main", "Web Browser"));
     //a.setAboutDialogSplashGraphic(a.aboutDialogSplashGraphicFromSvg(":/icons/aboutsplash.svg"));
     a.setApplicationLicense(tApplication::Gpl3OrLater);
@@ -106,7 +106,7 @@ int main(int argc, char *argv[])
     //Ensure only a single instance is running
     SingleInstanceManager singleInstance;
     if (!singleInstance.shouldRun()) {
-        qDebug() << "Passing control to already running process";
+        QTextStream(stdout) << QApplication::translate("main", "Passing control to already running process\n");
         singleInstance.handOverControl(mainWindowOptions);
         return 0;
     }

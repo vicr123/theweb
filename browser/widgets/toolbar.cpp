@@ -96,6 +96,7 @@ void Toolbar::setCurrentTab(WebTab* tab)
     d->currentTab = tab;
     connect(tab, &WebTab::urlChanged, this, &Toolbar::updateInformation);
     connect(tab, &WebTab::sslStateChanged, this, &Toolbar::updateInformation);
+    connect(tab, &WebTab::titleChanged, this, &Toolbar::updateInformation);
     connect(tab, &WebTab::iconChanged, this, &Toolbar::updateIcons);
 
     updateIcons();
@@ -104,6 +105,7 @@ void Toolbar::setCurrentTab(WebTab* tab)
     ui->securityChunk->setCurrentCertificate(d->currentTab->currentUrl(), d->currentTab->pageCertificate());
     ui->backButton->setEnabled(tab->history()->canGoBack());
     ui->forwardButton->setEnabled(tab->history()->canGoForward());
+    this->window()->setWindowTitle(QStringLiteral("%1 - theWeb").arg(tab->currentTitle()));
 }
 
 void Toolbar::setAsOblivion()
@@ -121,6 +123,7 @@ void Toolbar::updateInformation()
     ui->securityChunk->setCurrentCertificate(d->currentTab->currentUrl(), d->currentTab->pageCertificate());
     ui->backButton->setEnabled(d->currentTab->history()->canGoBack());
     ui->forwardButton->setEnabled(d->currentTab->history()->canGoForward());
+    this->window()->setWindowTitle(QStringLiteral("%1 - theWeb").arg(d->currentTab->currentTitle()));
 }
 
 void Toolbar::on_backButton_clicked()

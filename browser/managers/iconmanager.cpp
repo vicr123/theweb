@@ -1,5 +1,9 @@
 #include "iconmanager.h"
 #include <QPainter>
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
+#include <QWebEngineUrlRequestJob>
+#include "core/thewebschemehandler.h"
 
 QIcon IconManager::getIcon(QString iconName, QColor tint, QSize size)
 {

@@ -110,6 +110,7 @@ WebTab::WebTab(WebPage* page, QWidget *parent) :
     });
     connect(d->page, &WebPage::titleChanged, this, [=] {
         d->tabButton->setText(d->page->title());
+        emit this->titleChanged();
     });
     connect(d->page, &WebPage::windowCloseRequested, this, &WebTab::deleteLater);
     connect(d->page, &WebPage::spawnTab, this, [=](WebPage* page, WebPage::WebWindowType type) {
@@ -378,6 +379,11 @@ QWidget*WebTab::getTabButton()
 QUrl WebTab::currentUrl()
 {
     return d->view->url();
+}
+
+QString WebTab::currentTitle()
+{
+    return d->page->title();
 }
 
 QWebEngineHistory* WebTab::history()

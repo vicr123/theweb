@@ -42,6 +42,7 @@ class WebTab : public QWidget
 
         QWidget* getTabButton();
         QUrl currentUrl();
+        QString currentTitle();
         QWebEngineHistory* history();
         QWebEngineProfile* profile();
 
@@ -70,6 +71,7 @@ class WebTab : public QWidget
         void closeTab();
         void sslStateChanged();
         void iconChanged();
+        void titleChanged();
 
         void goFullScreen(bool fullscreen);
         void resized();

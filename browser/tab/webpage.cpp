@@ -21,9 +21,11 @@
 
 #include <QWebEngineCertificateError>
 #include <QMenu>
+#include <QTimer>
 #include <QWebEngineContextMenuData>
 #include <tpopover.h>
 #include "managers/iconmanager.h"
+#include "managers/profilemanager.h"
 #include "popovers/jsalert.h"
 #include "popovers/jsconfirm.h"
 #include "popovers/jsprompt.h"
@@ -35,30 +37,7 @@ struct WebPagePrivate {
     CertificateErrorPane* certErrorPane;
 };
 
-WebPage::WebPage(QWidget *parent) : QWebEnginePage(parent)
-{
-    d = new WebPagePrivate();
-    d->parent = parent;
-
-    connect(this, &WebPage::authenticationRequired, this, [=](QUrl url, QAuthenticator* authenticator) {
-        QEventLoop loop;
-
-        HttpAuthentication* alert = new HttpAuthentication(url, authenticator);
-        tPopover* popover = new tPopover(alert);
-        popover->setPopoverSide(tPopover::Bottom);
-        popover->setPopoverWidth(alert->sizeHint().height());
-        popover->setDismissable(false);
-        connect(alert, &HttpAuthentication::accept, popover, &tPopover::dismiss);
-        connect(alert, &HttpAuthentication::accept, &loop, std::bind(&QEventLoop::exit, &loop, 1));
-        connect(alert, &HttpAuthentication::reject, popover, &tPopover::dismiss);
-        connect(alert, &HttpAuthentication::reject, &loop, std::bind(&QEventLoop::exit, &loop, 0));
-        connect(popover, &tPopover::dismissed, alert, &HttpAuthentication::deleteLater);
-        connect(popover, &tPopover::dismissed, popover, &tPopover::deleteLater);
-        popover->show(d->parent);
-    });
-
-    this->resetZoom();
-}
+WebPage::WebPage(QWidget *parent) : WebPage(ProfileManager::defaultProfile(), parent) {}
 
 WebPage::WebPage(QWebEngineProfile* profile, QWidget* parent) : QWebEnginePage(profile, parent)
 {
@@ -81,6 +60,10 @@ WebPage::WebPage(QWebEngineProfile* profile, QWidget* parent) : QWebEnginePage(p
         connect(popover, &tPopover::dismissed, popover, &tPopover::deleteLater);
         popover->show(d->parent);
         loop.exec();
+    });
+    connect(this, &WebPage::urlChanged, this, [=](QUrl url) {
+        //Also emit the icon changed signal if the URL changes for a theWeb internal page
+        if (url.scheme() == "theweb") QTimer::singleShot(0, this, std::bind(&WebPage::iconChanged, this, this->icon()));
     });
 
     this->resetZoom();
@@ -194,6 +177,18 @@ QMenu* WebPage::createStandardContextMenu()
     });
 
     return menu;
+}
+
+QIcon WebPage::icon()
+{
+    if (this->url().scheme() == "theweb") {
+//        if (this->url().host() == "history") return IconManager::getIcon("view-history", Qt::white, SC_DPI_T(QSize(16, 16), QSize));
+//        if (this->url().host() == "settings") return IconManager::getIcon("configure", Qt::white, SC_DPI_T(QSize(16, 16), QSize));
+//        if (this->url().host() == "about") return IconManager::getIcon("help-about", Qt::white, SC_DPI_T(QSize(16, 16), QSize));
+//        if (this->url().host() == "newtab") return IconManager::getIcon("tab-new", Qt::white, SC_DPI_T(QSize(16, 16), QSize));
+        return QIcon::fromTheme("theweb", QIcon(":/icons/theweb.svg"));
+    }
+    return QWebEnginePage::icon();
 }
 
 void WebPage::resetZoom()

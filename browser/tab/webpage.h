@@ -37,6 +37,8 @@ class WebPage : public QWebEnginePage
 
         QMenu* createStandardContextMenu();
 
+        QIcon icon();
+
     signals:
         void openDevtools();
         void spawnTab(WebPage* page, WebWindowType type);
