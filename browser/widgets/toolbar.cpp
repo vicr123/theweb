@@ -12,6 +12,7 @@
 #include "managers/iconmanager.h"
 #include "managers/downloadmanager.h"
 #include "tab/webtab.h"
+#include "tabbutton.h"
 
 extern void tintImage(QImage &image, QColor tint);
 
@@ -91,6 +92,7 @@ void Toolbar::setCurrentTab(WebTab* tab)
     //Disconnect all signals from the current tab
     if (!d->currentTab.isNull()) {
         disconnect(d->currentTab, nullptr, this, nullptr);
+        disconnect(d->currentTab->getTabButton());
     }
 
     d->currentTab = tab;
@@ -98,6 +100,7 @@ void Toolbar::setCurrentTab(WebTab* tab)
     connect(tab, &WebTab::sslStateChanged, this, &Toolbar::updateInformation);
     connect(tab, &WebTab::titleChanged, this, &Toolbar::updateInformation);
     connect(tab, &WebTab::iconChanged, this, &Toolbar::updateIcons);
+    connect(qobject_cast<TabButton*>(tab->getTabButton()), &TabButton::paletteUpdated, this, &Toolbar::updateIcons);
 
     updateIcons();
 

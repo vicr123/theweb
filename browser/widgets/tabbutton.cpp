@@ -19,7 +19,9 @@
  * *************************************/
 #include "tabbutton.h"
 #include <QPainter>
+#include <tcircularspinner.h>
 #include <tvariantanimation.h>
+#include <QGraphicsOpacityEffect>
 
 struct TabButtonPrivate {
     QColor backgroundCol;
@@ -29,6 +31,10 @@ struct TabButtonPrivate {
 //    bool showLoadProgress = false;
     tVariantAnimation* loadProgress;
     tVariantAnimation* showLoadProgress;
+    tVariantAnimation* spinnerOpacity;
+
+    tCircularSpinner* spinner;
+    QGraphicsOpacityEffect* spinnerOpacityEffect;
 };
 
 TabButton::TabButton(QWidget *parent) : QPushButton(parent)
@@ -51,11 +57,27 @@ TabButton::TabButton(QWidget *parent) : QPushButton(parent)
     d->showLoadProgress->setDuration(500);
     d->showLoadProgress->setEasingCurve(QEasingCurve::OutCubic);
     connect(d->showLoadProgress, &tVariantAnimation::valueChanged, this, QOverload<>::of(&TabButton::update));
+
+    d->spinnerOpacity = new tVariantAnimation();
+    d->spinnerOpacity->setStartValue(-1.0);
+    d->spinnerOpacity->setEndValue(1.0);
+    d->spinnerOpacity->setDuration(500);
+//    d->spinnerOpacity->setEasingCurve(QEasingCurve::OutCubic);
+    connect(d->spinnerOpacity, &tVariantAnimation::valueChanged, this, QOverload<>::of(&TabButton::update));
+
+    d->spinner = new tCircularSpinner(this);
+    d->spinner->resize(this->iconSize());
+    d->spinner->setParent(this);
+
+    d->spinnerOpacityEffect = new QGraphicsOpacityEffect(d->spinner);
+    d->spinner->setGraphicsEffect(d->spinnerOpacityEffect);
 }
 
 TabButton::~TabButton() {
     d->loadProgress->deleteLater();
     d->showLoadProgress->deleteLater();
+    d->spinnerOpacity->deleteLater();
+    d->spinner->deleteLater();
     delete d;
 }
 
@@ -94,11 +116,23 @@ void TabButton::setLoadProgress(int progress, bool show)
         d->showLoadProgress->setStartValue(d->showLoadProgress->currentValue());
         d->showLoadProgress->setEndValue(1.0);
         d->showLoadProgress->start();
+
+        d->spinnerOpacity->stop();
+        if (d->spinnerOpacity->currentValue() != d->spinnerOpacity->endValue()) {
+            d->spinnerOpacity->setDirection(tVariantAnimation::Forward);
+            d->spinnerOpacity->start();
+        }
     } else if (d->showLoadProgress->endValue() == 1.0 && !show) {
         d->showLoadProgress->stop();
         d->showLoadProgress->setStartValue(d->showLoadProgress->currentValue());
         d->showLoadProgress->setEndValue(0.0);
         d->showLoadProgress->start();
+
+        d->spinnerOpacity->stop();
+        if (d->spinnerOpacity->currentValue() != d->spinnerOpacity->startValue()) {
+            d->spinnerOpacity->setDirection(tVariantAnimation::Backward);
+            d->spinnerOpacity->start();
+        }
     }
     this->update();
 }
@@ -133,7 +167,6 @@ void TabButton::setIcon(QIcon icon)
     }
 
     QColor background, foreground;
-    QPalette pal = this->palette();
     int averageCol = (background.red() + background.green() + background.blue()) / 3;
 
     if (totalPixels == 0) {
@@ -150,11 +183,25 @@ void TabButton::setIcon(QIcon icon)
             foreground = Qt::black;
         }
     }
-    pal.setColor(QPalette::Button, background);
-    pal.setColor(QPalette::ButtonText, foreground);
-    this->setPalette(pal);
-    d->backgroundCol = background;
-    d->foregroundCol = foreground;
+
+    tVariantAnimation* bgAnim = new tVariantAnimation(this);
+    bgAnim->setStartValue(d->backgroundCol);
+    bgAnim->setEndValue(background);
+    bgAnim->setEasingCurve(QEasingCurve::OutCubic);
+    bgAnim->setDuration(500);
+    connect(bgAnim, &tVariantAnimation::valueChanged, this, [=](QVariant value) {
+        QPalette pal = this->palette();
+
+        pal.setColor(QPalette::Button, value.value<QColor>());
+        pal.setColor(QPalette::ButtonText, foreground);
+        this->setPalette(pal);
+        d->backgroundCol = value.value<QColor>();
+        d->foregroundCol = foreground;
+
+        emit paletteUpdated();
+    });
+    connect(bgAnim, &tVariantAnimation::finished, bgAnim, &tVariantAnimation::deleteLater);
+    bgAnim->start();
 }
 
 void TabButton::paintEvent(QPaintEvent *event) {
@@ -204,7 +251,7 @@ void TabButton::paintEvent(QPaintEvent *event) {
     textRect.moveLeft(contentRect.left());
     textRect.moveTop(contentRect.top() + contentRect.height() / 2 - textRect.height() / 2);
 
-    if (!this->icon().isNull()) {
+    if (!this->icon().isNull() || d->spinnerOpacity->currentValue() >= 0) {
         QRect iconRect;
         iconRect.setSize(this->iconSize());
         iconRect.moveLeft(contentRect.left());
@@ -212,11 +259,22 @@ void TabButton::paintEvent(QPaintEvent *event) {
 
         textRect.moveLeft(iconRect.right() + SC_DPI(6));
 
-        QIcon icon = this->icon();
-        QImage image = icon.pixmap(this->iconSize()).toImage();
-        image = image.convertToFormat(QImage::Format_ARGB32_Premultiplied);
+        painter.save();
+        if (d->spinnerOpacity->currentValue() >= 0) {
+            d->spinnerOpacityEffect->setOpacity(d->spinnerOpacity->currentValue().toDouble());
+            d->spinner->setGeometry(iconRect);
+//            d->spinner->render(&painter, iconRect.topLeft());
+        } else {
+            d->spinnerOpacityEffect->setOpacity(0);
+            painter.setOpacity(qAbs(d->spinnerOpacity->currentValue().toDouble()));
 
-        painter.drawImage(iconRect, image);
+            QIcon icon = this->icon();
+            QImage image = icon.pixmap(this->iconSize()).toImage();
+            image = image.convertToFormat(QImage::Format_ARGB32_Premultiplied);
+
+            painter.drawImage(iconRect, image);
+        }
+        painter.restore();
     }
 
     //Draw text
@@ -239,11 +297,13 @@ void TabButton::paintEvent(QPaintEvent *event) {
         painter.drawRect(this->width() - SC_DPI(20), 0, SC_DPI(20), this->height());
     }
 
-    if (d->showLoadProgress) {
+    if (d->showLoadProgress->currentValue() != 0) {
         //Draw progress indication
         painter.setPen(Qt::transparent);
         painter.setBrush(QColor(0, 150, 0));
         painter.setOpacity(d->showLoadProgress->currentValue().toDouble());
         painter.drawRect(0, this->height() - SC_DPI(3), static_cast<int>(this->width() * static_cast<float>(d->loadProgress->currentValue().toFloat() / 100)), this->height() - SC_DPI(3));
     }
+
+
 }

@@ -518,12 +518,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/toolbar.cpp" line="44"/>
+        <location filename="../widgets/toolbar.cpp" line="45"/>
         <source>Go Back</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/toolbar.cpp" line="59"/>
+        <location filename="../widgets/toolbar.cpp" line="60"/>
         <source>Go Forward</source>
         <translation type="unfinished"></translation>
     </message>

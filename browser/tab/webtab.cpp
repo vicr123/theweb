@@ -371,7 +371,7 @@ WebTab::~WebTab()
     delete d;
 }
 
-QWidget*WebTab::getTabButton()
+QWidget* WebTab::getTabButton()
 {
     return d->tabButton;
 }

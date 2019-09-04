@@ -38,6 +38,7 @@ class TabButton : public QPushButton
         void setLoadProgress(int progress, bool show);
 
     signals:
+        void paletteUpdated();
 
     public slots:
         void setIcon(QIcon icon);
