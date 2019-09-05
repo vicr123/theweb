@@ -22,36 +22,46 @@
 #include <QTimer>
 #include <QPointer>
 #include <QPainter>
+#include <QListWidget>
+#include <QKeyEvent>
 #include <the-libs_global.h>
 #include "tab/webtab.h"
 #include "securitychunk.h"
+#include "toolbar/barautocomplete.h"
 #include "managers/profilemanager.h"
 
 struct BarPrivate {
     QPointer<WebTab> currentTab;
-//    SecurityChunk* securityChunk;
+    QListView* autocompleteWidget;
+    BarAutocomplete* autocompleteModel;
+    BarAutocompleteDelegate* autocompleteDelegate;
+
+    bool autocompleteWidgetVisible = false;
+    bool hasFocus = false;
 };
 
 Bar::Bar(QWidget *parent) : QLineEdit(parent)
 {
     d = new BarPrivate();
 
-//    d->securityChunk = new SecurityChunk(this);
-//    d->securityChunk->setParent(this);
-//    d->securityChunk->move(0, 0);
-//    d->securityChunk->setFixedHeight(this->height());
-//    d->securityChunk->setVisible(true);
-//    connect(d->securityChunk, &SecurityChunk::resized, this, [=] {
-//        if (d->securityChunk->isVisible()) this->setContentsMargins(d->securityChunk->width(), 0, 0, 0);
-//    });
+    d->autocompleteModel = new BarAutocomplete(this);
+    d->autocompleteDelegate = new BarAutocompleteDelegate(this);
+
+    d->autocompleteWidget = new QListView();
+    d->autocompleteWidget->setFrameShape(QListWidget::NoFrame);
+    d->autocompleteWidget->setModel(d->autocompleteModel);
+    d->autocompleteWidget->setItemDelegate(d->autocompleteDelegate);
+    d->autocompleteWidget->installEventFilter(this);
 
     this->setFrame(false);
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     connect(this, &Bar::returnPressed, this, [=] {
-
-//        d->currentTab->navigate(QUrl::fromUserInput(this->text()));
-        d->currentTab->navigate(ProfileManager::entriesForUserInput(this->text(), d->currentTab->profile()).first().url);
+        d->currentTab->navigate(d->autocompleteWidget->currentIndex().data(Qt::UserRole).value<QUrl>());
         d->currentTab->setFocus();
+    });
+    connect(this, &Bar::textChanged, this, [=](QString text) {
+        d->autocompleteModel->setQuery(d->currentTab->profile(), text);
+        d->autocompleteWidget->setCurrentIndex(d->autocompleteModel->index(0));
     });
 
     this->setCursor(QCursor(Qt::ArrowCursor));
@@ -59,6 +69,7 @@ Bar::Bar(QWidget *parent) : QLineEdit(parent)
 }
 
 Bar::~Bar() {
+    delete d->autocompleteWidget;
     delete d;
 }
 
@@ -82,6 +93,11 @@ void Bar::setCurrentTab(WebTab* tab)
     }
 }
 
+QWidget* Bar::getAutocompleteWidget()
+{
+    return d->autocompleteWidget;
+}
+
 void Bar::updateInformation() {
     if (!this->hasFocus()) {
         this->setText(unfocusedText());
@@ -92,20 +108,14 @@ void Bar::updateInformation() {
 
 void Bar::focusInEvent(QFocusEvent* event)
 {
+    QTimer::singleShot(0, this, &Bar::checkFocus);
     QLineEdit::focusInEvent(event);
-    this->setCursor(QCursor(Qt::IBeamCursor));
-    this->setText(focusedText());
-//    d->securityChunk->setVisible(false);
-    QTimer::singleShot(0, this, &Bar::selectAll);
 }
 
 void Bar::focusOutEvent(QFocusEvent* event)
 {
+    QTimer::singleShot(0, this, &Bar::checkFocus);
     QLineEdit::focusOutEvent(event);
-    this->setCursor(QCursor(Qt::ArrowCursor));
-    this->setText(unfocusedText());
-    this->setSelection(0, 0);
-//    d->securityChunk->setVisible(true);
 }
 
 void Bar::paintEvent(QPaintEvent* event)
@@ -115,7 +125,61 @@ void Bar::paintEvent(QPaintEvent* event)
 
 void Bar::resizeEvent(QResizeEvent* event)
 {
+    d->autocompleteDelegate->setLeftOffset(this->geometry().x());
+}
 
+void Bar::keyPressEvent(QKeyEvent* event)
+{
+    QLineEdit::keyPressEvent(event);
+
+    if (event->key() == Qt::Key_Up) {
+        //Move the selected index -1
+        int index = d->autocompleteWidget->currentIndex().row();
+        if (index == 0) index = d->autocompleteModel->rowCount();
+        index--;
+        d->autocompleteWidget->setCurrentIndex(d->autocompleteModel->index(index));
+    } else if (event->key() == Qt::Key_Down) {
+        //Move the selected index +1
+        int index = d->autocompleteWidget->currentIndex().row();
+        index++;
+        if (index == d->autocompleteModel->rowCount()) index = 0;
+        d->autocompleteWidget->setCurrentIndex(d->autocompleteModel->index(index));
+    }
+
+    if (!d->autocompleteWidgetVisible) {
+        d->autocompleteWidgetVisible = true;
+        emit showAutocompleteWidget();
+    }
+}
+
+bool Bar::eventFilter(QObject*watched, QEvent*event)
+{
+    if (event->type() == QEvent::FocusIn || event->type() == QEvent::FocusOut) {
+        QTimer::singleShot(0, this, &Bar::checkFocus);
+    }
+    return false;
+}
+
+void Bar::checkFocus()
+{
+    if (!d->hasFocus && (this->hasFocus() || d->autocompleteWidget->hasFocus())) {
+        this->setCursor(QCursor(Qt::IBeamCursor));
+        this->setText(focusedText());
+        QTimer::singleShot(0, this, &Bar::selectAll);
+
+        d->hasFocus = true;
+    } else if (d->hasFocus && (!this->hasFocus() && !d->autocompleteWidget->hasFocus())) {
+        this->setCursor(QCursor(Qt::ArrowCursor));
+        this->setText(unfocusedText());
+        this->setSelection(0, 0);
+
+        if (d->autocompleteWidgetVisible) {
+            d->autocompleteWidgetVisible = false;
+            emit hideAutocompleteWidget();
+        }
+
+        d->hasFocus = false;
+    }
 }
 
 QString Bar::unfocusedText() {

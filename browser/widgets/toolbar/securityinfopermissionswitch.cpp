@@ -42,6 +42,12 @@ SecurityInfoPermissionSwitch::SecurityInfoPermissionSwitch(FeatureManager* mgr, 
     ui->featureOn->setChecked(defaultAllowed == FeatureManager::Allow);
 
     switch (feature) {
+        case FeatureManager::Notifications:
+            ui->featureName->setText(tr("Notifications"));
+            break;
+        case FeatureManager::ScreenRecord:
+            ui->featureName->setText(tr("Screen Recording"));
+            break;
         case FeatureManager::Unknown:
             break;
         case FeatureManager::Location:

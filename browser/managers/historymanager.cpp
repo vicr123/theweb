@@ -95,6 +95,25 @@ void HistoryManager::clearHistory(QDateTime latest, QDateTime earliest)
     query.exec();
 }
 
+QList<HistoryManager::HistoryEntry> HistoryManager::searchHistory(QString queryString) {
+    QList<HistoryManager::HistoryEntry> entries;
+
+    QSqlQuery query(d->db);
+    query.prepare("SELECT DISTINCT * FROM history WHERE url LIKE '%'||:query||'%' OR title LIKE '%'||:query||'%' ORDER BY date DESC");
+    query.bindValue(":query", queryString);
+    query.exec();
+
+    while (query.next()) {
+        HistoryEntry entry;
+        entry.url = QUrl(query.value("url").toString());
+        entry.accessTime = QDateTime::fromMSecsSinceEpoch(query.value("date").toLongLong());
+        entry.pageTitle = query.value("title").toString();
+        entries.append(entry);
+    }
+
+    return entries;
+}
+
 HistoryManager::HistoryManager(QWebEngineProfile* profile) : QObject(nullptr)
 {
     d = new HistoryManagerPrivate();

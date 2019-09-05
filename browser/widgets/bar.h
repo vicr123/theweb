@@ -32,8 +32,11 @@ class Bar : public QLineEdit
         ~Bar();
 
         void setCurrentTab(WebTab* tab);
+        QWidget* getAutocompleteWidget();
 
     signals:
+        void showAutocompleteWidget();
+        void hideAutocompleteWidget();
 
     private slots:
         void updateInformation();
@@ -45,6 +48,10 @@ class Bar : public QLineEdit
         void focusOutEvent(QFocusEvent *event);
         void paintEvent(QPaintEvent *event);
         void resizeEvent(QResizeEvent* event);
+        void keyPressEvent(QKeyEvent *event);
+        bool eventFilter(QObject* watched, QEvent* event);
+
+        void checkFocus();
 
         QString unfocusedText();
         QString unfocusedText(QUrl url);

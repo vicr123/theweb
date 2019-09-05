@@ -6,6 +6,7 @@
 #include <QPointer>
 #include <QSslCertificate>
 #include <QMenu>
+#include <QListView>
 #include <QWebEngineHistory>
 #include <tvariantanimation.h>
 #include <tpopover.h>
@@ -38,6 +39,7 @@ Toolbar::Toolbar(QWidget *parent) :
     ui->newTabButton->setIconSize(iconSize);
 
     ui->auxContainer->setFixedHeight(0);
+    ui->auxStack->addWidget(ui->bar->getAutocompleteWidget());
 
     connect(DownloadManager::instance(), &DownloadManager::downloadAdded, this, &Toolbar::updateIcons);
     updateIcons();
@@ -82,6 +84,35 @@ Toolbar::Toolbar(QWidget *parent) :
         anim->setDuration(500);
         anim->setEasingCurve(QEasingCurve::OutCubic);
         connect(anim, &tVariantAnimation::valueChanged, this, [=](QVariant value) {
+            ui->auxContainer->setFixedHeight(value.toInt());
+        });
+        connect(anim, &tVariantAnimation::finished, anim, &tVariantAnimation::deleteLater);
+        anim->start();
+    });
+    connect(ui->bar, &Bar::showAutocompleteWidget, this, [=] {
+        QListView* lv = qobject_cast<QListView*>(ui->bar->getAutocompleteWidget());
+        ui->auxStack->setCurrentWidget(lv);
+
+        tVariantAnimation* anim = new tVariantAnimation();
+        anim->setStartValue(ui->auxContainer->height());
+        anim->setEndValue(lv->sizeHintForRow(0) * 8);
+        anim->setDuration(500);
+        anim->setEasingCurve(QEasingCurve::OutCubic);
+        connect(anim, &tVariantAnimation::valueChanged, this, [=](QVariant value) {
+            ui->bar->getAutocompleteWidget()->setFixedHeight(value.toInt());
+            ui->auxContainer->setFixedHeight(value.toInt());
+        });
+        connect(anim, &tVariantAnimation::finished, anim, &tVariantAnimation::deleteLater);
+        anim->start();
+    });
+    connect(ui->bar, &Bar::hideAutocompleteWidget, this, [=] {
+        tVariantAnimation* anim = new tVariantAnimation();
+        anim->setStartValue(ui->auxContainer->height());
+        anim->setEndValue(0);
+        anim->setDuration(500);
+        anim->setEasingCurve(QEasingCurve::OutCubic);
+        connect(anim, &tVariantAnimation::valueChanged, this, [=](QVariant value) {
+            ui->bar->getAutocompleteWidget()->setFixedHeight(value.toInt());
             ui->auxContainer->setFixedHeight(value.toInt());
         });
         connect(anim, &tVariantAnimation::finished, anim, &tVariantAnimation::deleteLater);

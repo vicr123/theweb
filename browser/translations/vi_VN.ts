@@ -4,9 +4,22 @@
 <context>
     <name>Bar</name>
     <message>
-        <location filename="../widgets/bar.cpp" line="58"/>
+        <location filename="../widgets/bar.cpp" line="68"/>
         <source>Search or enter web address</source>
         <translation>Tìm kiếm hoặc nhập địa chỉ web</translation>
+    </message>
+</context>
+<context>
+    <name>BarAutocomplete</name>
+    <message>
+        <location filename="../widgets/toolbar/barautocomplete.cpp" line="93"/>
+        <source>Visit Webpage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/toolbar/barautocomplete.cpp" line="118"/>
+        <source>Search on %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -477,7 +490,7 @@
 <context>
     <name>ProfileManager</name>
     <message>
-        <location filename="../managers/profilemanager.cpp" line="159"/>
+        <location filename="../managers/profilemanager.cpp" line="135"/>
         <source>from %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -566,17 +579,27 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/toolbar/securityinfopermissionswitch.cpp" line="48"/>
+        <location filename="../widgets/toolbar/securityinfopermissionswitch.cpp" line="46"/>
+        <source>Notifications</source>
+        <translation type="unfinished">Thông báo</translation>
+    </message>
+    <message>
+        <location filename="../widgets/toolbar/securityinfopermissionswitch.cpp" line="49"/>
+        <source>Screen Recording</source>
+        <translation type="unfinished">Thâu màn hình</translation>
+    </message>
+    <message>
+        <location filename="../widgets/toolbar/securityinfopermissionswitch.cpp" line="54"/>
         <source>Location</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/toolbar/securityinfopermissionswitch.cpp" line="51"/>
+        <location filename="../widgets/toolbar/securityinfopermissionswitch.cpp" line="57"/>
         <source>Camera</source>
         <translation type="unfinished">Máy ảnh</translation>
     </message>
     <message>
-        <location filename="../widgets/toolbar/securityinfopermissionswitch.cpp" line="54"/>
+        <location filename="../widgets/toolbar/securityinfopermissionswitch.cpp" line="60"/>
         <source>Microphone</source>
         <translation type="unfinished">Micrô</translation>
     </message>
@@ -604,12 +627,12 @@
         <translation type="unfinished">Tab mới</translation>
     </message>
     <message>
-        <location filename="../widgets/toolbar.cpp" line="48"/>
+        <location filename="../widgets/toolbar.cpp" line="50"/>
         <source>Go Back</source>
         <translation type="unfinished">Trở lại</translation>
     </message>
     <message>
-        <location filename="../widgets/toolbar.cpp" line="63"/>
+        <location filename="../widgets/toolbar.cpp" line="65"/>
         <source>Go Forward</source>
         <translation type="unfinished">Bước tiếp</translation>
     </message>
@@ -763,34 +786,34 @@
 <context>
     <name>WebTab</name>
     <message>
-        <location filename="../tab/webtab.cpp" line="264"/>
+        <location filename="../tab/webtab.cpp" line="267"/>
         <source>Okay, this page is having some serious issues.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webtab.cpp" line="265"/>
+        <location filename="../tab/webtab.cpp" line="268"/>
         <source>We&apos;ve tried reloading it multiple times, but it keeps causing problems.
 
 Usually this is a temporary problem, so we recommend waiting a couple hours and then trying again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webtab.cpp" line="266"/>
+        <location filename="../tab/webtab.cpp" line="269"/>
         <source>Reload Anyway</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webtab.cpp" line="269"/>
+        <location filename="../tab/webtab.cpp" line="272"/>
         <source>Your device might be running out of memory.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webtab.cpp" line="270"/>
+        <location filename="../tab/webtab.cpp" line="273"/>
         <source>Your system has stopped this webpage. Check your memory usage and then reload the page.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webtab.cpp" line="271"/>
+        <location filename="../tab/webtab.cpp" line="274"/>
         <source>Reload</source>
         <translation type="unfinished">Tải lại</translation>
     </message>

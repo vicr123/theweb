@@ -154,12 +154,15 @@ WebTab::WebTab(WebPage* page, QWidget *parent) :
                 break;
             case WebPage::DesktopVideoCapture:
                 permission = PermissionPopup::ScreenRecord;
+                permissionManagerFeatures.append(FeatureManager::ScreenRecord);
                 break;
             case WebPage::DesktopAudioVideoCapture:
                 permission = PermissionPopup::ScreenAudioRecord;
+                permissionManagerFeatures.append(FeatureManager::ScreenRecord);
                 break;
             case WebPage::Notifications:
                 permission = PermissionPopup::Notifications;
+                permissionManagerFeatures.append(FeatureManager::Notifications);
                 break;
             case WebPage::MouseLock:
                 permission = PermissionPopup::MouseLock;

@@ -24,10 +24,6 @@
 #include <QWebEngineProfile>
 #include <QUrl>
 
-struct BarEntry {
-    QUrl url;
-};
-
 struct ProfileManagerPrivate;
 class ProfileManager : public QObject
 {
@@ -36,13 +32,13 @@ class ProfileManager : public QObject
         static QWebEngineProfile* defaultProfile();
         static QWebEngineProfile* oblivionProfile();
 
-        static QList<BarEntry> entriesForUserInput(QString input, QWebEngineProfile* profile);
     signals:
 
     public slots:
 
     private:
         explicit ProfileManager(QObject *parent = nullptr);
+        static void registerProfile(QWebEngineProfile* profile);
 
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 13, 0))
         typedef std::unique_ptr<QWebEngineNotification> QWebEngineNotificationPtr;

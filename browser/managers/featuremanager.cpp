@@ -149,6 +149,10 @@ QString FeatureManager::featureTable(FeatureManager::Feature feature)
             return QStringLiteral("camera");
         case FeatureManager::Microphone:
             return QStringLiteral("microphone");
+        case FeatureManager::Notifications:
+            return QStringLiteral("notifications");
+        case FeatureManager::ScreenRecord:
+            return QStringLiteral("screenrec");
         case FeatureManager::LastFeature:
             return "";
     }

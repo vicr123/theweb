@@ -105,6 +105,7 @@ SOURCES += \
         widgets/securitychunk.cpp \
         widgets/tabbutton.cpp \
         widgets/toolbar.cpp \
+        widgets/toolbar/barautocomplete.cpp \
         widgets/toolbar/securityinfo.cpp \
         widgets/toolbar/securityinfopermissionswitch.cpp \
         widgets/toolbarbutton.cpp
@@ -135,6 +136,7 @@ HEADERS += \
         widgets/securitychunk.h \
         widgets/tabbutton.h \
         widgets/toolbar.h \
+        widgets/toolbar/barautocomplete.h \
         widgets/toolbar/securityinfo.h \
         widgets/toolbar/securityinfopermissionswitch.h \
         widgets/toolbarbutton.h

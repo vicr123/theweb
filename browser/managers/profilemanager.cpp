@@ -19,6 +19,7 @@
  * *************************************/
 #include "profilemanager.h"
 
+#include <tapplication.h>
 #include <tnotification.h>
 #include <QUrlQuery>
 #include <QWebEngineSettings>
@@ -48,37 +49,20 @@ QWebEngineProfile *ProfileManager::defaultProfile()
 {
     if (d->defaultProfile == nullptr) {
         d->defaultProfile = new QWebEngineProfile("theweb-default-profile");
+        registerProfile(d->defaultProfile);
 
         d->defaultProfile->setPersistentStoragePath(QDir::cleanPath(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + "/profiles/theweb-default-profile"));
         d->defaultProfile->setCachePath(QDir::cleanPath(QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + "/profiles/theweb-default-profile"));
-
-        d->defaultProfile->settings()->setAttribute(QWebEngineSettings::FullScreenSupportEnabled, true);
-        d->defaultProfile->settings()->setAttribute(QWebEngineSettings::JavascriptCanAccessClipboard, true);
-        d->defaultProfile->settings()->setAttribute(QWebEngineSettings::ScrollAnimatorEnabled, true);
-        d->defaultProfile->settings()->setAttribute(QWebEngineSettings::PluginsEnabled, true);
 
         UrlInterceptor* interceptor = new UrlInterceptor(d->defaultProfile);
 
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 13, 0))
         //Only on Qt 5.13 or higher
         d->defaultProfile->setUseForGlobalCertificateVerification();
-        d->defaultProfile->setUrlRequestInterceptor(interceptor);
-        d->defaultProfile->setNotificationPresenter(&ProfileManager::notificationPresenter);
-#else
-        d->defaultProfile->setRequestInterceptor(interceptor);
 #endif
 
         thewebSchemeHandler* schemeHandler = new thewebSchemeHandler({{"profile", QVariant::fromValue(d->defaultProfile)}});
         d->defaultProfile->installUrlSchemeHandler("theweb", schemeHandler);
-
-        //Edit the current user agent and insert theWeb before QtWebEngine
-        QString userAgent = d->defaultProfile->httpUserAgent();
-        if (userAgent.contains("QtWebEngine/")) {
-            userAgent.insert(userAgent.indexOf("QtWebEngine/"), "theWeb/15.0 ");
-            d->defaultProfile->setHttpUserAgent(userAgent);
-        }
-
-        DownloadManager::registerProfile(d->defaultProfile);
     }
     return d->defaultProfile;
 }
@@ -88,59 +72,51 @@ QWebEngineProfile *ProfileManager::oblivionProfile()
     if (d->oblivionProfile == nullptr) {
         //Create new in-memory profile
         d->oblivionProfile = new QWebEngineProfile();
-        d->oblivionProfile->settings()->setAttribute(QWebEngineSettings::FullScreenSupportEnabled, true);
-        d->oblivionProfile->settings()->setAttribute(QWebEngineSettings::JavascriptCanAccessClipboard, true);
-        d->oblivionProfile->settings()->setAttribute(QWebEngineSettings::ScrollAnimatorEnabled, true);
-        d->oblivionProfile->settings()->setAttribute(QWebEngineSettings::PluginsEnabled, true);
-
-        UrlInterceptor* interceptor = new UrlInterceptor(d->oblivionProfile);
-
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 13, 0))
-        //Only on Qt 5.13 or higher
-        d->oblivionProfile->setUrlRequestInterceptor(interceptor);
-        d->oblivionProfile->setNotificationPresenter(&ProfileManager::notificationPresenter);
-#else
-        d->oblivionProfile->setRequestInterceptor(interceptor);
-#endif
+        registerProfile(d->oblivionProfile);
 
         thewebSchemeHandler* schemeHandler = new thewebSchemeHandler({{"oblivion", true}, {"profile", QVariant::fromValue(d->oblivionProfile)}});
         d->oblivionProfile->installUrlSchemeHandler("theweb", schemeHandler);
-
-        //Edit the current user agent and insert theWeb before QtWebEngine
-        QString userAgent = d->oblivionProfile->httpUserAgent();
-        if (userAgent.contains("QtWebEngine/")) {
-            userAgent.insert(userAgent.indexOf("QtWebEngine/"), "theWeb/15.0 ");
-            d->oblivionProfile->setHttpUserAgent(userAgent);
-        }
-
-        DownloadManager::registerProfile(d->oblivionProfile);
     }
     return d->oblivionProfile;
-}
-
-QList<BarEntry> ProfileManager::entriesForUserInput(QString input, QWebEngineProfile* profile)
-{
-    QList<BarEntry> entries;
-    if (QUrl::fromUserInput(input).isValid()) {
-        entries.append({QUrl::fromUserInput(input)});
-    }
-
-    QUrl searchUrl;
-    searchUrl.setHost("google.com");
-    searchUrl.setScheme("https");
-    searchUrl.setPath("/search");
-
-    QUrlQuery query;
-    query.addQueryItem("q", input);
-    searchUrl.setQuery(query);
-    entries.append({searchUrl});
-
-    return entries;
 }
 
 ProfileManager::ProfileManager(QObject *parent) : QObject(parent)
 {
 
+}
+
+void ProfileManager::registerProfile(QWebEngineProfile*profile)
+{
+    profile->settings()->setAttribute(QWebEngineSettings::FullScreenSupportEnabled, true);
+    profile->settings()->setAttribute(QWebEngineSettings::JavascriptCanAccessClipboard, true);
+    profile->settings()->setAttribute(QWebEngineSettings::JavascriptCanPaste, true);
+    profile->settings()->setAttribute(QWebEngineSettings::ScrollAnimatorEnabled, !theLibsGlobal::instance()->powerStretchEnabled());
+    profile->settings()->setAttribute(QWebEngineSettings::PluginsEnabled, true);
+    profile->settings()->setAttribute(QWebEngineSettings::ScreenCaptureEnabled, true);
+
+    connect(theLibsGlobal::instance(), &theLibsGlobal::powerStretchChanged, profile, [=](bool isOn) {
+        //Turn off smooth scrolling when power stretch is on
+        profile->settings()->setAttribute(QWebEngineSettings::ScrollAnimatorEnabled, !isOn);
+    });
+
+    UrlInterceptor* interceptor = new UrlInterceptor(profile);
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 13, 0))
+    //Only on Qt 5.13 or higher
+    profile->setUrlRequestInterceptor(interceptor);
+    profile->setNotificationPresenter(&ProfileManager::notificationPresenter);
+#else
+    profile->setRequestInterceptor(interceptor);
+#endif
+
+    //Edit the current user agent and insert theWeb before QtWebEngine
+    QString userAgent = profile->httpUserAgent();
+    if (userAgent.contains("QtWebEngine/")) {
+        userAgent.insert(userAgent.indexOf("QtWebEngine/"), QStringLiteral("theWeb/%1 ").arg(tApplication::applicationVersion()));
+        profile->setHttpUserAgent(userAgent);
+    }
+
+    DownloadManager::registerProfile(profile);
 }
 
 

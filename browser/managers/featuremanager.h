@@ -35,6 +35,8 @@ class FeatureManager : public QObject
             Location = 0,
             Camera,
             Microphone,
+            Notifications,
+            ScreenRecord,
             LastFeature
         };
 

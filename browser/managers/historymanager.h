@@ -45,6 +45,7 @@ class HistoryManager : public QObject
         QList<HistoryEntry> historyEntries(QDateTime latest = QDateTime::currentDateTimeUtc(), QDateTime earliest = QDateTime::fromMSecsSinceEpoch(0, Qt::UTC));
         void clearHistory();
         void clearHistory(QDateTime latest, QDateTime earliest = QDateTime::fromMSecsSinceEpoch(0, Qt::UTC));
+        QList<HistoryEntry> searchHistory(QString queryString);
 
     private:
         explicit HistoryManager(QWebEngineProfile* profile);
