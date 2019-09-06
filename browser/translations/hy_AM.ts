@@ -12,12 +12,12 @@
 <context>
     <name>BarAutocomplete</name>
     <message>
-        <location filename="../widgets/toolbar/barautocomplete.cpp" line="93"/>
+        <location filename="../widgets/toolbar/barautocomplete.cpp" line="98"/>
         <source>Visit Webpage</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/toolbar/barautocomplete.cpp" line="118"/>
+        <location filename="../widgets/toolbar/barautocomplete.cpp" line="123"/>
         <source>Search on %1</source>
         <translation type="unfinished"></translation>
     </message>

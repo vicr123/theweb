@@ -31,6 +31,8 @@ struct AutocompleteEntry {
     QUrl url;
     QString action;
     QIcon icon;
+
+    bool forceLtr = false;
 };
 
 struct BarAutocompletePrivate {
@@ -74,6 +76,8 @@ QVariant BarAutocomplete::data(const QModelIndex &index, int role) const
             return entry.url;
         case Qt::UserRole + 1:
             return entry.action;
+        case Qt::UserRole + 2:
+            return entry.forceLtr;
     }
 
     return QVariant();
@@ -90,6 +94,7 @@ void BarAutocomplete::setQuery(QWebEngineProfile* profile, QString query)
         AutocompleteEntry entry;
         entry.url = QUrl::fromUserInput(query);
         entry.text = entry.url.toString();
+        entry.forceLtr = true;
         entry.action = tr("Visit Webpage");
         entry.icon = QIcon::fromTheme("go-next");
 
@@ -127,6 +132,7 @@ void BarAutocomplete::setQuery(QWebEngineProfile* profile, QString query)
             AutocompleteEntry entry;
             entry.url = historyEntry.url;
             entry.text = historyEntry.url.toString();
+            entry.forceLtr = true;
             entry.action = historyEntry.pageTitle;
             entry.icon = QIcon::fromTheme("view-history");
 
@@ -158,6 +164,8 @@ void BarAutocompleteDelegate::paint(QPainter* painter, const QStyleOptionViewIte
 {
     painter->save();
 
+    int textAlignment = (option.direction == Qt::LeftToRight ? Qt::AlignLeft : Qt::AlignRight) | Qt::AlignVCenter;
+
     QColor textPen;
     bool fadeText;
     if (option.state & QStyle::State_Selected) {
@@ -181,25 +189,42 @@ void BarAutocompleteDelegate::paint(QPainter* painter, const QStyleOptionViewIte
 
     painter->setPen(textPen);
 
-    QString mainText = option.fontMetrics.elidedText(index.data().toString(), Qt::ElideRight, static_cast<int>((option.rect.width() - this->leftOffset) * 0.75));
+    QString mainText = option.fontMetrics.elidedText(index.data().toString(), Qt::ElideRight, static_cast<int>((option.direction == Qt::LeftToRight ? option.rect.width() - this->leftOffset : this->leftOffset) * 0.75));
 
     QRect textRect = option.rect;
-    textRect.setLeft(this->leftOffset);
     textRect.setWidth(option.fontMetrics.horizontalAdvance(mainText));
+    if (option.direction == Qt::LeftToRight) {
+        textRect.moveLeft(this->leftOffset);
+    } else {
+        textRect.moveRight(this->leftOffset);
+    }
 
-    painter->drawText(textRect, Qt::AlignLeft | Qt::AlignVCenter, mainText);
+    painter->save();
+    if (index.data(Qt::UserRole + 2).toBool() && option.direction == Qt::RightToLeft) {
+        painter->setLayoutDirection(Qt::LeftToRight);
+    }
+    painter->drawText(textRect, textAlignment, mainText);
+    painter->restore();
 
     QRect iconRect;
     iconRect.setSize(SC_DPI_T(QSize(16, 16), QSize));
     iconRect.moveCenter(option.rect.center());
-    iconRect.moveRight(textRect.left() - SC_DPI(6));
+    if (option.direction == Qt::LeftToRight) {
+        iconRect.moveRight(textRect.left() - SC_DPI(6));
+    } else {
+        iconRect.moveLeft(textRect.right() + SC_DPI(6));
+    }
     painter->drawPixmap(iconRect, index.data(Qt::DecorationRole).value<QIcon>().pixmap(iconRect.size()));
 
     QRect supplementaryTextRect = option.rect;
-    supplementaryTextRect.setLeft(textRect.right() + SC_DPI(6));
+    if (option.direction == Qt::LeftToRight) {
+        supplementaryTextRect.setLeft(textRect.right() + SC_DPI(6));
+    } else {
+        supplementaryTextRect.setRight(textRect.left() - SC_DPI(6));
+    }
 
     if (fadeText) painter->setOpacity(0.5);
-    painter->drawText(supplementaryTextRect, Qt::AlignLeft | Qt::AlignVCenter, index.data(Qt::UserRole + 1).toString());
+    painter->drawText(supplementaryTextRect, textAlignment, index.data(Qt::UserRole + 1).toString());
     painter->restore();
 }
 

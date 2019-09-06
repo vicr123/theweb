@@ -66,6 +66,12 @@ Bar::Bar(QWidget *parent) : QLineEdit(parent)
 
     this->setCursor(QCursor(Qt::ArrowCursor));
     this->setPlaceholderText(tr("Search or enter web address"));
+
+    if (QApplication::layoutDirection() == Qt::LeftToRight) {
+        this->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+    } else {
+        this->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    }
 }
 
 Bar::~Bar() {
@@ -125,7 +131,7 @@ void Bar::paintEvent(QPaintEvent* event)
 
 void Bar::resizeEvent(QResizeEvent* event)
 {
-    d->autocompleteDelegate->setLeftOffset(this->geometry().x());
+    d->autocompleteDelegate->setLeftOffset(QApplication::layoutDirection() == Qt::LeftToRight ? this->geometry().x() : this->geometry().right());
 }
 
 void Bar::keyPressEvent(QKeyEvent* event)
