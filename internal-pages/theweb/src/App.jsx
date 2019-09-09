@@ -54,8 +54,11 @@ class App extends React.Component {
     componentDidMount() {
         console.log("Loading language");
         api.lang().then(lang => {
+            let htmlTag = document.getElementsByTagName("html")[0];
+            htmlTag.setAttribute("lang", lang.lang);
+            htmlTag.setAttribute("dir", lang.dir);
             this.setState({
-                lang: lang
+                lang: lang.lang
             });
         }).catch(() => {
             console.log("Language not obtainable");

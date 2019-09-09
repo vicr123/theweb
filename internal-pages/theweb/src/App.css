@@ -54,7 +54,22 @@ div.Sidebar {
     display: flex;
     flex-direction: column;
     width: 400px;
+}
+
+html[dir="LTR"] div.Sidebar {
     border-right: 1px solid var(--fg-color);
+}
+
+html[dir="RTL"] div.Sidebar {
+    border-left: 1px solid var(--fg-color);
+}
+
+html[dir="LTR"] img.sidebarImage {
+    padding-right: 3px;
+}
+
+html[dir="RTL"] img.sidebarImage {
+    padding-left: 3px;
 }
 
 div.header {
@@ -144,16 +159,24 @@ div.directionalContent.vertical *:first-child {
     margin-top: 0px;
 }
 
-div.directionalContent.horizontal *:first-child {
+html[dir="LTR"] div.directionalContent.horizontal *:first-child {
     margin-left: 0px;
+}
+
+html[dir="RTL"] div.directionalContent.horizontal *:first-child {
+    margin-right: 0px;
 }
 
 div.directionalContent.vertical *:last-child {
     margin-bottom: 0px;
 }
 
-div.directionalContent.horizontal *:last-child {
+html[dir="LTR"] div.directionalContent.horizontal *:last-child {
     margin-right: 0px;
+}
+
+html[dir="RTL"] div.directionalContent.horizontal *:last-child {
+    margin-left: 0px;
 }
 
 div.horizontalLine {
@@ -188,12 +211,20 @@ input[type=text], input[type=url] {
     color: var(--fg-color);
     
     border-top: none;
-    border-right: none;
-    border-left: 1px solid var(--fg-color);
     border-bottom: 1px solid var(--fg-color);
     
     padding: 3px;
     outline: none;
+}
+
+html[dir="LTR"] input[type=text], html[dir="LTR"] input[type=url] {
+    border-left: 1px solid var(--fg-color);
+    border-right: none;
+}
+
+html[dir="RTL"] input[type=text], html[dir="RTL"] input[type=url] {
+    border-left: none;
+    border-right: 1px solid var(--fg-color);
 }
 
 div.alert {
@@ -209,9 +240,16 @@ div.alert {
 #modalContainer {
     position: fixed;
     top: 0px;
-    left: 0px;
     width: 0px;
     height: 0px;
+}
+
+html[dir="LTR"] #modalContainer {
+    left: 0px;
+}
+
+html[dir="RTL"] #modalContainer {
+    right: 0px;
 }
 
 div.modalBackground {
@@ -230,7 +268,14 @@ div.modalBackground {
 div.modalBox {
     height: 100%;
     background-color: var(--bg-color);
+}
+
+html[dir="LTR"] div.modalBox {
     border-left: 1px solid var(--fg-color);
+}
+
+html[dir="RTL"] div.modalBox {
+    border-right: 1px solid var(--fg-color);
 }
 
 div.ListItem.HistoryItem {
@@ -239,6 +284,18 @@ div.ListItem.HistoryItem {
 
 div.ListItem.HistoryItem .url {
     color: var(--fg-disabled-color);
+}
+
+div.aboutGenericName {
+    padding-bottom: 9px;
+}
+
+html[dir="LTR"] div.aboutGenericName {
+    padding-left: 9px;
+}
+
+html[dir="RTL"] div.aboutGenericName {
+    padding-right: 9px;
 }
 
 @media (max-width: 500px) {
@@ -250,3 +307,4 @@ div.ListItem.HistoryItem .url {
         display: none;
     }
 }
+

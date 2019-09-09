@@ -7,4 +7,5 @@ browserproj.depends = internal-pagesproj
 
 SUBDIRS += \
     browserproj \
-    internal-pagesproj
+    internal-pagesproj \
+    tests

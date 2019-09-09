@@ -31,6 +31,7 @@
 #include "popovers/jsprompt.h"
 #include "popovers/httpauthentication.h"
 #include "certificateerrorpane.h"
+#include "core/safebrowsing.h"
 
 struct WebPagePrivate {
     QWidget* parent;
@@ -64,6 +65,19 @@ WebPage::WebPage(QWebEngineProfile* profile, QWidget* parent) : QWebEnginePage(p
     connect(this, &WebPage::urlChanged, this, [=](QUrl url) {
         //Also emit the icon changed signal if the URL changes for a theWeb internal page
         if (url.scheme() == "theweb") QTimer::singleShot(0, this, std::bind(&WebPage::iconChanged, this, this->icon()));
+
+        //Check safe browsing
+        SafeBrowsing::checkUrl(url)->then([=](QString result) {
+            if (result == "MALWARE") {
+                emit dangerousUrl(Malware);
+            } else if (result == "SOCIAL_ENGINEERING") {
+                emit dangerousUrl(SocialEngineering);
+            } else if (result == "UNWANTED_SOFTWARE") {
+                emit dangerousUrl(UnwantedSoftware);
+            } else if (result == "POTENTIALLY_HARMFUL_APPLICATION") {
+                emit dangerousUrl(PotentiallyHarmfulApplication);
+            }
+        });
     });
 
     this->resetZoom();

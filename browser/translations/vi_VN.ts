@@ -650,135 +650,135 @@
 <context>
     <name>WebPage</name>
     <message>
-        <location filename="../tab/webpage.cpp" line="107"/>
+        <location filename="../tab/webpage.cpp" line="121"/>
         <source>For Misspelled Word &quot;%1&quot;</source>
         <translation>Cho từ viết sai chính tả &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="116"/>
+        <location filename="../tab/webpage.cpp" line="130"/>
         <source>For selected text &quot;%1&quot;</source>
         <translation>Cho văn bản được chọn &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="117"/>
-        <location filename="../tab/webpage.cpp" line="133"/>
-        <location filename="../tab/webpage.cpp" line="140"/>
+        <location filename="../tab/webpage.cpp" line="131"/>
+        <location filename="../tab/webpage.cpp" line="147"/>
+        <location filename="../tab/webpage.cpp" line="154"/>
         <source>Copy</source>
         <translation>Chép</translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="118"/>
+        <location filename="../tab/webpage.cpp" line="132"/>
         <source>Cut</source>
         <translation>Cắt</translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="122"/>
+        <location filename="../tab/webpage.cpp" line="136"/>
         <source>For Editable Box</source>
         <translation>Cho trường</translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="123"/>
+        <location filename="../tab/webpage.cpp" line="137"/>
         <source>Paste</source>
         <translation>Dán</translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="124"/>
+        <location filename="../tab/webpage.cpp" line="138"/>
         <source>Undo</source>
         <translation>Hoàn tác</translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="125"/>
+        <location filename="../tab/webpage.cpp" line="139"/>
         <source>Redo</source>
         <translation>Làm lại</translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="126"/>
+        <location filename="../tab/webpage.cpp" line="140"/>
         <source>Select All</source>
         <translation>Chọn tất cả</translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="130"/>
+        <location filename="../tab/webpage.cpp" line="144"/>
         <source>For link &quot;%1&quot;</source>
         <translation>Cho liên kết &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="131"/>
+        <location filename="../tab/webpage.cpp" line="145"/>
         <source>Open</source>
         <translation>Mở</translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="132"/>
+        <location filename="../tab/webpage.cpp" line="146"/>
         <source>Open in New Tab</source>
         <translation>Mở trong tab mới</translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="139"/>
+        <location filename="../tab/webpage.cpp" line="153"/>
         <source>For Image</source>
         <translation>Cho Ảnh</translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="141"/>
-        <location filename="../tab/webpage.cpp" line="161"/>
+        <location filename="../tab/webpage.cpp" line="155"/>
+        <location filename="../tab/webpage.cpp" line="175"/>
         <source>Copy Address</source>
         <translation>Chép địa chỉ</translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="145"/>
+        <location filename="../tab/webpage.cpp" line="159"/>
         <source>For Video</source>
         <translation>Cho Phim</translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="148"/>
+        <location filename="../tab/webpage.cpp" line="162"/>
         <source>For Audio</source>
         <translation>Cho Âm Thanh</translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="151"/>
+        <location filename="../tab/webpage.cpp" line="165"/>
         <source>For Media content</source>
         <translation>Cho phương tiện truyền thông</translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="156"/>
+        <location filename="../tab/webpage.cpp" line="170"/>
         <source>Play</source>
         <translation>Phát</translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="158"/>
+        <location filename="../tab/webpage.cpp" line="172"/>
         <source>Pause</source>
         <translation>Tạm dừng</translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="164"/>
+        <location filename="../tab/webpage.cpp" line="178"/>
         <source>For Tab</source>
         <translation>Cho Tab</translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="165"/>
+        <location filename="../tab/webpage.cpp" line="179"/>
         <source>Back</source>
         <translation>Trở lại</translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="166"/>
+        <location filename="../tab/webpage.cpp" line="180"/>
         <source>Forward</source>
         <translation>Bước tiếp</translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="167"/>
+        <location filename="../tab/webpage.cpp" line="181"/>
         <source>Reload</source>
         <translation>Tải lại</translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="169"/>
+        <location filename="../tab/webpage.cpp" line="183"/>
         <source>Print</source>
         <translation>In</translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="172"/>
+        <location filename="../tab/webpage.cpp" line="186"/>
         <source>View Source</source>
         <translation>Xem nguồn</translation>
     </message>
     <message>
-        <location filename="../tab/webpage.cpp" line="174"/>
+        <location filename="../tab/webpage.cpp" line="188"/>
         <source>Inspect Element</source>
         <translation>Kiểm tra thành phần</translation>
     </message>
@@ -786,68 +786,148 @@
 <context>
     <name>WebTab</name>
     <message>
-        <location filename="../tab/webtab.cpp" line="267"/>
+        <location filename="../tab/webtab.cpp" line="274"/>
         <source>Okay, this page is having some serious issues.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webtab.cpp" line="268"/>
+        <location filename="../tab/webtab.cpp" line="275"/>
         <source>We&apos;ve tried reloading it multiple times, but it keeps causing problems.
 
 Usually this is a temporary problem, so we recommend waiting a couple hours and then trying again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webtab.cpp" line="269"/>
+        <location filename="../tab/webtab.cpp" line="276"/>
         <source>Reload Anyway</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webtab.cpp" line="272"/>
+        <location filename="../tab/webtab.cpp" line="279"/>
         <source>Your device might be running out of memory.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webtab.cpp" line="273"/>
+        <location filename="../tab/webtab.cpp" line="280"/>
         <source>Your system has stopped this webpage. Check your memory usage and then reload the page.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webtab.cpp" line="274"/>
+        <location filename="../tab/webtab.cpp" line="281"/>
         <source>Reload</source>
         <translation type="unfinished">Tải lại</translation>
+    </message>
+    <message>
+        <location filename="../tab/webtab.cpp" line="309"/>
+        <source>This site may contain malware</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webtab.cpp" line="310"/>
+        <source>%1 was found to host dangerous apps that may compromise your security; for example, they may steal or delete personal information (for example, important documents, photos, passwords and card information)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webtab.cpp" line="311"/>
+        <source>%1 has been reported to contain malware on Google Safe Browsing. If you visit this site on a regular basis, it may be hacked and we recommend coming back later.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webtab.cpp" line="314"/>
+        <source>This site may be deceptive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webtab.cpp" line="315"/>
+        <source>%1 was created to trick you into doing something dangerous, for example, installing harmful software or revealing personal information (for example, passwords, phone numbers or card information)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webtab.cpp" line="316"/>
+        <source>%1 has been reported as a deceptive website on Google Safe Browsing. This site may be a fake copy of a real website. If you visit this site on a regular basis, it may be hacked and we recommend coming back later.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webtab.cpp" line="319"/>
+        <source>This site may try to install unwanted software</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webtab.cpp" line="320"/>
+        <source>%1 was found to host apps that may compromise your browsing experience; for example, they may change your home page or show spurious advertisements.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webtab.cpp" line="321"/>
+        <source>%1 has been reported to contain unwanted software on Google Safe Browsing. If you visit this site on a regular basis, it may be hacked and we recommend coming back later.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webtab.cpp" line="526"/>
+        <source>Malicious Website Warning</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webtab.cpp" line="528"/>
+        <source>Security Warning</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webtab.ui" line="458"/>
+        <source>More Details</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webtab.ui" line="471"/>
+        <source>Go Back</source>
+        <translation type="unfinished">Trở lại</translation>
+    </message>
+    <message>
+        <location filename="../tab/webtab.ui" line="540"/>
+        <source>DETAILS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webtab.ui" line="547"/>
+        <source>TextLabel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webtab.ui" line="572"/>
+        <source>Disregard this Warning (dangerous)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>main</name>
     <message>
-        <location filename="../main.cpp" line="64"/>
-        <location filename="../main.cpp" line="80"/>
+        <location filename="../main.cpp" line="65"/>
+        <location filename="../main.cpp" line="82"/>
         <source>Web Browser</source>
         <translation>Trình duyệt web</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="86"/>
+        <location filename="../main.cpp" line="88"/>
         <source>Open an Oblivion window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="89"/>
+        <location filename="../main.cpp" line="91"/>
         <source>urls</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="89"/>
+        <location filename="../main.cpp" line="91"/>
         <source>URLs to open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="89"/>
+        <location filename="../main.cpp" line="91"/>
         <source>[urls...]</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="109"/>
+        <location filename="../main.cpp" line="111"/>
         <source>Passing control to already running process
 </source>
         <translation type="unfinished"></translation>

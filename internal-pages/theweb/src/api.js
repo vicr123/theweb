@@ -22,7 +22,9 @@ class Api {
     }
     
     lang() {
-        return this.get("theweb://api/lang");
+        return this.get("theweb://api/lang").then((res) => {
+            return JSON.parse(res);
+        });
     }
     
     isOblivion() {

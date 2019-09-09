@@ -77,6 +77,13 @@ WebTab::WebTab(WebPage* page, QWidget *parent) :
     ui->permissionPopupsWidget->setVisible(true);
     ui->permissionPopupsWidget->raise();
 
+    QPalette pal = ui->deceptivePage->palette();
+    pal.setColor(QPalette::Window, QColor(150, 0, 0));
+    ui->deceptivePage->setPalette(pal);
+    pal.setColor(QPalette::Window, this->palette().color(QPalette::Window));
+    ui->deceptivePageInset->setPalette(pal);
+    ui->dangerousMoreDetailsWidget->setVisible(false);
+
     d->history = HistoryManager::managerFor(page->profile());
     d->features = FeatureManager::managerFor(page->profile());
 
@@ -96,7 +103,7 @@ WebTab::WebTab(WebPage* page, QWidget *parent) :
     }
     d->page->setCertificateErrorPane(ui->sslErrorPane);
     connect(d->page, &WebPage::urlChanged, this, [=](QUrl url) {
-        if (ui->stackedWidget->currentWidget() == ui->renderProcessErrorPage) ui->stackedWidget->setCurrentWidget(ui->webPage);
+        if (ui->stackedWidget->currentWidget() == ui->renderProcessErrorPage || ui->stackedWidget->currentWidget() == ui->deceptivePage) ui->stackedWidget->setCurrentWidget(ui->webPage);
 
         d->certCheckSocket.abort();
         d->pageCertificate = QSslCertificate();
@@ -109,7 +116,7 @@ WebTab::WebTab(WebPage* page, QWidget *parent) :
         emit urlChanged(url);
     });
     connect(d->page, &WebPage::titleChanged, this, [=] {
-        d->tabButton->setText(d->page->title());
+        d->tabButton->setText(this->pageTitle());
         emit this->titleChanged();
     });
     connect(d->page, &WebPage::windowCloseRequested, this, &WebTab::deleteLater);
@@ -294,6 +301,28 @@ WebTab::WebTab(WebPage* page, QWidget *parent) :
         d->tabButton->setIcon(d->page->icon());
         emit iconChanged();
     });
+    connect(d->page, &WebPage::dangerousUrl, this, [=](WebPage::DangerousUrlType type) {
+        QString host = QStringLiteral("<b>%1</b>").arg(d->page->url().host());
+        switch (type) {
+            case WebPage::Malware:
+            case WebPage::PotentiallyHarmfulApplication:
+                ui->dangerousTitle->setText(tr("This site may contain malware"));
+                ui->dangerousMessage->setText(tr("%1 was found to host dangerous apps that may compromise your security; for example, they may steal or delete personal information (for example, important documents, photos, passwords and card information)").arg(host));
+                ui->dangerousDetails->setText(tr("%1 has been reported to contain malware on Google Safe Browsing. If you visit this site on a regular basis, it may be hacked and we recommend coming back later.").arg(host));
+                break;
+            case WebPage::SocialEngineering:
+                ui->dangerousTitle->setText(tr("This site may be deceptive"));
+                ui->dangerousMessage->setText(tr("%1 was created to trick you into doing something dangerous, for example, installing harmful software or revealing personal information (for example, passwords, phone numbers or card information)").arg(host));
+                ui->dangerousDetails->setText(tr("%1 has been reported as a deceptive website on Google Safe Browsing. This site may be a fake copy of a real website. If you visit this site on a regular basis, it may be hacked and we recommend coming back later.").arg(host));
+                break;
+            case WebPage::UnwantedSoftware:
+                ui->dangerousTitle->setText(tr("This site may try to install unwanted software"));
+                ui->dangerousMessage->setText(tr("%1 was found to host apps that may compromise your browsing experience; for example, they may change your home page or show spurious advertisements.").arg(host));
+                ui->dangerousDetails->setText(tr("%1 has been reported to contain unwanted software on Google Safe Browsing. If you visit this site on a regular basis, it may be hacked and we recommend coming back later.").arg(host));
+                break;
+        }
+        ui->stackedWidget->setCurrentWidget(ui->deceptivePage);
+    });
     connect(d->page, &WebPage::openDevtools, this, &WebTab::openDevtools);
 
     connect(ui->sslErrorPane, &CertificateErrorPane::showPane, this, [=] {
@@ -431,19 +460,19 @@ void WebTab::close()
 
 void WebTab::goBack()
 {
-    if (ui->stackedWidget->currentWidget() == ui->renderProcessErrorPage) ui->stackedWidget->setCurrentWidget(ui->webPage);
+    if (ui->stackedWidget->currentWidget() == ui->renderProcessErrorPage || ui->stackedWidget->currentWidget() == ui->deceptivePage) ui->stackedWidget->setCurrentWidget(ui->webPage);
     d->view->back();
 }
 
 void WebTab::goForward()
 {
-    if (ui->stackedWidget->currentWidget() == ui->renderProcessErrorPage) ui->stackedWidget->setCurrentWidget(ui->webPage);
+    if (ui->stackedWidget->currentWidget() == ui->renderProcessErrorPage || ui->stackedWidget->currentWidget() == ui->deceptivePage) ui->stackedWidget->setCurrentWidget(ui->webPage);
     d->view->forward();
 }
 
 void WebTab::navigate(QUrl url)
 {
-    if (ui->stackedWidget->currentWidget() == ui->renderProcessErrorPage) ui->stackedWidget->setCurrentWidget(ui->webPage);
+    if (ui->stackedWidget->currentWidget() == ui->renderProcessErrorPage || ui->stackedWidget->currentWidget() == ui->deceptivePage) ui->stackedWidget->setCurrentWidget(ui->webPage);
     d->view->load(url);
 }
 
@@ -491,7 +520,39 @@ void WebTab::resizeEvent(QResizeEvent* event)
     emit resized();
 }
 
+QString WebTab::pageTitle()
+{
+    if (ui->stackedWidget->currentWidget() == ui->deceptivePage) {
+        return tr("Malicious Website Warning");
+    } else if (ui->stackedWidget->currentWidget() == ui->sslErrorPage) {
+        return tr("Security Warning");
+    } else {
+        return d->page->title();
+    }
+}
+
 void WebTab::on_reloadAfterRenderCrashButton_clicked()
 {
     this->reload();
+}
+
+void WebTab::on_dangerousMoreDetailsButton_toggled(bool checked)
+{
+    ui->dangerousMoreDetailsWidget->setVisible(checked);
+}
+
+void WebTab::on_disregardDangerousWarningButton_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->webPage);
+}
+
+void WebTab::on_goBackAfterDeceptive_clicked()
+{
+    goBack();
+}
+
+void WebTab::on_stackedWidget_currentChanged(int arg1)
+{
+    d->tabButton->setText(this->pageTitle());
+    emit this->titleChanged();
 }

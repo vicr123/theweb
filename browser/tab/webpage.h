@@ -28,6 +28,13 @@ class WebPage : public QWebEnginePage
 {
         Q_OBJECT
     public:
+        enum DangerousUrlType {
+            Malware,
+            SocialEngineering,
+            UnwantedSoftware,
+            PotentiallyHarmfulApplication
+        };
+
         explicit WebPage(QWidget *parent);
         explicit WebPage(QWebEngineProfile *profile, QWidget *parent);
         ~WebPage();
@@ -42,6 +49,7 @@ class WebPage : public QWebEnginePage
     signals:
         void openDevtools();
         void spawnTab(WebPage* page, WebWindowType type);
+        void dangerousUrl(DangerousUrlType type);
 
     public slots:
         void resetZoom();

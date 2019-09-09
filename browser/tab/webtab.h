@@ -79,11 +79,21 @@ class WebTab : public QWidget
     private slots:
         void on_reloadAfterRenderCrashButton_clicked();
 
+        void on_dangerousMoreDetailsButton_toggled(bool checked);
+
+        void on_disregardDangerousWarningButton_clicked();
+
+        void on_goBackAfterDeceptive_clicked();
+
+        void on_stackedWidget_currentChanged(int arg1);
+
     private:
         Ui::WebTab *ui;
         WebTabPrivate* d;
 
         void resizeEvent(QResizeEvent *event);
+
+        QString pageTitle();
 };
 
 #endif // WEBTAB_H

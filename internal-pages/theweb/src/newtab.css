@@ -8,7 +8,7 @@ div.newTabContainer {
 }
 
 input.urlBar {
-    border: none;
+    border: none !important;
     font-size: 15pt;
     padding: 9px;
     width: calc(100vw - 80px);

@@ -25,6 +25,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 CONFIG += c++11
 
+# Safe Browsing
+SAFE_BROWSING_KEY = $$(THEWEB_SAFE_BROWSING_API_KEY)
+if (isEmpty(SAFE_BROWSING_KEY)) {
+    message("Safe Browsing API key not found in environment variables.");
+    message("Set the environment variable THEWEB_SAFE_BROWSING_API_KEY to the Google Safe Browsing API Key to enable it.");
+} else {
+    DEFINES += "SAFE_BROWSING_API_KEY=\\\"$${SAFE_BROWSING_KEY}\\\""
+    message("Found Safe Browsing API Key");
+}
 
 unix:!macx {
     # Include the-libs build tools
@@ -79,6 +88,7 @@ macx {
 }
 
 SOURCES += \
+        core/safebrowsing.cpp \
         core/thewebschemehandler.cpp \
         core/urlinterceptor.cpp \
         main.cpp \
@@ -111,6 +121,7 @@ SOURCES += \
         widgets/toolbarbutton.cpp
 
 HEADERS += \
+        core/safebrowsing.h \
         core/thewebschemehandler.h \
         core/urlinterceptor.h \
         mainwindow.h \

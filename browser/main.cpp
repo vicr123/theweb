@@ -25,6 +25,7 @@
 #include "managers/settingsmanager.h"
 #include "managers/profilemanager.h"
 #include "managers/singleinstancemanager.h"
+#include "core/safebrowsing.h"
 #include <QDebug>
 
 int main(int argc, char *argv[])
@@ -73,6 +74,7 @@ int main(int argc, char *argv[])
     #endif
 
     SettingsManager::initialize();
+    SafeBrowsing::initialize();
 
     QVariantMap mainWindowOptions;
 

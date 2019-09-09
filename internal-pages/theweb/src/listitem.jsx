@@ -9,7 +9,7 @@ class ListItem extends React.Component {
     itemContents() {
         let contents = [];
         if (this.props.icon) {
-            contents.push(<img key="image" src={"theweb://sysicons/?width=32&height=32&icons=" + encodeURIComponent(this.props.icon)} style={{"padding-right": "3px"}} />)
+            contents.push(<img key="image" className="sidebarImage" src={"theweb://sysicons/?width=32&height=32&icons=" + encodeURIComponent(this.props.icon)} />)
         }
         contents.push(<span key="text" class="ListItemText">{this.props.text}</span>);
         return contents;

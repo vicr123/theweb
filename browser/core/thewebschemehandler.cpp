@@ -31,6 +31,7 @@
 #include <QJsonDocument>
 #include <QDateTime>
 #include <QJsonObject>
+#include <QApplication>
 #include <QWebEngineProfile>
 #include "managers/settingsmanager.h"
 #include "managers/iconmanager.h"
@@ -107,7 +108,10 @@ thewebSchemeHandler::thewebSchemeHandler(QVariantMap options, QObject *parent) :
 
     //Misc. API paths
     d->apiPaths.insert("/lang", [=](QWebEngineUrlRequestJob* job) {
-        return QLocale().name().toUtf8();
+        QJsonObject o;
+        o.insert("lang", QLocale().name());
+        o.insert("dir", QApplication::layoutDirection() == Qt::LeftToRight ? "LTR" : "RTL");
+        return QJsonDocument(o).toJson();
     });
     d->apiPaths.insert("/oblivion", [=](QWebEngineUrlRequestJob* job) {
         return QString("{\"isOblivion\":%1}").arg(d->options.value("oblivion", false).toBool() ? "true" : "false").toUtf8();

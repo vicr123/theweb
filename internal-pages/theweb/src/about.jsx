@@ -20,7 +20,7 @@ class About extends React.Component {
                         <Header title={t('ABOUT_TITLE')} />
                         <VerticalLayout noBorder={true} noSpacing={true} >
                             <Header title="theWeb 16.0" noBorder={true} />
-                            <div style={{"padding-left": "9px", "padding-bottom": "9px"}}>
+                            <div className="aboutGenericName">
                                 {t("ABOUT_APPLICATION_GENERIC_NAME")}
                             </div>
                         </VerticalLayout>

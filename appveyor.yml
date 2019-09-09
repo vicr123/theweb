@@ -11,6 +11,8 @@ environment:
   GITHUB_TOKEN:
     secure: +MUBs/3yUgI2yfOxaprDi4rsB1ag58IfRvksmxvnm0R3kOaI88czpsHdq7Fdpdhh
   REPO_SLUG: vicr123/theWeb
+  THEWEB_SAFE_BROWSING_API_KEY:
+    secure: eqbPKRznpAAqOVOj4ppUMfX/H1WATO/ic680UHeIqg1kodcYmiAJ87bnWCvA8g/F
   deploy_project: theweb
   deploy_version: ''
   deploy_artifact: ''
