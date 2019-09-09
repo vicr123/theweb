@@ -54,7 +54,7 @@ if [ $STAGE = "script" ]; then
     echo "[TRAVIS] Building for macOS"
     export PATH="/usr/local/opt/qt/bin:$PATH"
     export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
-    export CURRENT_BREW_QT_VERSION="5.13.0"
+    export CURRENT_BREW_QT_VERSION="5.13.1"
     
     echo "[TRAVIS] Building and installing the-libs"
     git clone https://github.com/vicr123/the-libs.git
@@ -79,7 +79,7 @@ if [ $STAGE = "script" ]; then
     ln -s ../../../../../../ theWeb.app/Contents/Frameworks/QtWebEngineCore.framework/Helpers/QtWebEngineProcess.app/Contents/Frameworks
     
     for lib in QtGui QtCore QtWebEngineCore QtQuick QtWebChannel QtQml QtNetwork QtPositioning; do
-        install_name_tool -change /usr/local/Cellar/qt/5.13.0/lib/$lib.framework/Versions/5/$lib @executable_path/../Frameworks/$lib.framework/Versions/5/$lib theWeb.app/Contents/Frameworks/QtWebEngineCore.framework/Helpers/QtWebEngineProcess.app/Contents/MacOS/QtWebEngineProcess
+        install_name_tool -change /usr/local/Cellar/qt/$CURRENT_BREW_QT_VERSION/lib/$lib.framework/Versions/5/$lib @executable_path/../Frameworks/$lib.framework/Versions/5/$lib theWeb.app/Contents/Frameworks/QtWebEngineCore.framework/Helpers/QtWebEngineProcess.app/Contents/MacOS/QtWebEngineProcess
     done
 
     echo "[TRAVIS] Preparing Disk Image creator"
