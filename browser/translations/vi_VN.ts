@@ -14,12 +14,12 @@
     <message>
         <location filename="../widgets/toolbar/barautocomplete.cpp" line="98"/>
         <source>Visit Webpage</source>
-        <translation type="unfinished"></translation>
+        <translation>Truy cập trang web</translation>
     </message>
     <message>
         <location filename="../widgets/toolbar/barautocomplete.cpp" line="123"/>
         <source>Search on %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Tìm kiếm trên %1</translation>
     </message>
 </context>
 <context>
@@ -159,42 +159,42 @@
     <message>
         <location filename="../popovers/httpauthentication.ui" line="71"/>
         <source>Authentication</source>
-        <translation type="unfinished"></translation>
+        <translation>Xác thực</translation>
     </message>
     <message>
         <location filename="../popovers/httpauthentication.ui" line="147"/>
         <source>Your connection to this server is not secure.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kết nối của bạn đến máy chủ này không có an toàn.</translation>
     </message>
     <message>
         <location filename="../popovers/httpauthentication.ui" line="154"/>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation>Tên người dùng</translation>
     </message>
     <message>
         <location filename="../popovers/httpauthentication.ui" line="164"/>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation>Mật khẩu</translation>
     </message>
     <message>
         <location filename="../popovers/httpauthentication.ui" line="189"/>
         <source>Cancel</source>
-        <translation type="unfinished">Hủy</translation>
+        <translation>Hủy</translation>
     </message>
     <message>
         <location filename="../popovers/httpauthentication.ui" line="196"/>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>OK</translation>
     </message>
     <message>
         <location filename="../popovers/httpauthentication.cpp" line="42"/>
         <source>Log in to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Đăng nhập vào %1</translation>
     </message>
     <message>
         <location filename="../popovers/httpauthentication.cpp" line="43"/>
         <source>Server Realm: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Vương quốc từ máy chủ: %1</translation>
     </message>
 </context>
 <context>
@@ -235,7 +235,7 @@
     <message>
         <location filename="../popovers/jsconfirm.cpp" line="39"/>
         <source>Unsaved data on this page may be lost.</source>
-        <translation>Dữ liệu trên trang này chưa bị lưu có thể bị mất</translation>
+        <translation>Dữ liệu trên trang này chưa bị lưu có thể bị mất.</translation>
     </message>
     <message>
         <location filename="../popovers/jsconfirm.cpp" line="40"/>
@@ -253,17 +253,17 @@
     <message>
         <location filename="../popovers/jsprompt.ui" line="71"/>
         <source>Message</source>
-        <translation type="unfinished">Báo</translation>
+        <translation>Báo</translation>
     </message>
     <message>
         <location filename="../popovers/jsprompt.ui" line="181"/>
         <source>Cancel</source>
-        <translation type="unfinished">Hủy</translation>
+        <translation>Hủy</translation>
     </message>
     <message>
         <location filename="../popovers/jsprompt.ui" line="188"/>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -291,7 +291,7 @@
     <message>
         <location filename="../mainwindow.ui" line="136"/>
         <source>History</source>
-        <translation type="unfinished"></translation>
+        <translation>Lịch sử</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="151"/>
@@ -376,12 +376,12 @@
     <message>
         <location filename="../mainwindow.ui" line="247"/>
         <source>View Full History</source>
-        <translation type="unfinished"></translation>
+        <translation>Xem toàn bộ lịch sử</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="250"/>
         <source>Ctrl+H</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+H</translation>
     </message>
 </context>
 <context>
@@ -404,7 +404,7 @@
     <message>
         <location filename="../tab/permissionpopup.cpp" line="43"/>
         <source>%1 is now full screen. You can hit %2 to exit at any time.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 hiển thị toàn màn hình. Bạn có thể nhấn %2 để thoát bất cứ lúc nào.</translation>
     </message>
     <message>
         <location filename="../tab/permissionpopup.cpp" line="51"/>
@@ -484,7 +484,7 @@
     <message>
         <location filename="../tab/permissionpopup.cpp" line="88"/>
         <source>This page had a problem, so we had to reload it.</source>
-        <translation>Trang này xảy ra sự cố, vì vậy chúng tôi đá tải lại</translation>
+        <translation>Trang này xảy ra sự cố, vì vậy chúng tôi đá tải lại.</translation>
     </message>
 </context>
 <context>
@@ -492,7 +492,7 @@
     <message>
         <location filename="../managers/profilemanager.cpp" line="135"/>
         <source>from %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Từ %1</translation>
     </message>
 </context>
 <context>
@@ -518,7 +518,7 @@
     <message>
         <location filename="../widgets/toolbar/securityinfo.ui" line="40"/>
         <source>Security</source>
-        <translation type="unfinished"></translation>
+        <translation>Bảo vệ</translation>
     </message>
     <message>
         <location filename="../widgets/toolbar/securityinfo.ui" line="110"/>
@@ -528,47 +528,47 @@
     <message>
         <location filename="../widgets/toolbar/securityinfo.ui" line="122"/>
         <source>View Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Xem chứng chỉ</translation>
     </message>
     <message>
         <location filename="../widgets/toolbar/securityinfo.ui" line="189"/>
         <source>PERMISSIONS</source>
-        <translation type="unfinished"></translation>
+        <translation>QUYỀN</translation>
     </message>
     <message>
         <location filename="../widgets/toolbar/securityinfo.cpp" line="64"/>
         <source>GENERATED BY THEWEB</source>
-        <translation type="unfinished"></translation>
+        <translation>ĐƯỢC TẠO RA BỞI THEWEB</translation>
     </message>
     <message>
         <location filename="../widgets/toolbar/securityinfo.cpp" line="65"/>
         <source>This content is generated by theWeb</source>
-        <translation type="unfinished"></translation>
+        <translation>Nội dung này đã bị tạo ra bởi theWeb</translation>
     </message>
     <message>
         <location filename="../widgets/toolbar/securityinfo.cpp" line="68"/>
         <source>INSECURE CONNECTION</source>
-        <translation type="unfinished"></translation>
+        <translation>KẾT NỐI KHÔNG AN TOÀN</translation>
     </message>
     <message>
         <location filename="../widgets/toolbar/securityinfo.cpp" line="69"/>
         <source>Don&apos;t enter sensitive information into this site; it can easily be intercepted and stolen.</source>
-        <translation type="unfinished"></translation>
+        <translation>Đừng điền thông tin nhạy cảm vào trang web này; nó dễ dàng bị chặn và đánh cắp được.</translation>
     </message>
     <message>
         <location filename="../widgets/toolbar/securityinfo.cpp" line="74"/>
         <source>SECURE CONNECTION</source>
-        <translation type="unfinished"></translation>
+        <translation>KẾT NỐI AN TOÀN</translation>
     </message>
     <message>
         <location filename="../widgets/toolbar/securityinfo.cpp" line="75"/>
         <source>Sensitive information is encrypted and secured when sent to this site.</source>
-        <translation type="unfinished"></translation>
+        <translation>Thông tin nhạy cảm sẽ bị mã hóa và được bảo đảm khi gửi đến trang web này.</translation>
     </message>
     <message>
         <location filename="../widgets/toolbar/securityinfo.cpp" line="103"/>
         <source>This site hasn&apos;t asked for any permissions yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Trang này chưa yêu cầu quyền nào.</translation>
     </message>
 </context>
 <context>
@@ -581,27 +581,27 @@
     <message>
         <location filename="../widgets/toolbar/securityinfopermissionswitch.cpp" line="46"/>
         <source>Notifications</source>
-        <translation type="unfinished">Thông báo</translation>
+        <translation>Thông báo</translation>
     </message>
     <message>
         <location filename="../widgets/toolbar/securityinfopermissionswitch.cpp" line="49"/>
         <source>Screen Recording</source>
-        <translation type="unfinished">Thâu màn hình</translation>
+        <translation>Thâu màn hình</translation>
     </message>
     <message>
         <location filename="../widgets/toolbar/securityinfopermissionswitch.cpp" line="54"/>
         <source>Location</source>
-        <translation type="unfinished"></translation>
+        <translation>Vị trí</translation>
     </message>
     <message>
         <location filename="../widgets/toolbar/securityinfopermissionswitch.cpp" line="57"/>
         <source>Camera</source>
-        <translation type="unfinished">Máy ảnh</translation>
+        <translation>Máy ảnh</translation>
     </message>
     <message>
         <location filename="../widgets/toolbar/securityinfopermissionswitch.cpp" line="60"/>
         <source>Microphone</source>
-        <translation type="unfinished">Micrô</translation>
+        <translation>Micrô</translation>
     </message>
 </context>
 <context>
@@ -624,17 +624,17 @@
     <message>
         <location filename="../widgets/toolbar.ui" line="125"/>
         <source>New Tab</source>
-        <translation type="unfinished">Tab mới</translation>
+        <translation>Tab mới</translation>
     </message>
     <message>
         <location filename="../widgets/toolbar.cpp" line="50"/>
         <source>Go Back</source>
-        <translation type="unfinished">Trở lại</translation>
+        <translation>Trở lại</translation>
     </message>
     <message>
         <location filename="../widgets/toolbar.cpp" line="65"/>
         <source>Go Forward</source>
-        <translation type="unfinished">Bước tiếp</translation>
+        <translation>Bước tiếp</translation>
     </message>
 </context>
 <context>
@@ -788,104 +788,106 @@
     <message>
         <location filename="../tab/webtab.cpp" line="274"/>
         <source>Okay, this page is having some serious issues.</source>
-        <translation type="unfinished"></translation>
+        <translation>Okay, trang này quyết định không hoạt động.</translation>
     </message>
     <message>
         <location filename="../tab/webtab.cpp" line="275"/>
         <source>We&apos;ve tried reloading it multiple times, but it keeps causing problems.
 
 Usually this is a temporary problem, so we recommend waiting a couple hours and then trying again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Chúng tôi đã thử tải lại quá nhiều lần, mà nó liên tục không hoạt động.
+
+Thông thường, sự cố này là tạm thời, vì vậy chúng tôi nên bạn chờ vài giờ rồi thử lại.</translation>
     </message>
     <message>
         <location filename="../tab/webtab.cpp" line="276"/>
         <source>Reload Anyway</source>
-        <translation type="unfinished"></translation>
+        <translation>Tải lại tuy nhiên</translation>
     </message>
     <message>
         <location filename="../tab/webtab.cpp" line="279"/>
         <source>Your device might be running out of memory.</source>
-        <translation type="unfinished"></translation>
+        <translation>Thiết bị của bạn có thể sắp hết bộ nhớ.</translation>
     </message>
     <message>
         <location filename="../tab/webtab.cpp" line="280"/>
         <source>Your system has stopped this webpage. Check your memory usage and then reload the page.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hệ thống của bạn đã dừng trang web này. Kiểm tra mức sử dụng bộ nhớ, rồi tải trang này lại.</translation>
     </message>
     <message>
         <location filename="../tab/webtab.cpp" line="281"/>
         <source>Reload</source>
-        <translation type="unfinished">Tải lại</translation>
+        <translation>Tải lại</translation>
     </message>
     <message>
         <location filename="../tab/webtab.cpp" line="309"/>
         <source>This site may contain malware</source>
-        <translation type="unfinished"></translation>
+        <translation>Trang web này có thể những phần mềm độc hại</translation>
     </message>
     <message>
         <location filename="../tab/webtab.cpp" line="310"/>
         <source>%1 was found to host dangerous apps that may compromise your security; for example, they may steal or delete personal information (for example, important documents, photos, passwords and card information)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 đã bị tìm thấy cung cấp phần mềm nguy hiểm có thể thỏa hiệp bảo mật của bạn; ví dụ: nó có thể đánh cắp hoặc xóa thông tin cá nhân (ví dụ: tài liệu quan trọng, hình ảnh, mật khẩu và thông tin trên thẻ thanh toán)</translation>
     </message>
     <message>
         <location filename="../tab/webtab.cpp" line="311"/>
         <source>%1 has been reported to contain malware on Google Safe Browsing. If you visit this site on a regular basis, it may be hacked and we recommend coming back later.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 đã bị báo cáo để những phần mềm độc hại trên Google Safe Browsing. Nếu bạn truy cập trang này theo cách thường xuyên, nó có thể bị tấn công, và chúng tôi nên bạn trở lại sau.</translation>
     </message>
     <message>
         <location filename="../tab/webtab.cpp" line="314"/>
         <source>This site may be deceptive</source>
-        <translation type="unfinished"></translation>
+        <translation>Trang web này có thể là lừa đảo</translation>
     </message>
     <message>
         <location filename="../tab/webtab.cpp" line="315"/>
         <source>%1 was created to trick you into doing something dangerous, for example, installing harmful software or revealing personal information (for example, passwords, phone numbers or card information)</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 bị tạo ra để lừa bạn làm điều nguy hiểm, ví dụ: cài đặt phần mềm độc hại hoặc tiết lộ thông tin cá nhân (ví dụ: mật khẩu, số điện thoại hoặc thông tin trên thẻ thanh toán)</translation>
     </message>
     <message>
         <location filename="../tab/webtab.cpp" line="316"/>
         <source>%1 has been reported as a deceptive website on Google Safe Browsing. This site may be a fake copy of a real website. If you visit this site on a regular basis, it may be hacked and we recommend coming back later.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 đã bị báo cáo là trang web lừa đảo trên Google Safe Browsing. Trang web này có thể là bản sao giả của trang web khác. Nếu bạn truy cập trang này theo cách thường xuyên, nó có thể bị tấn công, và chúng tôi nên bạn trở lại sau.</translation>
     </message>
     <message>
         <location filename="../tab/webtab.cpp" line="319"/>
         <source>This site may try to install unwanted software</source>
-        <translation type="unfinished"></translation>
+        <translation>Trang web này có thể muốn cài đặt phần mềm không mong muốn</translation>
     </message>
     <message>
         <location filename="../tab/webtab.cpp" line="320"/>
         <source>%1 was found to host apps that may compromise your browsing experience; for example, they may change your home page or show spurious advertisements.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 đã bị tìm thấy cung cấp phần mềm sẽ thỏa hiệp trải nghiệm duyệt; ví dụ: nó có thể đổi trang chủ hoặc hiển thị quá nhiều quảng cáo.</translation>
     </message>
     <message>
         <location filename="../tab/webtab.cpp" line="321"/>
         <source>%1 has been reported to contain unwanted software on Google Safe Browsing. If you visit this site on a regular basis, it may be hacked and we recommend coming back later.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 đã bị báo cáo để những phần mềm không mong muốn trên Google Safe Browsing. Nếu bạn truy cập trang này theo cách thường xuyên, nó có thể bị tấn công, và chúng tôi nên bạn trở lại sau.</translation>
     </message>
     <message>
         <location filename="../tab/webtab.cpp" line="526"/>
         <source>Malicious Website Warning</source>
-        <translation type="unfinished"></translation>
+        <translation>Cảnh báo về trang độc hại</translation>
     </message>
     <message>
         <location filename="../tab/webtab.cpp" line="528"/>
         <source>Security Warning</source>
-        <translation type="unfinished"></translation>
+        <translation>Cảnh báo về bảo mật</translation>
     </message>
     <message>
         <location filename="../tab/webtab.ui" line="458"/>
         <source>More Details</source>
-        <translation type="unfinished"></translation>
+        <translation>Thêm chi tiết</translation>
     </message>
     <message>
         <location filename="../tab/webtab.ui" line="471"/>
         <source>Go Back</source>
-        <translation type="unfinished">Trở lại</translation>
+        <translation>Trở lại</translation>
     </message>
     <message>
         <location filename="../tab/webtab.ui" line="540"/>
         <source>DETAILS</source>
-        <translation type="unfinished"></translation>
+        <translation>CHI TIẾT</translation>
     </message>
     <message>
         <location filename="../tab/webtab.ui" line="547"/>
@@ -895,7 +897,7 @@ Usually this is a temporary problem, so we recommend waiting a couple hours and 
     <message>
         <location filename="../tab/webtab.ui" line="572"/>
         <source>Disregard this Warning (dangerous)</source>
-        <translation type="unfinished"></translation>
+        <translation>Bỏ qua cảnh báo này (nguy hiểm)</translation>
     </message>
 </context>
 <context>
@@ -909,28 +911,29 @@ Usually this is a temporary problem, so we recommend waiting a couple hours and 
     <message>
         <location filename="../main.cpp" line="88"/>
         <source>Open an Oblivion window</source>
-        <translation type="unfinished"></translation>
+        <translation>Mở cửa sổ lãng quên mới</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="91"/>
         <source>urls</source>
-        <translation type="unfinished"></translation>
+        <translation>urls</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="91"/>
         <source>URLs to open</source>
-        <translation type="unfinished"></translation>
+        <translation>URL để mở</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="91"/>
         <source>[urls...]</source>
-        <translation type="unfinished"></translation>
+        <translation>[urls...]</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="111"/>
         <source>Passing control to already running process
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Đang trao quyền kiểm soát sang quá trình đang chạy
+</translation>
     </message>
 </context>
 </TS>
