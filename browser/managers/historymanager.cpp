@@ -49,7 +49,7 @@ HistoryManager* HistoryManager::managerFor(QWebEngineProfile* profile)
 
 void HistoryManager::addEntry(QUrl url, QString title) {
     if (url.scheme() == "theweb") return; //Ignore internal pages
-    QString urlText = url.toString();
+    QString urlText = url.toString(QUrl::FullyEncoded);
     qint64 dateTime = QDateTime::currentDateTimeUtc().toMSecsSinceEpoch();
 
     QSqlQuery query(d->db);

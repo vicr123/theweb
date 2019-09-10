@@ -87,6 +87,10 @@ class WebTab : public QWidget
 
         void on_stackedWidget_currentChanged(int arg1);
 
+        void on_dangerousMoreInformation_linkActivated(const QString &link);
+
+        void on_deceptiveAdvisoryText_linkActivated(const QString &link);
+
     private:
         Ui::WebTab *ui;
         WebTabPrivate* d;

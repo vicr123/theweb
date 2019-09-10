@@ -52,6 +52,11 @@ Bar::Bar(QWidget *parent) : QLineEdit(parent)
     d->autocompleteWidget->setModel(d->autocompleteModel);
     d->autocompleteWidget->setItemDelegate(d->autocompleteDelegate);
     d->autocompleteWidget->installEventFilter(this);
+    d->autocompleteWidget->setFocusProxy(this);
+    connect(d->autocompleteWidget, &QListView::clicked, this, [=](QModelIndex index) {
+        d->currentTab->navigate(index.data(Qt::UserRole).value<QUrl>());
+        d->currentTab->setFocus();
+    });
 
     this->setFrame(false);
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
@@ -202,7 +207,7 @@ QString Bar::unfocusedText(QUrl url)
     if (url.scheme() == "chrome-extension" && url.host() == "mhjfbmdgcfjbbpaeojofohoefgiehjai") {
         return unfocusedText(QUrl(url.query()));
     }
-    return url.host();
+    return url.host(QUrl::FullyEncoded);
 }
 
 QString Bar::focusedText() {
@@ -218,5 +223,5 @@ QString Bar::focusedText(QUrl url)
     if (url.scheme() == "chrome-extension" && url.host() == "mhjfbmdgcfjbbpaeojofohoefgiehjai") {
         return focusedText(QUrl(url.query()));
     }
-    return url.toString();
+    return url.toString(QUrl::FullyEncoded);
 }

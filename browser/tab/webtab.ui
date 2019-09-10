@@ -350,7 +350,20 @@ Usually this is a temporary problem, so we recommend waiting a couple hours and 
          <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>71</height>
+           <height>48</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="1" column="2">
+        <spacer name="horizontalSpacer_8">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>181</width>
+           <height>20</height>
           </size>
          </property>
         </spacer>
@@ -552,6 +565,13 @@ Usually this is a temporary problem, so we recommend waiting a couple hours and 
                 </widget>
                </item>
                <item>
+                <widget class="QLabel" name="dangerousMoreInformation">
+                 <property name="text">
+                  <string notr="true">TextLabel</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
                 <layout class="QHBoxLayout" name="horizontalLayout_4">
                  <item>
                   <spacer name="horizontalSpacer_9">
@@ -589,19 +609,6 @@ Usually this is a temporary problem, so we recommend waiting a couple hours and 
          </layout>
         </widget>
        </item>
-       <item row="1" column="2">
-        <spacer name="horizontalSpacer_8">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>181</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
        <item row="2" column="1">
         <spacer name="verticalSpacer_3">
          <property name="orientation">
@@ -610,10 +617,20 @@ Usually this is a temporary problem, so we recommend waiting a couple hours and 
          <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>72</height>
+           <height>49</height>
           </size>
          </property>
         </spacer>
+       </item>
+       <item row="3" column="0" colspan="3">
+        <widget class="QLabel" name="deceptiveAdvisoryText">
+         <property name="text">
+          <string>&lt;a href=&quot;https://developers.google.com/safe-browsing/v4/advisory&quot;&gt;Advisory provided by Google&lt;/a&gt;</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>

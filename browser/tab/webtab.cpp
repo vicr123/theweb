@@ -309,16 +309,19 @@ WebTab::WebTab(WebPage* page, QWidget *parent) :
                 ui->dangerousTitle->setText(tr("This site may contain malware"));
                 ui->dangerousMessage->setText(tr("%1 was found to host dangerous apps that may compromise your security; for example, they may steal or delete personal information (for example, important documents, photos, passwords and card information)").arg(host));
                 ui->dangerousDetails->setText(tr("%1 has been reported to contain malware on Google Safe Browsing. If you visit this site on a regular basis, it may be hacked and we recommend coming back later.").arg(host));
+                ui->dangerousMoreInformation->setText(tr("If you want to learn more, head to %1.").arg("<a href=\"http://stopbadware.org/\">stopbadware.org</a>"));
                 break;
             case WebPage::SocialEngineering:
                 ui->dangerousTitle->setText(tr("This site may be deceptive"));
                 ui->dangerousMessage->setText(tr("%1 was created to trick you into doing something dangerous, for example, installing harmful software or revealing personal information (for example, passwords, phone numbers or card information)").arg(host));
                 ui->dangerousDetails->setText(tr("%1 has been reported as a deceptive website on Google Safe Browsing. This site may be a fake copy of a real website. If you visit this site on a regular basis, it may be hacked and we recommend coming back later.").arg(host));
+                ui->dangerousMoreInformation->setText(tr("If you want to learn more, head to %1.").arg("<a href=\"http://www.antiphishing.org/\">www.antiphishing.org</a>"));
                 break;
             case WebPage::UnwantedSoftware:
                 ui->dangerousTitle->setText(tr("This site may try to install unwanted software"));
                 ui->dangerousMessage->setText(tr("%1 was found to host apps that may compromise your browsing experience; for example, they may change your home page or show spurious advertisements.").arg(host));
                 ui->dangerousDetails->setText(tr("%1 has been reported to contain unwanted software on Google Safe Browsing. If you visit this site on a regular basis, it may be hacked and we recommend coming back later.").arg(host));
+                ui->dangerousMoreInformation->setText(tr("If you want to learn more, head to %1.").arg(QStringLiteral("<a href=\"http://www.google.com/about/company/unwanted-software-policy.html/\">%1</a>").arg(tr("this link"))));
                 break;
         }
         ui->stackedWidget->setCurrentWidget(ui->deceptivePage);
@@ -557,4 +560,20 @@ void WebTab::on_stackedWidget_currentChanged(int arg1)
 {
     d->tabButton->setText(this->pageTitle());
     emit this->titleChanged();
+}
+
+void WebTab::on_dangerousMoreInformation_linkActivated(const QString &link)
+{
+    WebPage* page = new WebPage(this->profile(), this);
+    page->load(QUrl(link));
+    WebTab* tab = new WebTab(page);
+    emit spawnTab(tab);
+}
+
+void WebTab::on_deceptiveAdvisoryText_linkActivated(const QString &link)
+{
+    WebPage* page = new WebPage(this->profile(), this);
+    page->load(QUrl(link));
+    WebTab* tab = new WebTab(page);
+    emit spawnTab(tab);
 }

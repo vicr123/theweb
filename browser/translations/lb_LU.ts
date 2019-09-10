@@ -4,7 +4,7 @@
 <context>
     <name>Bar</name>
     <message>
-        <location filename="../widgets/bar.cpp" line="68"/>
+        <location filename="../widgets/bar.cpp" line="73"/>
         <source>Search or enter web address</source>
         <translation type="unfinished"></translation>
     </message>
@@ -868,68 +868,85 @@ Usually this is a temporary problem, so we recommend waiting a couple hours and 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webtab.cpp" line="314"/>
+        <location filename="../tab/webtab.cpp" line="315"/>
         <source>This site may be deceptive</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webtab.cpp" line="315"/>
+        <location filename="../tab/webtab.cpp" line="316"/>
         <source>%1 was created to trick you into doing something dangerous, for example, installing harmful software or revealing personal information (for example, passwords, phone numbers or card information)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webtab.cpp" line="316"/>
+        <location filename="../tab/webtab.cpp" line="317"/>
         <source>%1 has been reported as a deceptive website on Google Safe Browsing. This site may be a fake copy of a real website. If you visit this site on a regular basis, it may be hacked and we recommend coming back later.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webtab.cpp" line="319"/>
-        <source>This site may try to install unwanted software</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../tab/webtab.cpp" line="320"/>
-        <source>%1 was found to host apps that may compromise your browsing experience; for example, they may change your home page or show spurious advertisements.</source>
+        <location filename="../tab/webtab.cpp" line="312"/>
+        <location filename="../tab/webtab.cpp" line="318"/>
+        <location filename="../tab/webtab.cpp" line="324"/>
+        <source>If you want to learn more, head to %1.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../tab/webtab.cpp" line="321"/>
+        <source>This site may try to install unwanted software</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webtab.cpp" line="322"/>
+        <source>%1 was found to host apps that may compromise your browsing experience; for example, they may change your home page or show spurious advertisements.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webtab.cpp" line="323"/>
         <source>%1 has been reported to contain unwanted software on Google Safe Browsing. If you visit this site on a regular basis, it may be hacked and we recommend coming back later.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webtab.cpp" line="528"/>
+        <location filename="../tab/webtab.cpp" line="324"/>
+        <source>this link</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webtab.cpp" line="531"/>
         <source>Malicious Website Warning</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webtab.cpp" line="530"/>
+        <location filename="../tab/webtab.cpp" line="533"/>
         <source>Security Warning</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webtab.ui" line="458"/>
+        <location filename="../tab/webtab.ui" line="471"/>
         <source>More Details</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webtab.ui" line="471"/>
+        <location filename="../tab/webtab.ui" line="484"/>
         <source>Go Back</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webtab.ui" line="540"/>
+        <location filename="../tab/webtab.ui" line="553"/>
         <source>DETAILS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webtab.ui" line="547"/>
+        <location filename="../tab/webtab.ui" line="560"/>
         <source>TextLabel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webtab.ui" line="572"/>
+        <location filename="../tab/webtab.ui" line="592"/>
         <source>Disregard this Warning (dangerous)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/webtab.ui" line="628"/>
+        <source>&lt;a href=&quot;https://developers.google.com/safe-browsing/v4/advisory&quot;&gt;Advisory provided by Google&lt;/a&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
