@@ -437,7 +437,7 @@ Usually this is a temporary problem, so we recommend waiting a couple hours and 
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_3">
               <property name="spacing">
-               <number>6</number>
+               <number>0</number>
               </property>
               <item>
                <spacer name="horizontalSpacer_7">

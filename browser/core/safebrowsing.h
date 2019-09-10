@@ -33,6 +33,7 @@ class SafeBrowsing : public QObject
 
         static void initialize();
         static tPromise<QString>* checkUrl(QUrl url);
+        static QString checkUrlLocally(QUrl url);
 
         static QString canonicalizeUrl(QUrl url);
         static QStringList suffixPrefixExpressionsForUrl(QString canonicalizedUrl);

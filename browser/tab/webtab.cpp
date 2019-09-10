@@ -322,6 +322,8 @@ WebTab::WebTab(WebPage* page, QWidget *parent) :
                 break;
         }
         ui->stackedWidget->setCurrentWidget(ui->deceptivePage);
+
+        emit urlChanged(d->page->url());
     });
     connect(d->page, &WebPage::openDevtools, this, &WebTab::openDevtools);
 

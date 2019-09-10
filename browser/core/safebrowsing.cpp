@@ -47,6 +47,8 @@ struct SafeBrowsingPrivate {
     QNetworkAccessManager mgr;
     QSqlDatabase db;
 
+    QMap<QString, QString> knownThreats;
+
     QSqlDatabase getDatabase(uint number, QString& dbName) {
         dbName = QStringLiteral("db_safebrowsing_%1").arg(number);
         QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", dbName);
@@ -140,7 +142,14 @@ tPromise<QString>* SafeBrowsing::checkUrl(QUrl url)
             QString suspiciousPartialHash;
             QString suspiciousHash;
             QString threatType;
-            QStringList exprs = suffixPrefixExpressionsForUrl(canonicalizeUrl(url));
+
+            QString canonicalizedUrl = canonicalizeUrl(url);
+            if (d->knownThreats.contains(canonicalizedUrl)) {
+                //This is already a known threat
+                return d->knownThreats.value(canonicalizedUrl);
+            }
+
+            QStringList exprs = suffixPrefixExpressionsForUrl(canonicalizedUrl);
             for (QString expr : exprs) {
                 QString hash = QCryptographicHash::hash(expr.toUtf8(), QCryptographicHash::Sha256).toHex();
 
@@ -205,6 +214,8 @@ tPromise<QString>* SafeBrowsing::checkUrl(QUrl url)
                     QString matchHash = match.value("threat").toObject().value("hash").toString();
                     if (suspiciousHash == QByteArray::fromBase64(matchHash.toUtf8()).toHex()) {
                         //We have a match!
+                        //Cache this result in memory
+                        d->knownThreats.insert(canonicalizedUrl, threatType);
                         return threatType;
                     }
                 }
@@ -219,6 +230,12 @@ tPromise<QString>* SafeBrowsing::checkUrl(QUrl url)
         return "";
     });
 #endif
+}
+
+QString SafeBrowsing::checkUrlLocally(QUrl url)
+{
+    QString canonicalizedUrl = canonicalizeUrl(url);
+    return d->knownThreats.value(canonicalizedUrl, "");
 }
 
 QString SafeBrowsing::canonicalizeUrl(QUrl url)

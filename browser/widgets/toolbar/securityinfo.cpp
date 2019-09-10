@@ -26,6 +26,7 @@
 #include <QWebEngineProfile>
 #include <QSslCertificate>
 #include <QUrl>
+#include <core/safebrowsing.h>
 
 struct SecurityInfoPrivate {
     QWebEngineProfile* profile;
@@ -74,6 +75,22 @@ void SecurityInfo::setCurrentCertificate(QUrl url, QSslCertificate certificate)
         ui->connectionSummary->setText(tr("SECURE CONNECTION"));
         ui->connectionDetails->setText(tr("Sensitive information is encrypted and secured when sent to this site."));
         ui->viewCertButton->setVisible(true);
+    }
+
+    if (SafeBrowsing::checkUrlLocally(url) != "") {
+        //Override some text values
+        QString threatType = SafeBrowsing::checkUrlLocally(url);
+
+        if (threatType == "MALWARE" || threatType == "POTENTIALLY_HARMFUL_APPLICATION") {
+            ui->connectionSummary->setText(tr("CONTAINS MALWARE"));
+            ui->connectionDetails->setText(tr("This site was found to host dangerous apps that may compromise your security; for example, they may steal or delete personal information (for example, important documents, photos, passwords and card information)"));
+        } else if (threatType == "SOCIAL_ENGINEERING") {
+            ui->connectionSummary->setText(tr("DECEPTIVE SITE"));
+            ui->connectionDetails->setText(tr("This site was created to trick you into doing something dangerous, for example, installing harmful software or revealing personal information (for example, passwords, phone numbers or card information)"));
+        } else if (threatType == "UNWANTED_SOFTWARE") {
+            ui->connectionSummary->setText(tr("CONTAINS UNWANTED SOFTWARE"));
+            ui->connectionDetails->setText(tr("This site was found to host apps that may compromise your browsing experience; for example, they may change your home page or show spurious advertisements."));
+        }
     }
 
     for (QWidget* s : d->permissionSwitches) {
