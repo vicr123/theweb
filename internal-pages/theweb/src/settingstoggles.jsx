@@ -111,7 +111,7 @@ class CheckBox extends SettingToggle {
         };
         
         return <label>
-            <input type="checkbox" checked={this.state.currentValue} onChange={onChangeHandler} />
+            <input type="checkbox" checked={this.state.currentValue} disabled={this.props.disabled} onChange={onChangeHandler} />
             {this.props.text}
         </label>
     }

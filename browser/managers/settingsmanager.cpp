@@ -48,14 +48,30 @@ QByteArray SettingsManager::getJson()
             case QVariant::StringList:
                 rootObj.insert(key, QJsonArray::fromStringList(settingValue.toStringList()));
                 break;
-            case QVariant::String:
-                rootObj.insert(key, settingValue.toString());
+            case QVariant::String: {
+                QString value = settingValue.toString();
+                if (value == "true") {
+                    rootObj.insert(key, true);
+                } else if (value == "false") {
+                    rootObj.insert(key, false);
+                } else {
+                    rootObj.insert(key, settingValue.toString());
+                }
                 break;
+            }
             default:
                 qDebug() << "Setting" << key << "has unknown type!";
                 rootObj.insert(key, settingValue.toString());
         }
     }
+
+    //Also return Safe Browsing support
+    #ifdef SAFE_BROWSING_API_KEY
+        rootObj.insert("privacy/gsbAvailable", true);
+    #else
+        rootObj.insert("privacy/gsbAvailable", false);
+    #endif
+
     return QJsonDocument(rootObj).toJson();
 }
 

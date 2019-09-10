@@ -117,8 +117,16 @@ void SafeBrowsing::initialize()
 
 tPromise<QString>* SafeBrowsing::checkUrl(QUrl url)
 {
-    //Only check URLs if we are compiling with Safe Browsing support
+    //Only check URLs if the user hasn't turned off GSB
+    QSettings settings;
+    if (!settings.value("privacy/gsb", true).toBool()) {
+        return new tPromise<QString>([=](QString& error) {
+            error = "Safe Browsing support switched off";
+            return "";
+        });
+    }
 
+    //Only check URLs if we are compiling with Safe Browsing support
 #ifdef SAFE_BROWSING_API_KEY
     uint dbNumber = d->dbLockNum++;
     return new tPromise<QString>([=](QString& error) {
@@ -313,8 +321,12 @@ void SafeBrowsing::updateLists()
 void SafeBrowsing::updateListForThreatType(QString threatType)
 {
     //Only update the lists if we are compiling with Safe Browsing support
-
 #ifdef SAFE_BROWSING_API_KEY
+
+    //Only update the lists if the user hasn't turned off GSB
+    QSettings settings;
+    if (!settings.value("privacy/gsb", true).toBool()) return;
+
     //Check the current state
     QString state;
     QSqlQuery stateQuery(d->db);
@@ -366,11 +378,6 @@ void SafeBrowsing::updateListForThreatType(QString threatType)
             QString responseType = response.value("responseType").toString();
 
             QString state = response.value("newClientState").toString();
-            QSqlQuery stateUpdateQuery(d->db);
-            stateUpdateQuery.prepare("INSERT OR REPLACE INTO states(threatType, state) VALUES(:threatType, :state)");
-            stateUpdateQuery.bindValue(":threatType", threatType);
-            stateUpdateQuery.bindValue(":state", state);
-            stateUpdateQuery.exec();
 
             QList<int> removalList;
             QJsonArray removals = response.value("removals").toArray();
@@ -442,6 +449,13 @@ void SafeBrowsing::updateListForThreatType(QString threatType)
                     insertQuery.bindValue(":type", l);
                     insertQuery.bindValue(":hash", additionList);
                     insertQuery.execBatch();
+
+                    //Modify state
+                    QSqlQuery stateUpdateQuery(db);
+                    stateUpdateQuery.prepare("INSERT OR REPLACE INTO states(threatType, state) VALUES(:threatType, :state)");
+                    stateUpdateQuery.bindValue(":threatType", threatType);
+                    stateUpdateQuery.bindValue(":state", state);
+                    stateUpdateQuery.exec();
 
                     db.commit();
 

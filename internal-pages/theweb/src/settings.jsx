@@ -146,6 +146,22 @@ class SettingsProfilesPane extends React.Component {
 }
 
 class SettingsPrivacyPane extends React.Component {
+    constructor(props) {
+        super(props);
+        
+        this.state = {
+            gsbAvailable: false,
+            gsbPending: true
+        };
+        
+        settings.value("privacy/gsbAvailable", false).then((value) => {
+            this.setState({
+                gsbAvailable: value,
+                gsbPending: false
+            });
+        });
+    }
+    
     clearData() {
         Modal.mount(<SettingsPrivacyClearDataPane />);
     }
@@ -163,7 +179,9 @@ class SettingsPrivacyPane extends React.Component {
                 <VerticalLayout>
                     <MiniHeader title={t('SETTINGS_PRIVACY')} />
                     <p>{t('SETTINGS_PRIVACY_TOGGLES_EXPLANATION')}</p>
+                    {(this.state.gsbAvailable || this.state.gsbPending) ? null : <div className="alert"><span>{t('SETTINGS_PRIVACY_GSB_UNAVAILABLE')}</span></div>}
                     <CheckBox text={t('SETTINGS_PRIVACY_TOGGLES_DNT')} defaultValue={true} settingsKey="privacy/dnt" />
+                    <CheckBox text={t('SETTINGS_PRIVACY_TOGGLES_GSB')} defaultValue={true} settingsKey="privacy/gsb" disabled={!this.state.gsbAvailable} />
                 </VerticalLayout>
             </div>
         }</Translation>
