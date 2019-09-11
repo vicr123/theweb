@@ -32,7 +32,8 @@ class App extends React.Component {
         super(props);
         let s = {
             lang: 'en',
-            showSidebar: true
+            showSidebar: true,
+            showErrorPane: false
         };
         const path = window.location.pathname.substr(2);
         if (path.startsWith("settings")) {
@@ -64,6 +65,12 @@ class App extends React.Component {
             console.log("Language not obtainable");
         });
         window.addEventListener("popstate", this.popState.bind(this));
+    }
+    
+    componentDidCatch(error, info) {
+        this.setState({
+            showErrorPane: true
+        });
     }
     
     popState(e) {
@@ -135,14 +142,26 @@ class App extends React.Component {
     
     render() {
         return <Translation>{(t, {i18n}) => {
-            if (i18n.language !== this.state.lang) i18n.changeLanguage(this.state.lang);
-            return <div className="App">
-                <div id="modalContainer" />
-                {this.sidebarElement()}
-                <div className="AppContainer Scrollable">
-                    {this.componentNode()}
+            if (this.state.showErrorPane) {
+                let reloadButtonHandler = () => {
+                    window.location.reload();
+                }
+                
+                return <div className="AppError">
+                    <h1>{t('INTERNAL_ERROR_TITLE')}</h1>
+                    <p style={{'margin-top': '0px'}}>{t('INTERNAL_ERROR_EXPLANATION')}</p>
+                    <button onClick={reloadButtonHandler}>{t('INTERNAL_ERROR_RELOAD')}</button>
                 </div>
-            </div>
+            } else {
+                if (i18n.language !== this.state.lang) i18n.changeLanguage(this.state.lang);
+                return <div className="App">
+                    <div id="modalContainer" />
+                    {this.sidebarElement()}
+                    <div className="AppContainer Scrollable">
+                        {this.componentNode()}
+                    </div>
+                </div>
+            }
         }}</Translation>
     }
 }

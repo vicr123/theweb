@@ -46,6 +46,22 @@ div.AppContainer {
     flex-direction: column;
 }
 
+div.AppError {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    flex-direction: column;
+    
+    align-items: center;
+    justify-content: center;
+    
+    background-color: var(--bg-color);
+    color: var(--fg-color);
+    
+    font-family: var(--font-family);
+    font-size: var(--font-size);
+}
+
 div.AppPanes {
     display: none;
 }

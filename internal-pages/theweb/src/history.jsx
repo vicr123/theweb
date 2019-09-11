@@ -27,16 +27,20 @@ class History extends React.Component {
         let elements = [];
         
         for (let hItem of items) {
-            let onClickHandler = () => {
-                window.location = hItem.url;
+            try {
+                let onClickHandler = () => {
+                    window.location = hItem.url;
+                }
+                
+                elements.push(<div className="ListItem HistoryItem" onClick={onClickHandler}>
+                    <span className="title">{hItem.title}</span>&nbsp;·&nbsp; 
+                    <span className="url">{new URL(hItem.url).host}</span>
+                    <div style={{"flex-grow": "1"}} />
+                    <span className="date">{new Date(hItem.accessed).toLocaleTimeString()}</span>
+                </div>)
+            } catch (e) {
+                //Ignore this error
             }
-            
-            elements.push(<div className="ListItem HistoryItem" onClick={onClickHandler}>
-                <span className="title">{hItem.title}</span>&nbsp;·&nbsp; 
-                <span className="url">{new URL(hItem.url).host}</span>
-                <div style={{"flex-grow": "1"}} />
-                <span className="date">{new Date(hItem.accessed).toLocaleTimeString()}</span>
-            </div>)
         }
         
         return <VerticalLayout noBorder={true} noSpacing={true} >

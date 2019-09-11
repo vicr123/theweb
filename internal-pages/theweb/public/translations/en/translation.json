@@ -1,6 +1,11 @@
 {
     "INVALID_PAGE_TITLE": "Invalid Page",
     "INVALID_PAGE_CONTENT": "There was a problem. Try going to a different page.",
+    
+    "INTERNAL_ERROR_TITLE": "Well, this is a bit awkward...",
+    "INTERNAL_ERROR_EXPLANATION": "Something's not working correctly.",
+    "INTERNAL_ERROR_RELOAD": "Reload",
+    
     "BOOKMARKS_TITLE": "Bookmarks",
     "SETTINGS_TITLE": "Settings",
     

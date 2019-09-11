@@ -396,7 +396,7 @@ void SafeBrowsing::updateListForThreatType(QString threatType)
 
             QString state = response.value("newClientState").toString();
 
-            QList<int> removalList;
+            QVariantList removalList;
             QJsonArray removals = response.value("removals").toArray();
             for (QJsonValue removalVal : removals) {
                 QJsonObject removal = removalVal.toObject();
@@ -408,8 +408,8 @@ void SafeBrowsing::updateListForThreatType(QString threatType)
 
             //Sort in descending order so we end up removing the largest index first
             //That way we don't end up messing with other indices
-            std::sort(removalList.begin(), removalList.end(), [=](const int& first, const int& second) {
-                return first > second;
+            std::sort(removalList.begin(), removalList.end(), [=](const QVariant& first, const QVariant& second) {
+                return first.toInt() > second.toInt();
             });
 
             QVariantList additionList;
@@ -436,10 +436,6 @@ void SafeBrowsing::updateListForThreatType(QString threatType)
                 {
                     QSqlDatabase db = d->getDatabase(dbNumber, dbName);
 
-                    QVariantList l;
-                    l.reserve(additionList.count());
-                    for (int i = 0; i < additionList.count(); i++) l.append(threatType);
-
                     db.transaction();
 
                     //Start fresh if we need to
@@ -452,18 +448,26 @@ void SafeBrowsing::updateListForThreatType(QString threatType)
                     }
 
                     //Perform removals
-                    for (int removal : removalList) {
-                        QSqlQuery removalQuery(db);
-                        removalQuery.prepare("DELETE FROM threats WHERE hash IN (SELECT hash FROM threats WHERE type=:threatType ORDER BY hash ASC LIMIT 1 OFFSET :removal)");
-                        removalQuery.bindValue(":threatType", removal);
-                        removalQuery.bindValue(":removal", removal);
-                        removalQuery.exec();
-                    }
+
+                    QVariantList removalThreats;
+                    removalThreats.reserve(removalList.count());
+                    for (int i = 0; i < removalList.count(); i++) removalThreats.append(threatType);
+
+                    QSqlQuery removalQuery(db);
+                    removalQuery.prepare("DELETE FROM threats WHERE hash IN (SELECT hash FROM threats WHERE type=:threatType ORDER BY hash ASC LIMIT 1 OFFSET :removal)");
+                    removalQuery.bindValue(":threatType", removalThreats);
+                    removalQuery.bindValue(":removal", removalList);
+                    removalQuery.execBatch();
 
                     //Perform additions
+
+                    QVariantList additionThreats;
+                    additionThreats.reserve(additionList.count());
+                    for (int i = 0; i < additionList.count(); i++) additionThreats.append(threatType);
+
                     QSqlQuery insertQuery(db);
                     insertQuery.prepare("INSERT INTO threats(type, hash) VALUES(:type, :hash)");
-                    insertQuery.bindValue(":type", l);
+                    insertQuery.bindValue(":type", additionThreats);
                     insertQuery.bindValue(":hash", additionList);
                     insertQuery.execBatch();
 
