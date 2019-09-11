@@ -155,6 +155,24 @@
     </message>
 </context>
 <context>
+    <name>FindInPage</name>
+    <message>
+        <location filename="../tab/findinpage.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/findinpage.ui" line="65"/>
+        <source>Find</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../tab/findinpage.cpp" line="43"/>
+        <source>Match case</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>HttpAuthentication</name>
     <message>
         <location filename="../popovers/httpauthentication.ui" line="71"/>
@@ -284,104 +302,114 @@
         <translation>Sửa</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="128"/>
+        <location filename="../mainwindow.ui" line="129"/>
         <source>View</source>
         <translation>Xem</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="136"/>
+        <location filename="../mainwindow.ui" line="137"/>
         <source>History</source>
         <translation>Lịch sử</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="151"/>
+        <location filename="../mainwindow.ui" line="152"/>
         <source>Go Back</source>
         <translation>Trở lại</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="154"/>
+        <location filename="../mainwindow.ui" line="155"/>
         <source>Alt+Left</source>
         <translation>Alt+Left</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="163"/>
+        <location filename="../mainwindow.ui" line="164"/>
         <source>Go Forward</source>
         <translation>Bước tiếp</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="166"/>
+        <location filename="../mainwindow.ui" line="167"/>
         <source>Alt+Right</source>
         <translation>Alt+Right</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="175"/>
+        <location filename="../mainwindow.ui" line="176"/>
         <source>Reload</source>
         <translation>Tải lại</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="178"/>
+        <location filename="../mainwindow.ui" line="179"/>
         <source>Ctrl+R</source>
         <translation>Ctrl+R</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="187"/>
+        <location filename="../mainwindow.ui" line="188"/>
         <source>New Tab</source>
         <translation>Tab mới</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="190"/>
+        <location filename="../mainwindow.ui" line="191"/>
         <source>Ctrl+T</source>
         <translation>Ctrl+T</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="199"/>
+        <location filename="../mainwindow.ui" line="200"/>
         <source>New Window</source>
         <translation>Cửa sổ mới</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="202"/>
+        <location filename="../mainwindow.ui" line="203"/>
         <source>Ctrl+N</source>
         <translation>Ctrl+N</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="211"/>
+        <location filename="../mainwindow.ui" line="212"/>
         <source>New Oblivion Window</source>
         <translation>Cửa sổ lãng quên mới</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="214"/>
+        <location filename="../mainwindow.ui" line="215"/>
         <source>Ctrl+Shift+N</source>
         <translation>Ctrl+Shift+N</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="223"/>
+        <location filename="../mainwindow.ui" line="224"/>
         <source>Settings</source>
         <translation>Cài đặt</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="226"/>
+        <location filename="../mainwindow.ui" line="227"/>
         <source>Ctrl+,</source>
         <translation>Ctrl+,</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="235"/>
+        <location filename="../mainwindow.ui" line="236"/>
         <source>Exit</source>
         <translation>Thoát</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="238"/>
+        <location filename="../mainwindow.ui" line="239"/>
         <source>Ctrl+Q</source>
         <translation>Ctrl+Q</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="247"/>
+        <location filename="../mainwindow.ui" line="248"/>
         <source>View Full History</source>
         <translation>Xem toàn bộ lịch sử</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="250"/>
+        <location filename="../mainwindow.ui" line="251"/>
         <source>Ctrl+H</source>
         <translation>Ctrl+H</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="259"/>
+        <source>Find in Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="262"/>
+        <source>Ctrl+F</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -912,42 +940,42 @@ Thông thường, sự cố này là tạm thời, vì vậy chúng tôi nên b
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webtab.cpp" line="531"/>
+        <location filename="../tab/webtab.cpp" line="547"/>
         <source>Malicious Website Warning</source>
         <translation>Cảnh báo về trang độc hại</translation>
     </message>
     <message>
-        <location filename="../tab/webtab.cpp" line="533"/>
+        <location filename="../tab/webtab.cpp" line="549"/>
         <source>Security Warning</source>
         <translation>Cảnh báo về bảo mật</translation>
     </message>
     <message>
-        <location filename="../tab/webtab.ui" line="471"/>
+        <location filename="../tab/webtab.ui" line="481"/>
         <source>More Details</source>
         <translation>Thêm chi tiết</translation>
     </message>
     <message>
-        <location filename="../tab/webtab.ui" line="484"/>
+        <location filename="../tab/webtab.ui" line="494"/>
         <source>Go Back</source>
         <translation>Trở lại</translation>
     </message>
     <message>
-        <location filename="../tab/webtab.ui" line="553"/>
+        <location filename="../tab/webtab.ui" line="563"/>
         <source>DETAILS</source>
         <translation>CHI TIẾT</translation>
     </message>
     <message>
-        <location filename="../tab/webtab.ui" line="560"/>
+        <location filename="../tab/webtab.ui" line="570"/>
         <source>TextLabel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../tab/webtab.ui" line="592"/>
+        <location filename="../tab/webtab.ui" line="602"/>
         <source>Disregard this Warning (dangerous)</source>
         <translation>Bỏ qua cảnh báo này (nguy hiểm)</translation>
     </message>
     <message>
-        <location filename="../tab/webtab.ui" line="628"/>
+        <location filename="../tab/webtab.ui" line="638"/>
         <source>&lt;a href=&quot;https://developers.google.com/safe-browsing/v4/advisory&quot;&gt;Advisory provided by Google&lt;/a&gt;</source>
         <translation type="unfinished"></translation>
     </message>

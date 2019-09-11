@@ -72,6 +72,8 @@ MainWindow::MainWindow(QVariantMap options, QWidget *parent) :
     menu->addAction(ui->actionGoForward);
     menu->addAction(ui->actionReload);
     menu->addSeparator();
+    menu->addAction(ui->actionFindInPage);
+    menu->addSeparator();
     menu->addMenu(ui->menuHistory);
     menu->addAction(ui->actionSettings);
     menu->addSeparator();
@@ -243,4 +245,9 @@ void MainWindow::on_actionViewFullHistory_triggered()
     WebPage* page = new WebPage(d->profile, nullptr);
     page->setUrl(QUrl("theweb://history"));
     this->newTab(new WebTab(page));
+}
+
+void MainWindow::on_actionFindInPage_triggered()
+{
+    currentTab()->toggleFind();
 }

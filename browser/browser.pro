@@ -105,6 +105,7 @@ SOURCES += \
         popovers/jsconfirm.cpp \
         popovers/jsprompt.cpp \
         tab/certificateerrorpane.cpp \
+        tab/findinpage.cpp \
         tab/permissionpopup.cpp \
         tab/webpage.cpp \
         tab/webtab.cpp \
@@ -137,6 +138,7 @@ HEADERS += \
         popovers/jsconfirm.h \
         popovers/jsprompt.h \
         tab/certificateerrorpane.h \
+        tab/findinpage.h \
         tab/permissionpopup.h \
         tab/webpage.h \
         tab/webtab.h \
@@ -159,6 +161,7 @@ FORMS += \
         popovers/jsconfirm.ui \
         popovers/jsprompt.ui \
         tab/certificateerrorpane.ui \
+        tab/findinpage.ui \
         tab/permissionpopup.ui \
         tab/webtab.ui \
         widgets/devtoolsheader.ui \

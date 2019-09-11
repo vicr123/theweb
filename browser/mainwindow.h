@@ -65,6 +65,8 @@ class MainWindow : public QMainWindow
 
         void on_actionViewFullHistory_triggered();
 
+        void on_actionFindInPage_triggered();
+
     private:
         Ui::MainWindow *ui;
         MainWindowPrivate* d;

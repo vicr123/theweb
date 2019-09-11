@@ -388,6 +388,9 @@ WebTab::WebTab(WebPage* page, QWidget *parent) :
     ui->webPageSplitter->setHandleWidth(0);
 //    ui->webPageSplitter->setSizes({1, 0});
 
+    ui->findWidget->setWebPage(d->page);
+    ui->findWidget->hide();
+
     d->view = new QWebEngineView();
     d->view->setPage(d->page);
     d->view->setContextMenuPolicy(Qt::CustomContextMenu);
@@ -514,6 +517,19 @@ void WebTab::openDevtools()
 
     ui->webPageSplitter->addWidget(container);
     ui->webPageSplitter->setSizes({this->width() / 2, this->width() / 2});
+}
+
+void WebTab::toggleFind()
+{
+    if (ui->findWidget->isVisible()) {
+        if (ui->findWidget->hasFocus()) {
+            ui->findWidget->hide();
+        } else {
+            ui->findWidget->setFocus();
+        }
+    } else {
+        ui->findWidget->show();
+    }
 }
 
 void WebTab::resizeEvent(QResizeEvent* event)
