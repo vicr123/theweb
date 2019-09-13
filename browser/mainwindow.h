@@ -67,6 +67,12 @@ class MainWindow : public QMainWindow
 
         void on_actionFindInPage_triggered();
 
+        void on_actionFileBug_triggered();
+
+        void on_actionSources_triggered();
+
+        void on_actionAboutTheWeb_triggered();
+
     private:
         Ui::MainWindow *ui;
         MainWindowPrivate* d;

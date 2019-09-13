@@ -138,10 +138,20 @@
     </property>
     <addaction name="actionViewFullHistory"/>
    </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionFileBug"/>
+    <addaction name="actionSources"/>
+    <addaction name="separator"/>
+    <addaction name="actionAboutTheWeb"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
    <addaction name="menuView"/>
    <addaction name="menuHistory"/>
+   <addaction name="menuHelp"/>
   </widget>
   <action name="actionGoBack">
    <property name="icon">
@@ -260,6 +270,30 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+F</string>
+   </property>
+  </action>
+  <action name="actionFileBug">
+   <property name="icon">
+    <iconset theme="tools-report-bug"/>
+   </property>
+   <property name="text">
+    <string>File Bug</string>
+   </property>
+  </action>
+  <action name="actionSources">
+   <property name="icon">
+    <iconset theme="commit"/>
+   </property>
+   <property name="text">
+    <string>Sources</string>
+   </property>
+  </action>
+  <action name="actionAboutTheWeb">
+   <property name="icon">
+    <iconset theme="help-about"/>
+   </property>
+   <property name="text">
+    <string>About theWeb</string>
    </property>
   </action>
  </widget>

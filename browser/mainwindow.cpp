@@ -76,6 +76,7 @@ MainWindow::MainWindow(QVariantMap options, QWidget *parent) :
     menu->addSeparator();
     menu->addMenu(ui->menuHistory);
     menu->addAction(ui->actionSettings);
+    menu->addMenu(ui->menuHelp);
     menu->addSeparator();
     menu->addAction(ui->actionExit);
     ui->toolbarWidget->setMenu(menu);
@@ -250,4 +251,25 @@ void MainWindow::on_actionViewFullHistory_triggered()
 void MainWindow::on_actionFindInPage_triggered()
 {
     currentTab()->toggleFind();
+}
+
+void MainWindow::on_actionFileBug_triggered()
+{
+    WebPage* page = new WebPage(d->profile, nullptr);
+    page->setUrl(QUrl("https://github.com/vicr123/theWeb/issues"));
+    this->newTab(new WebTab(page));
+}
+
+void MainWindow::on_actionSources_triggered()
+{
+    WebPage* page = new WebPage(d->profile, nullptr);
+    page->setUrl(QUrl("https://github.com/vicr123/theWeb"));
+    this->newTab(new WebTab(page));
+}
+
+void MainWindow::on_actionAboutTheWeb_triggered()
+{
+    WebPage* page = new WebPage(d->profile, nullptr);
+    page->setUrl(QUrl("theweb://about"));
+    this->newTab(new WebTab(page));
 }

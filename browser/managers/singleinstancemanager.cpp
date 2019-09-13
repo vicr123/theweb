@@ -27,6 +27,8 @@
 #include <QJsonObject>
 #include <QJsonDocument>
 
+#define Q_OS_MAC
+
 struct SingleInstanceManagerPrivate {
     QLockFile* lock;
     QLocalServer* server = nullptr;
@@ -42,6 +44,7 @@ SingleInstanceManager::SingleInstanceManager(QObject *parent) : QObject(parent)
 {
     d = new SingleInstanceManagerPrivate();
 
+#ifndef Q_OS_MAC
     //Attempt to lock the lock file
     d->lock = new QLockFile(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + "/run.lock");
     d->lock->setStaleLockTime(0);
@@ -64,27 +67,35 @@ SingleInstanceManager::SingleInstanceManager(QObject *parent) : QObject(parent)
         });
     });
     d->server->listen(d->serverName(QApplication::applicationPid()));
+#endif
 }
 
 SingleInstanceManager::~SingleInstanceManager()
 {
+#ifndef Q_OS_MAC
     if (d->server != nullptr) {
         d->server->close();
         d->server->deleteLater();
     }
 
     if (d->lock->isLocked()) d->lock->unlock();
+#endif
 
     delete d;
 }
 
 bool SingleInstanceManager::shouldRun()
 {
+#ifdef Q_OS_MAC
+    return true;
+#else
     return d->shouldRun;
+#endif
 }
 
 void SingleInstanceManager::handOverControl(QVariantMap options)
 {
+#ifndef Q_OS_MAC
     //Talk to the server
     qint64 pid;
     d->lock->getLockInfo(&pid, nullptr, nullptr);
@@ -95,4 +106,5 @@ void SingleInstanceManager::handOverControl(QVariantMap options)
     socket.write(QJsonDocument(QJsonObject::fromVariantMap(options)).toBinaryData());
     socket.waitForBytesWritten();
     socket.close();
+#endif
 }

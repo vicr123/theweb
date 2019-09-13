@@ -145,22 +145,25 @@ void Toolbar::setCurrentTab(WebTab* tab)
     }
 
     d->currentTab = tab;
-    connect(tab, &WebTab::urlChanged, this, &Toolbar::updateInformation);
-    connect(tab, &WebTab::sslStateChanged, this, &Toolbar::updateInformation);
-    connect(tab, &WebTab::titleChanged, this, &Toolbar::updateInformation);
-    connect(tab, &WebTab::iconChanged, this, &Toolbar::updateIcons);
-    connect(qobject_cast<TabButton*>(tab->getTabButton()), &TabButton::paletteUpdated, this, &Toolbar::updateIcons);
 
-    ui->securityPage->setProfile(d->currentTab->profile());
+    if (tab != nullptr) {
+        connect(tab, &WebTab::urlChanged, this, &Toolbar::updateInformation);
+        connect(tab, &WebTab::sslStateChanged, this, &Toolbar::updateInformation);
+        connect(tab, &WebTab::titleChanged, this, &Toolbar::updateInformation);
+        connect(tab, &WebTab::iconChanged, this, &Toolbar::updateIcons);
+        connect(qobject_cast<TabButton*>(tab->getTabButton()), &TabButton::paletteUpdated, this, &Toolbar::updateIcons);
 
-    updateIcons();
+        ui->securityPage->setProfile(d->currentTab->profile());
 
-    ui->bar->setCurrentTab(tab);
-    ui->securityChunk->setCurrentCertificate(d->currentTab->currentUrl(), d->currentTab->pageCertificate());
-    ui->securityPage->setCurrentCertificate(d->currentTab->currentUrl(), d->currentTab->pageCertificate());
-    ui->backButton->setEnabled(tab->history()->canGoBack());
-    ui->forwardButton->setEnabled(tab->history()->canGoForward());
-    this->window()->setWindowTitle(QStringLiteral("%1 - theWeb").arg(tab->currentTitle()));
+        updateIcons();
+
+        ui->bar->setCurrentTab(tab);
+        ui->securityChunk->setCurrentCertificate(d->currentTab->currentUrl(), d->currentTab->pageCertificate());
+        ui->securityPage->setCurrentCertificate(d->currentTab->currentUrl(), d->currentTab->pageCertificate());
+        ui->backButton->setEnabled(tab->history()->canGoBack());
+        ui->forwardButton->setEnabled(tab->history()->canGoForward());
+        this->window()->setWindowTitle(QStringLiteral("%1 - theWeb").arg(tab->currentTitle()));
+    }
 }
 
 void Toolbar::setAsOblivion()
