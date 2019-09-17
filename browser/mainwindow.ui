@@ -116,6 +116,7 @@
     <addaction name="separator"/>
     <addaction name="actionSettings"/>
     <addaction name="separator"/>
+    <addaction name="actionCloseTab"/>
     <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuEdit">
@@ -263,7 +264,8 @@
   </action>
   <action name="actionFindInPage">
    <property name="icon">
-    <iconset theme="edit-find"/>
+    <iconset theme="edit-find">
+     <normaloff>.</normaloff>.</iconset>
    </property>
    <property name="text">
     <string>Find in Page</string>
@@ -274,7 +276,8 @@
   </action>
   <action name="actionFileBug">
    <property name="icon">
-    <iconset theme="tools-report-bug"/>
+    <iconset theme="tools-report-bug">
+     <normaloff>.</normaloff>.</iconset>
    </property>
    <property name="text">
     <string>File Bug</string>
@@ -282,7 +285,8 @@
   </action>
   <action name="actionSources">
    <property name="icon">
-    <iconset theme="commit"/>
+    <iconset theme="commit">
+     <normaloff>.</normaloff>.</iconset>
    </property>
    <property name="text">
     <string>Sources</string>
@@ -290,25 +294,38 @@
   </action>
   <action name="actionAboutTheWeb">
    <property name="icon">
-    <iconset theme="help-about"/>
+    <iconset theme="help-about">
+     <normaloff>.</normaloff>.</iconset>
    </property>
    <property name="text">
     <string>About theWeb</string>
+   </property>
+  </action>
+  <action name="actionCloseTab">
+   <property name="icon">
+    <iconset theme="tab-close" resource="resources.qrc">
+     <normaloff>:/icons/window-close.svg</normaloff>:/icons/window-close.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Close Tab</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+W</string>
    </property>
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
+   <class>ToolbarButton</class>
+   <extends>QToolButton</extends>
+   <header>widgets/toolbarbutton.h</header>
+  </customwidget>
+  <customwidget>
    <class>Toolbar</class>
    <extends>QWidget</extends>
    <header>widgets/toolbar.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>ToolbarButton</class>
-   <extends>QToolButton</extends>
-   <header>widgets/toolbarbutton.h</header>
   </customwidget>
   <customwidget>
    <class>tStackedWidget</class>

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>88</height>
+    <height>100</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,37 +18,90 @@
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
+    <widget class="QLabel" name="fileIcon">
+     <property name="text">
+      <string notr="true">fileIcon</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <property name="spacing">
+        <number>0</number>
+       </property>
        <item>
-        <widget class="QLabel" name="filenameLabel">
-         <property name="font">
-          <font>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <item>
+          <widget class="QLabel" name="filenameLabel">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string notr="true">FILENAME</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="statusLabel">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string notr="true">Status</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QToolButton" name="pauseButton">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
          </property>
          <property name="text">
-          <string notr="true">FILENAME</string>
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset theme="media-playback-pause" resource="../../resources.qrc">
+           <normaloff>:/icons/media-playback-pause.svg</normaloff>:/icons/media-playback-pause.svg</iconset>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QToolButton" name="cancelButton">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="text">
-          <string notr="true">Can</string>
+          <string notr="true"/>
+         </property>
+         <property name="icon">
+          <iconset theme="media-playback-stop" resource="../../resources.qrc">
+           <normaloff>:/icons/media-playback-stop.svg</normaloff>:/icons/media-playback-stop.svg</iconset>
          </property>
         </widget>
        </item>
       </layout>
-     </item>
-     <item>
-      <widget class="QLabel" name="statusLabel">
-       <property name="text">
-        <string notr="true">Status</string>
-       </property>
-      </widget>
      </item>
      <item>
       <widget class="QProgressBar" name="progressBar">
@@ -67,6 +120,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

@@ -84,6 +84,16 @@ DownloadManagerItem::State DownloadManagerItem::state()
     return d->state;
 }
 
+bool DownloadManagerItem::isPaused()
+{
+    return d->item->isPaused();
+}
+
+QString DownloadManagerItem::fileName()
+{
+    return d->finalFilePath;
+}
+
 QString DownloadManagerItem::displayFileName()
 {
     return QFileInfo(d->finalFilePath).completeBaseName();
@@ -142,14 +152,16 @@ DownloadManagerItem::DownloadManagerItem(QWebEngineDownloadItem* parentItem)
         //Move everything into place
         QFile::rename(d->temporaryFilePath, d->finalFilePath);
         d->completedInternalActions = true;
-        d->state = DownloadCompleted;
+
+        if (d->state != DownloadCancelled && d->state != DownloadInterrupted) d->state = DownloadCompleted;
         emit stateChanged();
     });
+    connect(d->item, &QWebEngineDownloadItem::isPausedChanged, this, &DownloadManagerItem::isPausedChanged);
 }
 
 void DownloadManagerItem::start()
 {
-    QString fileName = d->item->url().fileName();
+    QString fileName = QFileInfo(d->item->path()).fileName();
 
     QTemporaryFile tempFile;
     if (!tempFile.open()) {
@@ -169,6 +181,8 @@ void DownloadManagerItem::start()
             //Fail
             return;
         }
+
+        QString path = d->item->path();
 
         int i = 0;
         QString endFile = downloadDir.absoluteFilePath(fileName);

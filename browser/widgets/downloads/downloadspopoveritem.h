@@ -23,6 +23,8 @@ class DownloadsPopoverItem : public QWidget
     private slots:
         void on_cancelButton_clicked();
 
+        void on_pauseButton_clicked();
+
     private:
         Ui::DownloadsPopoverItem *ui;
         DownloadsPopoverItemPrivate* d;

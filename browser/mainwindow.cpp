@@ -78,6 +78,7 @@ MainWindow::MainWindow(QVariantMap options, QWidget *parent) :
     menu->addAction(ui->actionSettings);
     menu->addMenu(ui->menuHelp);
     menu->addSeparator();
+    menu->addAction(ui->actionCloseTab);
     menu->addAction(ui->actionExit);
     ui->toolbarWidget->setMenu(menu);
     ui->toolbarWidget->setMenuIcon(windowIcon);
@@ -272,4 +273,9 @@ void MainWindow::on_actionAboutTheWeb_triggered()
     WebPage* page = new WebPage(d->profile, nullptr);
     page->setUrl(QUrl("theweb://about"));
     this->newTab(new WebTab(page));
+}
+
+void MainWindow::on_actionCloseTab_triggered()
+{
+    ui->closeTabButton->click();
 }

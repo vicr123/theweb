@@ -73,6 +73,8 @@ class MainWindow : public QMainWindow
 
         void on_actionAboutTheWeb_triggered();
 
+        void on_actionCloseTab_triggered();
+
     private:
         Ui::MainWindow *ui;
         MainWindowPrivate* d;

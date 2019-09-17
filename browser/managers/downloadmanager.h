@@ -30,7 +30,9 @@ class DownloadManagerItem : public QObject
         qint64 totalBytes();
 
         State state();
+        bool isPaused();
 
+        QString fileName();
         QString displayFileName();
 
     public slots:
@@ -42,6 +44,7 @@ class DownloadManagerItem : public QObject
         void downloading();
         void progressChanged(qint64 received, qint64 total);
         void stateChanged();
+        void isPausedChanged(bool isPaused);
 
     protected:
         friend class DownloadManager;

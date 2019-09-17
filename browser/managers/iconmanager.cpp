@@ -2,6 +2,7 @@
 #include <QPainter>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
+#include <QPalette>
 #include <QWebEngineUrlRequestJob>
 #include "core/thewebschemehandler.h"
 
@@ -10,6 +11,11 @@ QIcon IconManager::getIcon(QString iconName, QColor tint, QSize size)
     QImage image = QIcon::fromTheme(iconName, QIcon(QStringLiteral(":/icons/%1.svg").arg(iconName))).pixmap(size).toImage();
     tintImage(image, tint);
     return QIcon(QPixmap::fromImage(image));
+}
+
+QIcon IconManager::getIcon(QString iconName, QPalette palette, QSize size)
+{
+    return getIcon(iconName, palette.color(QPalette::WindowText), size);
 }
 
 void IconManager::tintImage(QImage& image, QColor tint)
