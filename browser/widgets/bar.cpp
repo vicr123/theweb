@@ -61,12 +61,16 @@ Bar::Bar(QWidget *parent) : QLineEdit(parent)
     this->setFrame(false);
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     connect(this, &Bar::returnPressed, this, [=] {
-        d->currentTab->navigate(d->autocompleteWidget->currentIndex().data(Qt::UserRole).value<QUrl>());
-        d->currentTab->setFocus();
+        if (!d->currentTab.isNull()) {
+            d->currentTab->navigate(d->autocompleteWidget->currentIndex().data(Qt::UserRole).value<QUrl>());
+            d->currentTab->setFocus();
+        }
     });
     connect(this, &Bar::textChanged, this, [=](QString text) {
-        d->autocompleteModel->setQuery(d->currentTab->profile(), text);
-        d->autocompleteWidget->setCurrentIndex(d->autocompleteModel->index(0));
+        if (!d->currentTab.isNull()) {
+            d->autocompleteModel->setQuery(d->currentTab->profile(), text);
+            d->autocompleteWidget->setCurrentIndex(d->autocompleteModel->index(0));
+        }
     });
 
     this->setCursor(QCursor(Qt::ArrowCursor));

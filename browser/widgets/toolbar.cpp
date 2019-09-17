@@ -52,8 +52,9 @@ Toolbar::Toolbar(QWidget *parent) :
         //Iterate in reverse order
         QList<QWebEngineHistoryItem> history = d->currentTab->history()->backItems(20);
         for (auto i = history.crbegin(); i != history.crend(); i++) {
+            QWebEngineHistoryItem item = *i;
             backMenu->addAction(i->title(), [=] {
-                d->currentTab->history()->goToItem(*i);
+                d->currentTab->history()->goToItem(item);
             });
         }
     });
@@ -66,8 +67,9 @@ Toolbar::Toolbar(QWidget *parent) :
 
         QList<QWebEngineHistoryItem> history = d->currentTab->history()->forwardItems(20);
         for (auto i = history.cbegin(); i != history.cend(); i++) {
+            QWebEngineHistoryItem item = *i;
             forwardMenu->addAction(i->title(), [=] {
-                d->currentTab->history()->goToItem(*i);
+                d->currentTab->history()->goToItem(item);
             });
         }
     });

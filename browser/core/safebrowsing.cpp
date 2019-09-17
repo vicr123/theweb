@@ -436,7 +436,10 @@ void SafeBrowsing::updateListForThreatType(QString threatType)
                 {
                     QSqlDatabase db = d->getDatabase(dbNumber, dbName);
 
-                    db.transaction();
+                    //Start a transaction when possible
+                    while (!db.transaction()) {
+                        QThread::msleep(5000);
+                    }
 
                     //Start fresh if we need to
                     if (responseType == "FULL_UPDATE") {

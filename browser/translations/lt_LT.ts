@@ -4,7 +4,7 @@
 <context>
     <name>Bar</name>
     <message>
-        <location filename="../widgets/bar.cpp" line="73"/>
+        <location filename="../widgets/bar.cpp" line="77"/>
         <source>Search or enter web address</source>
         <translation type="unfinished"></translation>
     </message>
@@ -715,7 +715,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/toolbar.cpp" line="65"/>
+        <location filename="../widgets/toolbar.cpp" line="66"/>
         <source>Go Forward</source>
         <translation type="unfinished"></translation>
     </message>
