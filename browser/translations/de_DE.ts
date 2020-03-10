@@ -6,7 +6,7 @@
     <message>
         <location filename="../widgets/bar.cpp" line="77"/>
         <source>Search or enter web address</source>
-        <translation type="unfinished"></translation>
+        <translation>Suchen oder Webaddresse eingeben</translation>
     </message>
 </context>
 <context>
@@ -14,7 +14,7 @@
     <message>
         <location filename="../widgets/toolbar/barautocomplete.cpp" line="98"/>
         <source>Visit Webpage</source>
-        <translation type="unfinished"></translation>
+        <translation>Webseite besuchen</translation>
     </message>
     <message>
         <location filename="../widgets/toolbar/barautocomplete.cpp" line="123"/>
