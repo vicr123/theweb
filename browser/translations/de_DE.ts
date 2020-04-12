@@ -19,7 +19,7 @@
     <message>
         <location filename="../widgets/toolbar/barautocomplete.cpp" line="123"/>
         <source>Search on %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Suchen auf %1</translation>
     </message>
 </context>
 <context>
