@@ -651,7 +651,7 @@
     <message>
         <location filename="../widgets/toolbar/securityinfo.cpp" line="89"/>
         <source>This site was created to trick you into doing something dangerous, for example, installing harmful software or revealing personal information (for example, passwords, phone numbers or card information)</source>
-        <translation>Bu site, tehlikeli bir şey yapmanız için sizi kandırmak, örneğin zararlı yazılım yüklemek veya kişisel bilgileri (örneğin, şifreler, telefon numaraları veya kart bilgileri) ifşa etmek için oluşturulmuştur.</translation>
+        <translation>Bu site, tehlikeli bir şey yapmanın için seni kandırmak, örneğin zararlı yazılım yüklemek ya da kişisel bilgileri (örneğin, şifreler, telefon numaraları ya da kart bilgileri) ifşa etmek için oluşturulmuştur.</translation>
     </message>
     <message>
         <location filename="../widgets/toolbar/securityinfo.cpp" line="91"/>
